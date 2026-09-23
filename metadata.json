@@ -1,0 +1,6 @@
+{
+  "name": "Freséame 🍓",
+  "description": "Personaliza tu postre favorito: fresas frescas, waffles y hot cakes con cremas artesanales, aderezos y tus toppings favoritos.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
