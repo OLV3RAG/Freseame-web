@@ -12,6 +12,19 @@ export const WHATSAPP_PHONE = '527731727582';
 export const WHATSAPP_DISPLAY = '+52 773 172 7582';
 export const WHATSAPP_DEFAULT_URL = 'https://wa.me/527731727582?text=¡Hola!%20Quiero%20más%20información%20sobre%20Freséame%20🍓';
 
+export const STORE_LOCATION = {
+  name: 'Plaza Patio Clavería',
+  plaza: 'Plaza Patio Clavería',
+  address: 'Calle Egipto 142, Col. Clavería, Azcapotzalco, CDMX',
+  fullAddress: 'Plaza Patio Clavería, Calle Egipto 142, Col. Clavería, Azcapotzalco, C.P. 02080, Ciudad de México',
+  reference: "Nos encontramos en la zona central de la plaza, justo a un costado de McCarthy's Irish Pub.",
+  shortReference: "En medio de la plaza, junto a McCarthy's",
+  hours: 'Lunes a Domingo: 11:00 AM – 11:00 PM',
+  openBadge: 'Abierto todos los días',
+  mapsUrl: 'https://share.google/btYN2jmVcMYCn3NGz',
+  embedMapUrl: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3761.782459461159!2d-99.18244032392762!3d19.464958181821815!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85d1f893129528d9%3A0xc0289a05b331000!2sPatio%20Claveria!5e0!3m2!1ses!2smx!4v1710000000000!5m2!1ses!2smx',
+};
+
 export const SIZES: SizeConfig[] = [
   { id: 'chico', name: 'Chico', label: '12 oz', multiplier: 0.85, includedToppings: 2, oz: '12 oz (Individual)' },
   { id: 'mediano', name: 'Mediano', label: '16 oz (Más pedido)', multiplier: 1.0, includedToppings: 3, oz: '16 oz (Favorito)' },

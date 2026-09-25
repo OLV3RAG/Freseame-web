@@ -26,6 +26,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onNavigate, selectedToppingsCoun
     { label: 'Arma tu Freséame', href: '#constructor', isHighlight: true },
     { label: 'Menú', href: '#menu' },
     { label: 'Frappés', href: '#frappes' },
+    { label: 'Ubicación', href: '#ubicacion' },
     { label: 'Nosotros', href: '#calidad' },
     { label: 'Contacto', href: '#contacto' },
   ];

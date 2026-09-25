@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { MessageCircle, Clock, MapPin, Phone, Instagram, Facebook, Heart, ShieldCheck, CreditCard } from 'lucide-react';
-import { WHATSAPP_PHONE, WHATSAPP_DISPLAY } from '../data/freseameData';
+import { MessageCircle, Clock, MapPin, Phone, Instagram, Facebook, Heart, ShieldCheck, ExternalLink } from 'lucide-react';
+import { WHATSAPP_PHONE, WHATSAPP_DISPLAY, STORE_LOCATION } from '../data/freseameData';
 import logoImg from '../logo.jpg';
 
 export const Footer: React.FC = () => {
@@ -76,36 +76,45 @@ export const Footer: React.FC = () => {
               <Clock className="w-4 h-4 text-[#48C9B0]" />
               <span>Horarios de Atención</span>
             </h4>
-            <ul className="text-xs sm:text-sm text-stone-300 space-y-2">
-              <li className="flex justify-between py-1 border-b border-white/5">
-                <span>Lunes a Jueves:</span>
-                <span className="font-bold text-white">1:00 PM – 9:30 PM</span>
-              </li>
-              <li className="flex justify-between py-1 border-b border-white/5">
-                <span>Viernes y Sábados:</span>
-                <span className="font-bold text-[#FF4B8B]">1:00 PM – 10:30 PM</span>
-              </li>
-              <li className="flex justify-between py-1">
-                <span>Domingos:</span>
-                <span className="font-bold text-white">2:00 PM – 9:00 PM</span>
-              </li>
-            </ul>
-            <div className="pt-2 text-[11px] text-[#48C9B0] flex items-center gap-1.5 font-semibold">
-              <span className="w-2 h-2 rounded-full bg-[#48C9B0] animate-pulse"></span>
-              <span>¡Pedidos por WhatsApp listos en ~15 minutos!</span>
+            <div className="p-3 rounded-2xl bg-white/5 border border-white/10 space-y-2">
+              <div className="flex items-center justify-between text-xs sm:text-sm">
+                <span className="text-stone-300 font-medium">Lunes a Domingo:</span>
+                <span className="font-black text-[#FF4B8B]">11:00 AM – 11:00 PM</span>
+              </div>
+              <div className="text-[11px] text-[#48C9B0] flex items-center gap-1.5 font-bold">
+                <span className="w-2 h-2 rounded-full bg-[#48C9B0] animate-pulse"></span>
+                <span>¡Abierto todos los días de la semana!</span>
+              </div>
             </div>
+            <p className="text-xs text-stone-400 leading-relaxed">
+              Servicio continuo para Pick-Up express en mostrador o consumo en área de terrazas.
+            </p>
           </div>
 
           {/* Col 3: Ubicación y Contacto */}
           <div className="space-y-3">
             <h4 className="font-['Outfit'] font-black text-base text-white flex items-center gap-2">
               <MapPin className="w-4 h-4 text-[#FF4B8B]" />
-              <span>Visítanos o Pide a Casa</span>
+              <span>Sucursal Patio Clavería</span>
             </h4>
-            <p className="text-xs sm:text-sm text-stone-300 leading-relaxed">
-              Av. Dulzura #120, Col. Delicias, Ciudad de México (Frente a la glorieta de las flores).
+            <p className="text-xs sm:text-sm text-stone-300 leading-relaxed font-medium">
+              <strong>Plaza Patio Clavería:</strong> Calle Egipto 142, Col. Clavería, Azcapotzalco, CDMX.
             </p>
-            <div className="pt-2 space-y-2 text-xs text-stone-300">
+            <div className="p-2.5 rounded-xl bg-white/5 border border-white/10 text-xs text-amber-200/95 leading-snug">
+              📍 <strong>Referencia:</strong> En la zona central de la plaza, justo a un costado de <em>McCarthy's Irish Pub</em>.
+            </div>
+            <div className="pt-1">
+              <a
+                href={STORE_LOCATION.mapsUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 text-xs text-[#48C9B0] hover:text-[#38b59d] font-bold underline underline-offset-4"
+              >
+                <span>Ver ubicación en Google Maps</span>
+                <ExternalLink className="w-3.5 h-3.5" />
+              </a>
+            </div>
+            <div className="pt-2 space-y-1.5 text-xs text-stone-300">
               <div className="flex items-center gap-2">
                 <Phone className="w-3.5 h-3.5 text-[#FF4B8B]" />
                 <a
@@ -125,10 +134,6 @@ export const Footer: React.FC = () => {
                 >
                   WhatsApp: +52 773 172 7582
                 </a>
-              </div>
-              <div className="flex items-center gap-2">
-                <span className="text-[#48C9B0]">🛵</span>
-                <span>Envíos locales y pick-up express</span>
               </div>
             </div>
           </div>

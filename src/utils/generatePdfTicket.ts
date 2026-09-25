@@ -19,7 +19,7 @@ export const generatePdfTicket = async (data: TicketData): Promise<void> => {
     const doc = new jsPDF({
       orientation: 'portrait',
       unit: 'mm',
-      format: [80, 220],
+      format: [80, 235],
     });
 
     const pageWidth = 80;
@@ -43,7 +43,7 @@ export const generatePdfTicket = async (data: TicketData): Promise<void> => {
 
     // Header Background Box
     doc.setFillColor(255, 242, 246);
-    doc.roundedRect(margin, y, contentWidth, 27, 2, 2, 'F');
+    doc.roundedRect(margin, y, contentWidth, 31, 2, 2, 'F');
 
     // Business Name: Freséame 🍓
     doc.setFont('helvetica', 'bold');
@@ -53,7 +53,7 @@ export const generatePdfTicket = async (data: TicketData): Promise<void> => {
 
     // Subtitle: Comprobante de Pedido
     doc.setFont('helvetica', 'bold');
-    doc.setFontSize(8);
+    doc.setFontSize(7.5);
     doc.setTextColor(43, 26, 36);
     const serviceSub = data.orderMode === 'pickup'
       ? 'COMPROBANTE DE PEDIDO - SERVICIO PICK-UP'
@@ -67,11 +67,20 @@ export const generatePdfTicket = async (data: TicketData): Promise<void> => {
     doc.text('Sucursal: Plaza Patio Claveria', pageWidth / 2, y + 16, { align: 'center' });
 
     doc.setFont('helvetica', 'normal');
-    doc.setFontSize(6.5);
+    doc.setFontSize(6);
     doc.setTextColor(90, 80, 85);
-    doc.text('(Area central, junto a McCarthy\'s)', pageWidth / 2, y + 20, { align: 'center' });
-    doc.text('Horario: Lunes a Domingo de 11:00 AM a 11:00 PM', pageWidth / 2, y + 24, { align: 'center' });
-    y += 29;
+    doc.text('Calle Egipto 142, Col. Claveria, Azcapotzalco, CDMX', pageWidth / 2, y + 20, { align: 'center' });
+    
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(6.5);
+    doc.setTextColor(220, 60, 110);
+    doc.text('Punto de recogida: En medio de la plaza, junto a McCarthy\'s', pageWidth / 2, y + 24, { align: 'center' });
+    
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(6);
+    doc.setTextColor(90, 80, 85);
+    doc.text('Horario de entrega: Lunes a Domingo de 11:00 AM a 11:00 PM', pageWidth / 2, y + 28, { align: 'center' });
+    y += 34;
 
     drawDashedLine(y);
     y += 5;

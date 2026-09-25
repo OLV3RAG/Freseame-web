@@ -987,11 +987,14 @@ export const Builder: React.FC<BuilderProps> = ({ orderState, setOrderState }) =
                     <div className="font-sans text-[10px] font-black uppercase tracking-widest text-[#FF4B8B]">
                       ★ COMPROBANTE DE PEDIDO / ORDEN DE PREPARACIÓN ★
                     </div>
-                    <div className="font-sans text-[11px] text-[#2B1A24]/75 mt-0.5">
-                      Sucursal: Plaza Patio Clavería (junto a McCarthy's)
+                    <div className="font-sans text-[11px] font-bold text-[#2B1A24] mt-0.5">
+                      Punto de recogida: Sucursal Clavería (en medio de la plaza, junto a McCarthy's)
                     </div>
-                    <div className="font-sans text-[10px] text-stone-500">
-                      Horario: Lunes a Domingo de 11:00 AM a 11:00 PM
+                    <div className="font-sans text-[10px] text-stone-600">
+                      Plaza Patio Clavería • Calle Egipto 142, Col. Clavería, Azcapotzalco, CDMX
+                    </div>
+                    <div className="font-sans text-[10px] text-emerald-700 font-bold">
+                      Horario de entrega: Lunes a Domingo de 11:00 AM a 11:00 PM
                     </div>
                   </div>
 
@@ -1119,7 +1122,7 @@ export const Builder: React.FC<BuilderProps> = ({ orderState, setOrderState }) =
                   <div className="mt-4 pt-3 border-t border-stone-100 text-center text-[11px] font-sans text-stone-600 leading-relaxed">
                     {orderMode === 'pickup' ? (
                       <span>
-                        📍 <strong>Muestra este folio en barra</strong> al llegar para recibir tu pedido sin hacer fila. El pago se liquida directamente en mostrador al recoger tu orden.
+                        📍 <strong>Punto de recogida:</strong> Sucursal Clavería (en medio de la plaza, junto a McCarthy's). Muestra este folio <strong>#{orderFolio}</strong> en barra al llegar para recibir tu pedido sin hacer fila. El pago se liquida directamente en mostrador al recoger tu orden.
                       </span>
                     ) : (
                       <span>

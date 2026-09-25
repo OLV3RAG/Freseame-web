@@ -7,6 +7,7 @@ import { Builder } from './components/Builder';
 import { MenuSection } from './components/MenuSection';
 import { FrappesSection } from './components/FrappesSection';
 import { WhyUs } from './components/WhyUs';
+import { LocationSection } from './components/LocationSection';
 import { Footer } from './components/Footer';
 import { FloatingWhatsApp } from './components/FloatingWhatsApp';
 import { BASES, CREMAS, ADEREZOS, TOPPINGS } from './data/freseameData';
@@ -98,6 +99,9 @@ export default function App() {
 
         {/* 6. Quality, Hygiene & Testimonials */}
         <WhyUs />
+
+        {/* 7. Ubicación y Horarios Patio Clavería */}
+        <LocationSection onOrderPickUp={() => handleSmoothScroll('constructor')} />
       </main>
 
       {/* 7. Footer & Contact Info */}
