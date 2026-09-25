@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { SplashScreen } from './components/SplashScreen';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
+import { CremasSection } from './components/CremasSection';
 import { Builder } from './components/Builder';
 import { MenuSection } from './components/MenuSection';
 import { FrappesSection } from './components/FrappesSection';
@@ -8,14 +10,38 @@ import { WhyUs } from './components/WhyUs';
 import { Footer } from './components/Footer';
 import { FloatingWhatsApp } from './components/FloatingWhatsApp';
 import { BASES, CREMAS, ADEREZOS, TOPPINGS } from './data/freseameData';
-import { CustomOrderState } from './types';
+import { CustomOrderState, CremaOption } from './types';
 
 export default function App() {
+  // Splash Screen Loader state
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+
+  // Splash screen timer (2.3 seconds)
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 2300);
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  // Lock body scroll while splash screen is active
+  useEffect(() => {
+    if (isLoading) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [isLoading]);
+
   // Global interactive builder state initialized with delicious favorites
   const [orderState, setOrderState] = useState<CustomOrderState>({
     size: 'mediano',
     base: BASES[0], // Fresas con crema
-    crema: CREMAS[0], // Crema clásica
+    crema: CREMAS[0], // Crema de la Casa (Queso)
     aderezo: ADEREZOS[0], // Nutella
     toppings: [TOPPINGS[0], TOPPINGS[6]], // Kinder Bueno & Oreo
     notes: '',
@@ -28,8 +54,16 @@ export default function App() {
     }
   };
 
+  const handleSelectCremaAndScroll = (crema: CremaOption) => {
+    setOrderState((prev) => ({ ...prev, crema }));
+    handleSmoothScroll('constructor');
+  };
+
   return (
     <div className="min-h-screen bg-[#FFF8F2] text-[#2B1A24] flex flex-col font-sans selection:bg-[#FF4B8B]/20 selection:text-[#FF4B8B]">
+      {/* Animated Splash Screen Loader */}
+      <SplashScreen isLoading={isLoading} />
+
       {/* Fixed Sticky Navigation */}
       <Navbar
         onNavigate={handleSmoothScroll}
@@ -44,26 +78,32 @@ export default function App() {
           onExploreMenu={() => handleSmoothScroll('menu')}
         />
 
-        {/* 2. Interactive Dessert Simulator & Builder */}
+        {/* 2. Nuestras 7 Cremas de Especialidad & Barra Libre */}
+        <CremasSection
+          onSelectCrema={handleSelectCremaAndScroll}
+          selectedCremaId={orderState.crema?.id}
+        />
+
+        {/* 3. Interactive Dessert Simulator & Builder */}
         <Builder
           orderState={orderState}
           setOrderState={setOrderState}
         />
 
-        {/* 3. Categorized Full Menu */}
+        {/* 4. Categorized Full Menu */}
         <MenuSection />
 
-        {/* 4. Specialized Frappés Bar */}
+        {/* 5. Specialized Frappés Bar */}
         <FrappesSection />
 
-        {/* 5. Quality, Hygiene & Testimonials */}
+        {/* 6. Quality, Hygiene & Testimonials */}
         <WhyUs />
       </main>
 
-      {/* 6. Footer & Contact Info */}
+      {/* 7. Footer & Contact Info */}
       <Footer />
 
-      {/* 7. Floating WhatsApp Support Button */}
+      {/* 8. Floating WhatsApp Support Button */}
       <FloatingWhatsApp toppingsCount={orderState.toppings.length} />
     </div>
   );

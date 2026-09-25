@@ -33,9 +33,11 @@ export const FloatingWhatsApp: React.FC<FloatingWhatsAppProps> = ({ toppingsCoun
       )}
 
       {/* Floating Action Button */}
-      <button
+      <a
         id="floating-whatsapp-action-btn"
-        onClick={handleOpenWhatsApp}
+        href="https://wa.me/527731727582"
+        target="_blank"
+        rel="noopener noreferrer"
         aria-label="Abrir WhatsApp para pedir postres"
         className="w-14 h-14 rounded-full bg-[#25D366] hover:bg-[#20ba59] text-white flex items-center justify-center shadow-lg hover:shadow-2xl transition-all transform hover:scale-105 active:scale-95 relative cursor-pointer group"
       >
@@ -50,7 +52,7 @@ export const FloatingWhatsApp: React.FC<FloatingWhatsAppProps> = ({ toppingsCoun
             {toppingsCount}
           </span>
         )}
-      </button>
+      </a>
     </div>
   );
 };

@@ -22,8 +22,9 @@ export const Navbar: React.FC<NavbarProps> = ({ onNavigate, selectedToppingsCoun
   }, []);
 
   const navLinks = [
-    { label: 'Menú', href: '#menu' },
+    { label: 'Cremas', href: '#cremas' },
     { label: 'Arma tu Freséame', href: '#constructor', isHighlight: true },
+    { label: 'Menú', href: '#menu' },
     { label: 'Frappés', href: '#frappes' },
     { label: 'Nosotros', href: '#calidad' },
     { label: 'Contacto', href: '#contacto' },
@@ -35,12 +36,8 @@ export const Navbar: React.FC<NavbarProps> = ({ onNavigate, selectedToppingsCoun
     onNavigate(target);
   };
 
-  const handleDirectWhatsApp = () => {
-    const text = encodeURIComponent(
-      '¡Hola Freséame! 🍓 Me gustaría hacer un pedido o consultar el menú del día. ¿Me podrían dar informes?'
-    );
-    window.open(`https://wa.me/${WHATSAPP_PHONE}?text=${text}`, '_blank');
-  };
+  const NAVBAR_WA_URL =
+    'https://wa.me/527731727582?text=¡Hola!%20Quiero%20más%20información%20sobre%20Freséame%20🍓';
 
   return (
     <header
@@ -109,26 +106,30 @@ export const Navbar: React.FC<NavbarProps> = ({ onNavigate, selectedToppingsCoun
 
         {/* Right CTA Button */}
         <div className="hidden lg:flex items-center gap-3">
-          <button
+          <a
             id="navbar-whatsapp-cta-desktop"
-            onClick={handleDirectWhatsApp}
+            href={NAVBAR_WA_URL}
+            target="_blank"
+            rel="noopener noreferrer"
             className="flex items-center gap-2 px-5 py-2.5 rounded-2xl bg-[#25D366] hover:bg-[#20ba59] text-white font-bold text-sm shadow-md hover:shadow-lg transition-all transform hover:-translate-y-0.5 active:translate-y-0"
           >
             <MessageCircle className="w-4 h-4 fill-white" />
             <span>Pedir por WhatsApp</span>
-          </button>
+          </a>
         </div>
 
         {/* Mobile Menu & WhatsApp Icon */}
         <div className="flex items-center gap-2 md:hidden">
-          <button
+          <a
             id="mobile-quick-wa-btn"
-            onClick={handleDirectWhatsApp}
+            href={NAVBAR_WA_URL}
+            target="_blank"
+            rel="noopener noreferrer"
             aria-label="Pedir por WhatsApp"
             className="w-10 h-10 rounded-2xl bg-[#25D366] text-white flex items-center justify-center shadow-sm"
           >
             <MessageCircle className="w-5 h-5 fill-white" />
-          </button>
+          </a>
           <button
             id="mobile-menu-toggle-btn"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -167,14 +168,17 @@ export const Navbar: React.FC<NavbarProps> = ({ onNavigate, selectedToppingsCoun
               </button>
             ))}
             <div className="pt-2">
-              <button
+              <a
                 id="mobile-drawer-whatsapp-btn"
-                onClick={handleDirectWhatsApp}
+                href={NAVBAR_WA_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => setMobileMenuOpen(false)}
                 className="w-full flex items-center justify-center gap-2 py-3.5 rounded-2xl bg-[#25D366] text-white font-bold text-base shadow-md"
               >
                 <MessageCircle className="w-5 h-5 fill-white" />
                 <span>Pedir por WhatsApp</span>
-              </button>
+              </a>
             </div>
           </div>
         </div>

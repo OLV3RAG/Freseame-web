@@ -12,7 +12,17 @@ import {
   Heart,
   RotateCcw,
   Info,
+  ShoppingBag,
+  Bike,
+  Receipt,
+  MapPin,
+  Clock,
+  Download,
+  FileText,
+  CheckCircle2,
 } from 'lucide-react';
+import logoImg from '../logo.jpg';
+import { generatePdfTicket } from '../utils/generatePdfTicket';
 import {
   BASES,
   CREMAS,
@@ -43,6 +53,15 @@ export const Builder: React.FC<BuilderProps> = ({ orderState, setOrderState }) =
   const [toppingSearch, setToppingSearch] = useState<string>('');
   const [copied, setCopied] = useState<boolean>(false);
   const [selectedPresetId, setSelectedPresetId] = useState<string | null>(null);
+  const [orderMode, setOrderMode] = useState<'pickup' | 'delivery'>('pickup');
+  const [orderFolio, setOrderFolio] = useState<string>(() => `FSM-${Math.floor(100 + Math.random() * 900)}`);
+  const [ticketLogoError, setTicketLogoError] = useState<boolean>(false);
+  const [isGeneratingPdf, setIsGeneratingPdf] = useState<boolean>(false);
+  const [pdfToast, setPdfToast] = useState<boolean>(false);
+
+  const generateNewFolio = () => {
+    setOrderFolio(`FSM-${Math.floor(100 + Math.random() * 900)}`);
+  };
 
   const steps = [
     { number: 1, label: 'Base', icon: '🍓', desc: 'Elige tu base frutal u horneada' },
@@ -137,6 +156,7 @@ export const Builder: React.FC<BuilderProps> = ({ orderState, setOrderState }) =
       notes: '',
     });
     setSelectedPresetId(null);
+    generateNewFolio();
     setActiveStep(1);
   };
 
@@ -173,34 +193,94 @@ export const Builder: React.FC<BuilderProps> = ({ orderState, setOrderState }) =
     });
   }, [toppingCategory, toppingSearch]);
 
-  // Construct the formatted WhatsApp Message
+  // Construct the enriched WhatsApp Message
   const generateWhatsAppMessage = () => {
     const baseName = orderState.base ? orderState.base.name : 'Fresas con crema';
-    const cremaName = orderState.crema ? orderState.crema.name : 'Crema clásica';
+    const cremaName = orderState.crema ? orderState.crema.name : 'Crema de la Casa (Queso)';
     const aderezoName = orderState.aderezo ? orderState.aderezo.name : 'Nutella';
     const toppingsList =
       orderState.toppings.length > 0
         ? orderState.toppings.map((t) => t.name).join(', ')
         : 'Sin toppings';
 
+    const modalidadLabel =
+      orderMode === 'pickup'
+        ? '🛍️ Recoger en Sucursal (Pick-Up Clavería - Sin fila)'
+        : '🛵 Entrega a Domicilio';
+
     const text =
-      `¡Hola Freséame! 🍓✨ Me gustaría hacer el siguiente pedido personalizado:\n\n` +
+      `¡Hola Freséame! 🍓 Quiero registrar mi orden de preparación:\n\n` +
+      `📋 Folio de Pedido: #${orderFolio}\n` +
+      `📍 Modalidad: ${modalidadLabel}\n` +
       `🍧 Tamaño: ${currentSizeConfig.name} (${currentSizeConfig.label})\n` +
       `🍓 Base: ${baseName}\n` +
-      `🥛 Crema: ${cremaName}\n` +
+      `🥛 Crema Artesanal: ${cremaName}\n` +
       `🍯 Aderezo: ${aderezoName}\n` +
       `🍫 Toppings (${orderState.toppings.length}): ${toppingsList}\n` +
-      (orderState.notes.trim() ? `📝 Notas especiales: ${orderState.notes.trim()}\n` : '') +
-      `💰 Total estimado: $${calculatedTotal} MXN\n\n` +
-      `¿Me confirman disponibilidad y tiempo de entrega o para recoger? ¡Muchas gracias!`;
+      (orderState.notes.trim() ? `📝 Instrucciones especiales: ${orderState.notes.trim()}\n` : '') +
+      `💰 Total a liquidar en caja: $${calculatedTotal} MXN (Pago al recoger)\n\n` +
+      `✅ ¡Ya cuento con mi Comprobante de Pedido digital generado (Folio #${orderFolio})! Solicito confirmar la preparación en cocina para pasar a recoger. ¡Muchas gracias!`;
 
     return text;
   };
 
+  const handleDownloadOnlyPdf = async () => {
+    try {
+      setIsGeneratingPdf(true);
+      await generatePdfTicket({
+        folio: orderFolio,
+        orderMode,
+        sizeName: currentSizeConfig.name,
+        sizeLabel: currentSizeConfig.label,
+        baseName: orderState.base ? orderState.base.name : 'Fresas con Crema',
+        cremaName: orderState.crema ? orderState.crema.name : 'Crema de la Casa (Queso)',
+        aderezoName: orderState.aderezo ? orderState.aderezo.name : 'Nutella',
+        toppings: orderState.toppings.map((t) => t.name),
+        notes: orderState.notes,
+        total: calculatedTotal,
+      });
+      setPdfToast(true);
+      setTimeout(() => setPdfToast(false), 6000);
+    } catch (err) {
+      console.error('Error generando Comprobante de Pedido PDF:', err);
+    } finally {
+      setIsGeneratingPdf(false);
+    }
+  };
+
+  const handleOrderAndDownloadPdf = async () => {
+    try {
+      setIsGeneratingPdf(true);
+      // 1. Descarga inmediata del archivo Comprobante_Pedido_Freseame_[FOLIO].pdf
+      await generatePdfTicket({
+        folio: orderFolio,
+        orderMode,
+        sizeName: currentSizeConfig.name,
+        sizeLabel: currentSizeConfig.label,
+        baseName: orderState.base ? orderState.base.name : 'Fresas con Crema',
+        cremaName: orderState.crema ? orderState.crema.name : 'Crema de la Casa (Queso)',
+        aderezoName: orderState.aderezo ? orderState.aderezo.name : 'Nutella',
+        toppings: orderState.toppings.map((t) => t.name),
+        notes: orderState.notes,
+        total: calculatedTotal,
+      });
+
+      // 2. Muestra modal/alerta visual
+      setPdfToast(true);
+      setTimeout(() => setPdfToast(false), 6000);
+    } catch (err) {
+      console.error('Error generando Comprobante PDF:', err);
+    } finally {
+      setIsGeneratingPdf(false);
+      // 3. Abre WhatsApp con el folio y el desglose listo para enviar
+      const msg = generateWhatsAppMessage();
+      const url = `https://wa.me/527731727582?text=${encodeURIComponent(msg)}`;
+      window.open(url, '_blank');
+    }
+  };
+
   const handleOrderWhatsApp = () => {
-    const msg = generateWhatsAppMessage();
-    const url = `https://wa.me/${WHATSAPP_PHONE}?text=${encodeURIComponent(msg)}`;
-    window.open(url, '_blank');
+    handleOrderAndDownloadPdf();
   };
 
   const handleCopySummary = async () => {
@@ -458,7 +538,7 @@ export const Builder: React.FC<BuilderProps> = ({ orderState, setOrderState }) =
                     </h3>
                   </div>
                   <span className="text-xs font-semibold px-3 py-1 rounded-full bg-stone-100 text-[#2B1A24]/70">
-                    6 opciones artesanales
+                    7 cremas de la casa
                   </span>
                 </div>
 
@@ -638,6 +718,21 @@ export const Builder: React.FC<BuilderProps> = ({ orderState, setOrderState }) =
                   </div>
                 </div>
 
+                {/* Leyenda Destacada: Barra libre en sucursal */}
+                <div className="mb-5 p-4 rounded-2xl bg-gradient-to-r from-rose-50 via-pink-50 to-teal-50/60 border-2 border-[#FF4B8B]/30 shadow-xs flex items-start gap-3 text-[#2B1A24]">
+                  <div className="w-8 h-8 rounded-xl bg-[#FF4B8B] text-white flex items-center justify-center text-sm shrink-0 shadow-xs mt-0.5">
+                    ✨
+                  </div>
+                  <div>
+                    <span className="text-[11px] font-black uppercase tracking-wider text-[#FF4B8B] block mb-0.5">
+                      ¡Barra Libre de Toppings en Sucursal!
+                    </span>
+                    <p className="text-xs sm:text-sm font-extrabold text-[#2B1A24] leading-relaxed">
+                      ¡En sucursal sírvete tú mismo los toppings con tu propia mano y a tu gusto! Para entrega a domicilio selecciona aquí tus favoritos.
+                    </p>
+                  </div>
+                </div>
+
                 {/* Notice pill */}
                 <div className="mb-5 p-3 rounded-2xl bg-amber-50 border border-amber-200/80 flex items-center gap-2.5 text-xs text-amber-900">
                   <Info className="w-4 h-4 shrink-0 text-amber-600" />
@@ -763,14 +858,16 @@ export const Builder: React.FC<BuilderProps> = ({ orderState, setOrderState }) =
 
             {/* STEP 5: CONFIRMAR Y PEDIR POR WHATSAPP */}
             {activeStep === 5 && (
-              <div id="step-5-summary-panel" className="bg-white rounded-3xl p-6 sm:p-8 shadow-sm border border-[#2B1A24]/10 animate-in fade-in duration-200">
-                <div className="flex items-center justify-between mb-6">
+              <div id="step-5-summary-panel" className="bg-white rounded-3xl p-6 sm:p-8 shadow-sm border border-[#2B1A24]/10 animate-in fade-in duration-200 space-y-6">
+                
+                {/* Header */}
+                <div className="flex items-center justify-between">
                   <div>
                     <span className="text-xs font-bold text-[#48C9B0] uppercase tracking-wider">
                       ¡Tu combinación está lista!
                     </span>
                     <h3 className="font-['Outfit'] font-black text-2xl text-[#2B1A24] mt-0.5">
-                      Confirmar Pedido 🍓✨
+                      Confirmar Pedido & Ticket Digital 🍓✨
                     </h3>
                   </div>
                   <span className="text-xs font-extrabold px-3 py-1 rounded-full bg-emerald-100 text-emerald-800">
@@ -778,106 +875,362 @@ export const Builder: React.FC<BuilderProps> = ({ orderState, setOrderState }) =
                   </span>
                 </div>
 
-                {/* Order Summary Box */}
-                <div className="bg-[#FFF8F2] rounded-2xl p-5 border border-pink-100 space-y-3 mb-6">
-                  <div className="flex justify-between items-center text-sm pb-2 border-b border-pink-200/50">
-                    <span className="font-bold text-[#2B1A24]">Tamaño:</span>
-                    <span className="font-black text-[#FF4B8B]">
-                      {currentSizeConfig.name} ({currentSizeConfig.label})
-                    </span>
-                  </div>
-                  <div className="flex justify-between items-center text-sm">
-                    <span className="text-[#2B1A24]/70">🍓 Base:</span>
-                    <span className="font-bold text-[#2B1A24]">{orderState.base?.name}</span>
-                  </div>
-                  <div className="flex justify-between items-center text-sm">
-                    <span className="text-[#2B1A24]/70">🥛 Crema artesanal:</span>
-                    <span className="font-bold text-[#2B1A24]">{orderState.crema?.name}</span>
-                  </div>
-                  <div className="flex justify-between items-center text-sm">
-                    <span className="text-[#2B1A24]/70">🍯 Aderezo:</span>
-                    <span className="font-bold text-[#2B1A24]">{orderState.aderezo?.name}</span>
-                  </div>
-                  <div className="text-sm pt-2 border-t border-pink-200/50">
-                    <div className="flex justify-between items-center mb-1.5">
-                      <span className="text-[#2B1A24]/70 font-semibold">
-                        🍫 Toppings ({orderState.toppings.length}):
-                      </span>
-                      <span className="text-xs font-bold text-[#48C9B0]">
-                        {hasMinToppings ? 'Mínimo cumplido ✓' : 'Falta 1 topping'}
-                      </span>
-                    </div>
-                    <div className="flex flex-wrap gap-1.5">
-                      {orderState.toppings.map((t) => (
-                        <span
-                          key={t.id}
-                          className="px-2.5 py-1 rounded-lg bg-white border border-pink-200 text-xs font-bold text-[#2B1A24]"
-                        >
-                          {t.emoji} {t.name}
-                        </span>
-                      ))}
-                    </div>
+                {/* 1. SELECTOR DE MODALIDAD ANTES DE PEDIR */}
+                <div className="p-4 sm:p-5 rounded-3xl bg-stone-50 border border-stone-200/80">
+                  <span className="text-xs font-black uppercase tracking-wider text-[#2B1A24]/70 block mb-3">
+                    1. Elige cómo deseas recibir tu postre:
+                  </span>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <button
+                      type="button"
+                      id="modalidad-pickup-btn"
+                      onClick={() => setOrderMode('pickup')}
+                      className={`p-4 rounded-2xl border-2 text-left transition-all relative flex flex-col justify-between cursor-pointer ${
+                        orderMode === 'pickup'
+                          ? 'bg-white border-[#FF4B8B] shadow-md ring-2 ring-[#FF4B8B]/20'
+                          : 'bg-white/70 border-stone-200 hover:bg-white text-[#2B1A24]/80'
+                      }`}
+                    >
+                      <div className="flex items-center justify-between mb-1.5">
+                        <span className="text-2xl">🛍️</span>
+                        {orderMode === 'pickup' && (
+                          <span className="w-5 h-5 rounded-full bg-[#FF4B8B] text-white flex items-center justify-center text-xs font-bold">
+                            ✓
+                          </span>
+                        )}
+                      </div>
+                      <div>
+                        <div className="font-['Outfit'] font-black text-sm text-[#2B1A24] leading-snug">
+                          Pick-Up (Sucursal Clavería)
+                        </div>
+                        <div className="text-[11px] font-bold text-[#48C9B0] mt-0.5">
+                          Sin fila • Pasa por tu orden
+                        </div>
+                      </div>
+                    </button>
+
+                    <button
+                      type="button"
+                      id="modalidad-delivery-btn"
+                      onClick={() => setOrderMode('delivery')}
+                      className={`p-4 rounded-2xl border-2 text-left transition-all relative flex flex-col justify-between cursor-pointer ${
+                        orderMode === 'delivery'
+                          ? 'bg-white border-[#FF4B8B] shadow-md ring-2 ring-[#FF4B8B]/20'
+                          : 'bg-white/70 border-stone-200 hover:bg-white text-[#2B1A24]/80'
+                      }`}
+                    >
+                      <div className="flex items-center justify-between mb-1.5">
+                        <span className="text-2xl">🛵</span>
+                        {orderMode === 'delivery' && (
+                          <span className="w-5 h-5 rounded-full bg-[#FF4B8B] text-white flex items-center justify-center text-xs font-bold">
+                            ✓
+                          </span>
+                        )}
+                      </div>
+                      <div>
+                        <div className="font-['Outfit'] font-black text-sm text-[#2B1A24] leading-snug">
+                          Entrega a Domicilio
+                        </div>
+                        <div className="text-[11px] font-bold text-[#FF4B8B] mt-0.5">
+                          Envío directo a tu puerta
+                        </div>
+                      </div>
+                    </button>
                   </div>
 
-                  {orderState.notes.trim() && (
-                    <div className="text-xs text-[#2B1A24]/80 pt-2 border-t border-pink-200/50 italic">
-                      <strong>Nota:</strong> "{orderState.notes.trim()}"
+                  {/* Aviso dinámico según modalidad */}
+                  {orderMode === 'pickup' ? (
+                    <div className="mt-4 p-3.5 rounded-2xl bg-amber-50/90 border border-amber-200 flex items-start gap-2.5 text-xs text-amber-900 animate-in fade-in duration-200">
+                      <MapPin className="w-4 h-4 text-amber-600 shrink-0 mt-0.5" />
+                      <p className="leading-relaxed font-medium">
+                        Preparamos tu orden con anticipación. Al enviar tu pedido por WhatsApp, te responderemos con tu <strong>Ticket Digital</strong> y tiempo estimado para pasar a recogerlo <strong>al lado de McCarthy's</strong>.
+                      </p>
+                    </div>
+                  ) : (
+                    <div className="mt-4 p-3.5 rounded-2xl bg-rose-50/90 border border-rose-200 flex items-start gap-2.5 text-xs text-rose-900 animate-in fade-in duration-200">
+                      <Bike className="w-4 h-4 text-rose-600 shrink-0 mt-0.5" />
+                      <p className="leading-relaxed font-medium">
+                        Servicio a domicilio disponible en tu zona. Al enviar tu mensaje por WhatsApp, comparte tu ubicación o dirección exacta para confirmar tiempo de llegada y costo de envío.
+                      </p>
                     </div>
                   )}
+                </div>
 
-                  <div className="pt-3 border-t-2 border-pink-200 flex justify-between items-baseline">
-                    <span className="font-black text-base text-[#2B1A24]">Total Estimado:</span>
-                    <span className="font-['Outfit'] font-black text-3xl text-[#FF4B8B]">
+                {/* 2. TARJETA DE CONFIRMACIÓN VISUAL ESTILO "TICKET DE POSTRE" */}
+                <div
+                  id="ticket-digital-preview"
+                  className="rounded-3xl bg-gradient-to-b from-[#FFFDF9] via-white to-[#FFF8F2] border-2 border-[#2B1A24]/10 shadow-lg p-6 sm:p-7 relative overflow-hidden font-mono text-xs"
+                >
+                  {/* Decorative Ticket Punch Notches */}
+                  <div className="absolute -left-3.5 top-1/2 -translate-y-1/2 w-7 h-7 rounded-full bg-[#FFF8F2] border-2 border-[#2B1A24]/10 pointer-events-none" />
+                  <div className="absolute -right-3.5 top-1/2 -translate-y-1/2 w-7 h-7 rounded-full bg-[#FFF8F2] border-2 border-[#2B1A24]/10 pointer-events-none" />
+
+                  {/* Ticket Header */}
+                  <div className="text-center pb-4 border-b-2 border-dashed border-stone-200">
+                    <div className="flex items-center justify-center gap-2 mb-2">
+                      {!ticketLogoError ? (
+                        <img
+                          src={logoImg || './logo.jpg'}
+                          alt="Freséame"
+                          className="h-10 w-10 rounded-full object-cover border border-pink-200 shadow-2xs"
+                          onError={() => setTicketLogoError(true)}
+                        />
+                      ) : (
+                        <div className="h-10 w-10 rounded-full bg-pink-100 flex items-center justify-center text-lg">
+                          🍓
+                        </div>
+                      )}
+                      <span className="font-['Outfit'] font-black text-xl tracking-tight text-[#2B1A24]">
+                        Freséame 🍓
+                      </span>
+                    </div>
+                    <div className="font-sans text-[10px] font-black uppercase tracking-widest text-[#FF4B8B]">
+                      ★ COMPROBANTE DE PEDIDO / ORDEN DE PREPARACIÓN ★
+                    </div>
+                    <div className="font-sans text-[11px] text-[#2B1A24]/75 mt-0.5">
+                      Sucursal: Plaza Patio Clavería (junto a McCarthy's)
+                    </div>
+                    <div className="font-sans text-[10px] text-stone-500">
+                      Horario: Lunes a Domingo de 11:00 AM a 11:00 PM
+                    </div>
+                  </div>
+
+                  {/* Folio & Modalidad Bar */}
+                  <div className="py-3 border-b border-stone-100 flex flex-col sm:flex-row items-center justify-between gap-2 font-sans">
+                    <div className="flex items-center gap-2">
+                      <span className="text-[11px] font-bold text-stone-400">FOLIO:</span>
+                      <span className="px-3 py-1 rounded-lg bg-[#FF4B8B] text-white font-black text-sm tracking-wider shadow-2xs font-mono">
+                        #{orderFolio}
+                      </span>
+                      <button
+                        type="button"
+                        onClick={generateNewFolio}
+                        title="Generar nuevo folio"
+                        className="text-[10px] text-[#2B1A24]/50 hover:text-[#FF4B8B] underline font-bold"
+                      >
+                        (Nuevo)
+                      </button>
+                      <button
+                        type="button"
+                        onClick={handleDownloadOnlyPdf}
+                        disabled={isGeneratingPdf}
+                        className="px-2 py-1 rounded-lg bg-rose-50 hover:bg-rose-100 text-[#FF4B8B] font-bold text-[11px] flex items-center gap-1 border border-rose-200 transition-colors cursor-pointer"
+                        title="Descargar Comprobante en PDF"
+                      >
+                        <Download className="w-3 h-3" />
+                        <span>PDF</span>
+                      </button>
+                    </div>
+
+                    <div className="text-[11px] font-bold text-[#2B1A24]/80 flex items-center gap-1.5">
+                      {orderMode === 'pickup' ? (
+                        <span className="px-2.5 py-0.5 rounded-full bg-teal-100 text-teal-800 font-extrabold text-[10px]">
+                          🛍️ Recoger en Sucursal
+                        </span>
+                      ) : (
+                        <span className="px-2.5 py-0.5 rounded-full bg-rose-100 text-rose-800 font-extrabold text-[10px]">
+                          🛵 Entrega a Domicilio
+                        </span>
+                      )}
+                    </div>
+                  </div>
+
+                  {/* Estado de Pedido (NO de pago) */}
+                  <div className="py-2 px-3 my-2 rounded-xl bg-amber-50 border border-amber-200 text-[10.5px] font-sans flex items-center justify-between gap-2">
+                    <span className="font-extrabold text-amber-900">
+                      ESTADO: PEDIDO REGISTRADO / PAGO PENDIENTE EN CAJA
+                    </span>
+                    <span className="text-amber-700 text-[9.5px] font-medium hidden sm:inline">
+                      (Efectivo / Tarjeta al recoger)
+                    </span>
+                  </div>
+
+                  {/* Receipt Items Breakdown */}
+                  <div className="py-3 space-y-2.5 text-xs font-sans">
+                    <div className="flex justify-between items-center text-[#2B1A24]">
+                      <span className="text-stone-500 font-medium">Tamaño de Vaso:</span>
+                      <span className="font-bold">
+                        {currentSizeConfig.name} ({currentSizeConfig.label})
+                      </span>
+                    </div>
+
+                    <div className="flex justify-between items-center text-[#2B1A24]">
+                      <span className="text-stone-500 font-medium">🍓 Base:</span>
+                      <span className="font-bold">{orderState.base?.name}</span>
+                    </div>
+
+                    <div className="flex justify-between items-center text-[#2B1A24]">
+                      <span className="text-stone-500 font-medium">🥛 Crema Artesanal:</span>
+                      <span className="font-black text-[#FF4B8B]">{orderState.crema?.name}</span>
+                    </div>
+
+                    <div className="flex justify-between items-center text-[#2B1A24]">
+                      <span className="text-stone-500 font-medium">🍯 Aderezo:</span>
+                      <span className="font-bold">{orderState.aderezo?.name}</span>
+                    </div>
+
+                    <div className="pt-2 border-t border-stone-100">
+                      <div className="flex justify-between items-center mb-1.5">
+                        <span className="text-stone-500 font-medium">
+                          🍫 Toppings Seleccionados ({orderState.toppings.length}):
+                        </span>
+                        <span className="text-[10px] font-bold text-[#48C9B0]">
+                          {hasMinToppings ? 'Completo ✓' : 'Sugerido: 2+'}
+                        </span>
+                      </div>
+                      <div className="flex flex-wrap gap-1">
+                        {orderState.toppings.map((t) => (
+                          <span
+                            key={t.id}
+                            className="px-2 py-0.5 rounded-md bg-stone-100 text-[#2B1A24] text-[11px] font-semibold"
+                          >
+                            {t.emoji} {t.name}
+                          </span>
+                        ))}
+                      </div>
+                      <div className="text-[10.5px] text-teal-700 italic mt-1 font-medium">
+                        * Recuerda: En barra de sucursal la barra de toppings es libre e ilimitada.
+                      </div>
+                    </div>
+
+                    {orderState.notes.trim() && (
+                      <div className="pt-2 text-[11px] text-stone-600 italic">
+                        <strong>Instrucciones especiales:</strong> "{orderState.notes.trim()}"
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Dashed Total Line */}
+                  <div className="pt-3 border-t-2 border-dashed border-stone-300 flex justify-between items-baseline font-sans">
+                    <div>
+                      <span className="font-black text-sm text-[#2B1A24] block">
+                        TOTAL A LIQUIDAR EN CAJA
+                      </span>
+                      <span className="text-[10px] text-stone-400">
+                        IVA Incluido • Pago directo en mostrador al recoger
+                      </span>
+                    </div>
+                    <span className="font-['Outfit'] font-black text-2xl sm:text-3xl text-[#FF4B8B]">
                       ${calculatedTotal} MXN
                     </span>
                   </div>
+
+                  {/* Receipt Footer Message */}
+                  <div className="mt-4 pt-3 border-t border-stone-100 text-center text-[11px] font-sans text-stone-600 leading-relaxed">
+                    {orderMode === 'pickup' ? (
+                      <span>
+                        📍 <strong>Muestra este folio en barra</strong> al llegar para recibir tu pedido sin hacer fila. El pago se liquida directamente en mostrador al recoger tu orden.
+                      </span>
+                    ) : (
+                      <span>
+                        🛵 <strong>Entrega a Domicilio:</strong> Te responderemos por WhatsApp con el tiempo estimado de entrega y monto de envío.
+                      </span>
+                    )}
+                  </div>
                 </div>
 
+                {/* Modal / Alerta Visual: Comprobante Listo */}
+                {pdfToast && (
+                  <div
+                    id="comprobante-download-modal"
+                    className="p-5 rounded-3xl bg-gradient-to-r from-emerald-600 via-teal-600 to-emerald-700 text-white shadow-2xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 animate-in fade-in slide-in-from-top-3 duration-300 border-2 border-emerald-300/60"
+                  >
+                    <div className="flex items-start gap-3.5">
+                      <div className="w-11 h-11 rounded-2xl bg-white/20 flex items-center justify-center shrink-0 shadow-inner">
+                        <CheckCircle2 className="w-6 h-6 text-white" />
+                      </div>
+                      <div>
+                        <div className="font-['Outfit'] font-black text-base sm:text-lg leading-tight">
+                          ¡Tu comprobante de pedido está listo!
+                        </div>
+                        <p className="text-xs sm:text-sm text-emerald-100 mt-1 leading-snug">
+                          Hemos abierto WhatsApp para confirmar la preparación en cocina con tu folio <strong>#{orderFolio}</strong>.
+                        </p>
+                        <div className="text-[11px] text-emerald-200/90 font-mono mt-1">
+                          Archivo guardado: Comprobante_Pedido_Freseame_{orderFolio}.pdf
+                        </div>
+                      </div>
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() => setPdfToast(false)}
+                      className="self-end sm:self-center text-xs text-white bg-white/15 hover:bg-white/25 px-3 py-1.5 rounded-xl font-bold transition-colors cursor-pointer shrink-0"
+                    >
+                      Aceptar ✕
+                    </button>
+                  </div>
+                )}
+
                 {!hasMinToppings && (
-                  <div className="mb-6 p-3 rounded-2xl bg-amber-50 border border-amber-200 flex items-center gap-2 text-xs text-amber-800">
+                  <div className="p-3 rounded-2xl bg-amber-50 border border-amber-200 flex items-center gap-2 text-xs text-amber-800">
                     <AlertCircle className="w-4 h-4 text-amber-600 shrink-0" />
                     <span>Te sugerimos elegir al menos 2 toppings en el Paso 4 para la mejor experiencia.</span>
                   </div>
                 )}
 
-                {/* Primary Action Button: Pedir por WhatsApp */}
-                <div className="space-y-3">
+                {/* 3. BOTONES DE ACCIÓN: CONFIRMAR Y GENERAR PEDIDO */}
+                <div className="space-y-3 pt-2">
                   <button
-                    id="pedir-combinacion-whatsapp-btn"
-                    onClick={handleOrderWhatsApp}
-                    className="w-full py-4 px-6 rounded-2xl bg-[#25D366] hover:bg-[#20ba59] text-white font-black text-lg shadow-lg hover:shadow-xl transition-all flex items-center justify-center gap-3 cursor-pointer transform hover:-translate-y-0.5"
+                    id="confirmar-y-generar-pedido-btn"
+                    type="button"
+                    onClick={handleOrderAndDownloadPdf}
+                    disabled={isGeneratingPdf}
+                    className="w-full py-4 px-6 rounded-2xl bg-gradient-to-r from-[#25D366] to-[#20ba59] hover:from-[#20ba59] hover:to-[#1ea750] text-white font-black text-base sm:text-lg shadow-lg hover:shadow-xl transition-all flex items-center justify-center gap-3 cursor-pointer transform hover:-translate-y-0.5 text-center disabled:opacity-75"
                   >
-                    <MessageCircle className="w-6 h-6 fill-white" />
-                    <span>Pedir esta combinación por WhatsApp</span>
+                    {isGeneratingPdf ? (
+                      <>
+                        <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                        <span>Generando Comprobante y abriendo WhatsApp...</span>
+                      </>
+                    ) : (
+                      <>
+                        <Download className="w-5 h-5 text-white" />
+                        <span>Confirmar y Generar Pedido</span>
+                        <MessageCircle className="w-5 h-5 fill-white shrink-0" />
+                      </>
+                    )}
                   </button>
 
-                  <div className="flex items-center gap-2">
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
                     <button
+                      type="button"
+                      onClick={handleDownloadOnlyPdf}
+                      disabled={isGeneratingPdf}
+                      className="py-3 px-4 rounded-xl bg-rose-50 hover:bg-rose-100 text-[#FF4B8B] font-bold text-xs flex items-center justify-center gap-2 border border-rose-200 transition-colors cursor-pointer"
+                    >
+                      <FileText className="w-4 h-4" />
+                      <span>Descargar Comprobante PDF</span>
+                    </button>
+
+                    <button
+                      type="button"
                       onClick={handleCopySummary}
-                      className="flex-1 py-3 px-4 rounded-xl bg-stone-100 hover:bg-stone-200 text-[#2B1A24] font-bold text-xs flex items-center justify-center gap-2 transition-colors"
+                      className="py-3 px-4 rounded-xl bg-stone-100 hover:bg-stone-200 text-[#2B1A24] font-bold text-xs flex items-center justify-center gap-2 transition-colors cursor-pointer"
                     >
                       {copied ? (
                         <>
                           <CheckCheck className="w-4 h-4 text-emerald-600" />
-                          <span className="text-emerald-700">¡Texto copiado al portapapeles!</span>
+                          <span className="text-emerald-700">¡Copiado!</span>
                         </>
                       ) : (
                         <>
                           <Copy className="w-4 h-4" />
-                          <span>Copiar texto del pedido</span>
+                          <span>Copiar texto comanda</span>
                         </>
                       )}
                     </button>
 
                     <button
+                      type="button"
                       onClick={() => setActiveStep(1)}
-                      className="py-3 px-4 rounded-xl text-[#2B1A24]/70 hover:bg-stone-100 font-bold text-xs flex items-center gap-1.5 transition-colors"
+                      className="py-3 px-4 rounded-xl text-[#2B1A24]/70 hover:bg-stone-100 font-bold text-xs flex items-center justify-center gap-1.5 transition-colors cursor-pointer"
                     >
                       <RotateCcw className="w-4 h-4" />
                       <span>Modificar pasos</span>
                     </button>
                   </div>
                 </div>
+
               </div>
             )}
 

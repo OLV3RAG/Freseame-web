@@ -6,10 +6,7 @@ import logoImg from '../logo.jpg';
 export const Footer: React.FC = () => {
   const [logoError, setLogoError] = useState(false);
   const handleWhatsApp = () => {
-    const text = encodeURIComponent(
-      '¡Hola Freséame! 🍓 Quiero consultar el horario y la dirección de la sucursal más cercana.'
-    );
-    window.open(`https://wa.me/${WHATSAPP_PHONE}?text=${text}`, '_blank');
+    window.open('https://wa.me/527731727582', '_blank');
   };
 
   return (
@@ -61,13 +58,15 @@ export const Footer: React.FC = () => {
               >
                 <Facebook className="w-4 h-4" />
               </a>
-              <button
-                onClick={handleWhatsApp}
+              <a
+                href="https://wa.me/527731727582"
+                target="_blank"
+                rel="noopener noreferrer"
                 aria-label="WhatsApp de Freséame"
                 className="w-9 h-9 rounded-xl bg-white/10 hover:bg-[#25D366] text-white flex items-center justify-center transition-colors"
               >
                 <MessageCircle className="w-4 h-4" />
-              </button>
+              </a>
             </div>
           </div>
 
@@ -106,10 +105,26 @@ export const Footer: React.FC = () => {
             <p className="text-xs sm:text-sm text-stone-300 leading-relaxed">
               Av. Dulzura #120, Col. Delicias, Ciudad de México (Frente a la glorieta de las flores).
             </p>
-            <div className="pt-2 space-y-1.5 text-xs text-stone-300">
+            <div className="pt-2 space-y-2 text-xs text-stone-300">
               <div className="flex items-center gap-2">
                 <Phone className="w-3.5 h-3.5 text-[#FF4B8B]" />
-                <span>WhatsApp: {WHATSAPP_DISPLAY}</span>
+                <a
+                  href="tel:+527731727582"
+                  className="font-bold text-white hover:text-[#FF4B8B] transition-colors underline-offset-2 hover:underline"
+                >
+                  +52 773 172 7582
+                </a>
+              </div>
+              <div className="flex items-center gap-2">
+                <MessageCircle className="w-3.5 h-3.5 text-[#25D366]" />
+                <a
+                  href="https://wa.me/527731727582"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-bold text-white hover:text-[#25D366] transition-colors underline-offset-2 hover:underline"
+                >
+                  WhatsApp: +52 773 172 7582
+                </a>
               </div>
               <div className="flex items-center gap-2">
                 <span className="text-[#48C9B0]">🛵</span>
