@@ -2,7 +2,7 @@ import { jsPDF } from 'jspdf';
 
 interface TicketData {
   folio: string;
-  orderMode: 'pickup' | 'delivery';
+  orderMode?: 'pickup' | 'delivery';
   sizeName: string;
   sizeLabel: string;
   baseName: string;
@@ -13,7 +13,13 @@ interface TicketData {
   total: number;
 }
 
-export const generatePdfTicket = async (data: TicketData): Promise<void> => {
+export interface GeneratedTicketResult {
+  blob: Blob;
+  url: string;
+  fileName: string;
+}
+
+export const generatePdfTicket = async (data: TicketData): Promise<GeneratedTicketResult> => {
   try {
     // Format: Comprobante / Orden de Preparacion (80mm width thermal/boutique comanda)
     const doc = new jsPDF({
@@ -51,14 +57,11 @@ export const generatePdfTicket = async (data: TicketData): Promise<void> => {
     doc.setTextColor(255, 75, 139); // #FF4B8B
     doc.text('FRESEAME', pageWidth / 2, y + 6.5, { align: 'center' });
 
-    // Subtitle: Comprobante de Pedido
+    // Subtitle: Comprobante de Pedido - Servicio Pick-Up
     doc.setFont('helvetica', 'bold');
     doc.setFontSize(7.5);
     doc.setTextColor(43, 26, 36);
-    const serviceSub = data.orderMode === 'pickup'
-      ? 'COMPROBANTE DE PEDIDO - SERVICIO PICK-UP'
-      : 'COMPROBANTE DE PEDIDO - ORDEN A DOMICILIO';
-    doc.text(serviceSub, pageWidth / 2, y + 11.5, { align: 'center' });
+    doc.text('COMPROBANTE DE PEDIDO - SERVICIO PICK-UP', pageWidth / 2, y + 11.5, { align: 'center' });
 
     // Branch / Sucursal
     doc.setFont('helvetica', 'bold');
@@ -112,15 +115,11 @@ export const generatePdfTicket = async (data: TicketData): Promise<void> => {
     doc.setTextColor(100, 100, 100);
     doc.text(`Registro: ${dateFormatted} - ${timeFormatted} hrs`, margin + 2.5, y + 10);
 
-    // Modalidad
-    const modalidadText =
-      data.orderMode === 'pickup'
-        ? 'Recoger en Sucursal (Pick-Up Claveria)'
-        : 'Entrega a Domicilio';
+    // Modalidad estricta Pick-Up
     doc.setFont('helvetica', 'bold');
     doc.setFontSize(7.5);
     doc.setTextColor(43, 26, 36);
-    doc.text(`Modalidad: ${modalidadText}`, margin + 2.5, y + 14.5);
+    doc.text('Modalidad: RECOLECCION EN SUCURSAL (PICK-UP)', margin + 2.5, y + 14.5);
 
     // Estado de la orden (No de pago)
     doc.setFont('helvetica', 'bold');
@@ -275,10 +274,50 @@ export const generatePdfTicket = async (data: TicketData): Promise<void> => {
     doc.setTextColor(140, 140, 140);
     doc.text('Comprobante digital para uso en sucursal Patio Claveria.', pageWidth / 2, y, { align: 'center' });
 
-    // Download with filename Comprobante_Pedido_Freseame_[FOLIO].pdf
+    // Download with filename Comprobante_Freseame_[FOLIO].pdf
     const cleanFolio = data.folio.replace(/[^a-zA-Z0-9_-]/g, '');
-    const fileName = `Comprobante_Pedido_Freseame_${cleanFolio}.pdf`;
-    doc.save(fileName);
+    const fileName = `Comprobante_Freseame_${cleanFolio}.pdf`;
+
+    // 1. Generate Blob and secure Object URL (Safe for mobile Safari, Android Chrome & webviews)
+    const blob = doc.output('blob');
+    const blobUrl = URL.createObjectURL(blob);
+
+    // 2. Disparar descarga mediante un elemento <a> temporal
+    let downloadSucceeded = false;
+    try {
+      const link = document.createElement('a');
+      link.href = blobUrl;
+      link.download = fileName;
+      link.target = '_blank';
+      link.rel = 'noopener noreferrer';
+      document.body.appendChild(link);
+      link.click();
+      setTimeout(() => {
+        try {
+          if (document.body.contains(link)) {
+            document.body.removeChild(link);
+          }
+        } catch (_) {}
+      }, 1000);
+      downloadSucceeded = true;
+    } catch (linkError) {
+      console.warn('Anchor download failed, trying doc.save:', linkError);
+    }
+
+    // 3. Fallback que abra el PDF en una pestaña nueva si el navegador bloquea la descarga directa
+    if (!downloadSucceeded) {
+      try {
+        doc.save(fileName);
+        downloadSucceeded = true;
+      } catch (saveError) {
+        console.warn('doc.save failed on mobile browser, trying window.open:', saveError);
+        try {
+          window.open(blobUrl, '_blank');
+        } catch (_) {}
+      }
+    }
+
+    return { blob, url: blobUrl, fileName };
   } catch (error) {
     console.error('Error generating Comprobante de Pedido PDF:', error);
     throw error;

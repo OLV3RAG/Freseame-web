@@ -7,6 +7,7 @@ import { Builder } from './components/Builder';
 import { MenuSection } from './components/MenuSection';
 import { FrappesSection } from './components/FrappesSection';
 import { WhyUs } from './components/WhyUs';
+import { DeliverySection } from './components/DeliverySection';
 import { LocationSection } from './components/LocationSection';
 import { Footer } from './components/Footer';
 import { FloatingWhatsApp } from './components/FloatingWhatsApp';
@@ -100,7 +101,10 @@ export default function App() {
         {/* 6. Quality, Hygiene & Testimonials */}
         <WhyUs />
 
-        {/* 7. Ubicación y Horarios Patio Clavería */}
+        {/* 7. Entrega a Domicilio / Delivery Apps Section (ID: #delivery) */}
+        <DeliverySection onOrderPickUp={() => handleSmoothScroll('constructor')} />
+
+        {/* 8. Ubicación y Horarios Patio Clavería */}
         <LocationSection onOrderPickUp={() => handleSmoothScroll('constructor')} />
       </main>
 

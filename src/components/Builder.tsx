@@ -23,6 +23,8 @@ import {
 } from 'lucide-react';
 import logoImg from '../logo.jpg';
 import { generatePdfTicket } from '../utils/generatePdfTicket';
+import { DeliveryComingSoon } from './DeliveryComingSoon';
+import { TicketModal } from './TicketModal';
 import {
   BASES,
   CREMAS,
@@ -58,9 +60,12 @@ export const Builder: React.FC<BuilderProps> = ({ orderState, setOrderState }) =
   const [ticketLogoError, setTicketLogoError] = useState<boolean>(false);
   const [isGeneratingPdf, setIsGeneratingPdf] = useState<boolean>(false);
   const [pdfToast, setPdfToast] = useState<boolean>(false);
+  const [showModalTicket, setShowModalTicket] = useState<boolean>(false);
+  const [lastGeneratedPdfUrl, setLastGeneratedPdfUrl] = useState<string | null>(null);
 
   const generateNewFolio = () => {
     setOrderFolio(`FSM-${Math.floor(100 + Math.random() * 900)}`);
+    setLastGeneratedPdfUrl(null);
   };
 
   const steps = [
@@ -203,33 +208,42 @@ export const Builder: React.FC<BuilderProps> = ({ orderState, setOrderState }) =
         ? orderState.toppings.map((t) => t.name).join(', ')
         : 'Sin toppings';
 
-    const modalidadLabel =
-      orderMode === 'pickup'
-        ? '🛍️ Recoger en Sucursal (Pick-Up Clavería - Sin fila)'
-        : '🛵 Entrega a Domicilio';
-
     const text =
-      `¡Hola Freséame! 🍓 Quiero registrar mi orden de preparación:\n\n` +
+      `¡Hola! Quiero registrar mi pedido para PICK-UP en Sucursal Clavería:\n\n` +
       `📋 Folio de Pedido: #${orderFolio}\n` +
-      `📍 Modalidad: ${modalidadLabel}\n` +
+      `📍 Modalidad: Recolección en Sucursal (Pick-Up Clavería - Sin fila)\n` +
       `🍧 Tamaño: ${currentSizeConfig.name} (${currentSizeConfig.label})\n` +
       `🍓 Base: ${baseName}\n` +
       `🥛 Crema Artesanal: ${cremaName}\n` +
       `🍯 Aderezo: ${aderezoName}\n` +
       `🍫 Toppings (${orderState.toppings.length}): ${toppingsList}\n` +
       (orderState.notes.trim() ? `📝 Instrucciones especiales: ${orderState.notes.trim()}\n` : '') +
-      `💰 Total a liquidar en caja: $${calculatedTotal} MXN (Pago al recoger)\n\n` +
+      `💰 Total a liquidar en caja: $${calculatedTotal} MXN (Pago al recoger en mostrador)\n\n` +
       `✅ ¡Ya cuento con mi Comprobante de Pedido digital generado (Folio #${orderFolio})! Solicito confirmar la preparación en cocina para pasar a recoger. ¡Muchas gracias!`;
 
     return text;
   };
 
+  const whatsAppUrl = useMemo(() => {
+    const msg = generateWhatsAppMessage();
+    return `https://wa.me/527731727582?text=${encodeURIComponent(msg)}`;
+  }, [
+    orderFolio,
+    currentSizeConfig,
+    orderState.base,
+    orderState.crema,
+    orderState.aderezo,
+    orderState.toppings,
+    orderState.notes,
+    calculatedTotal,
+  ]);
+
   const handleDownloadOnlyPdf = async () => {
     try {
       setIsGeneratingPdf(true);
-      await generatePdfTicket({
+      const res = await generatePdfTicket({
         folio: orderFolio,
-        orderMode,
+        orderMode: 'pickup',
         sizeName: currentSizeConfig.name,
         sizeLabel: currentSizeConfig.label,
         baseName: orderState.base ? orderState.base.name : 'Fresas con Crema',
@@ -239,6 +253,9 @@ export const Builder: React.FC<BuilderProps> = ({ orderState, setOrderState }) =
         notes: orderState.notes,
         total: calculatedTotal,
       });
+      if (res && res.url) {
+        setLastGeneratedPdfUrl(res.url);
+      }
       setPdfToast(true);
       setTimeout(() => setPdfToast(false), 6000);
     } catch (err) {
@@ -249,12 +266,15 @@ export const Builder: React.FC<BuilderProps> = ({ orderState, setOrderState }) =
   };
 
   const handleOrderAndDownloadPdf = async () => {
+    // 1. Abrir Modal de Comprobante en Pantalla de inmediato (evento de usuario directo)
+    setShowModalTicket(true);
+
+    // 2. Generar el PDF y disparar descarga segura en segundo plano
     try {
       setIsGeneratingPdf(true);
-      // 1. Descarga inmediata del archivo Comprobante_Pedido_Freseame_[FOLIO].pdf
-      await generatePdfTicket({
+      const res = await generatePdfTicket({
         folio: orderFolio,
-        orderMode,
+        orderMode: 'pickup',
         sizeName: currentSizeConfig.name,
         sizeLabel: currentSizeConfig.label,
         baseName: orderState.base ? orderState.base.name : 'Fresas con Crema',
@@ -264,18 +284,15 @@ export const Builder: React.FC<BuilderProps> = ({ orderState, setOrderState }) =
         notes: orderState.notes,
         total: calculatedTotal,
       });
-
-      // 2. Muestra modal/alerta visual
+      if (res && res.url) {
+        setLastGeneratedPdfUrl(res.url);
+      }
       setPdfToast(true);
       setTimeout(() => setPdfToast(false), 6000);
     } catch (err) {
       console.error('Error generando Comprobante PDF:', err);
     } finally {
       setIsGeneratingPdf(false);
-      // 3. Abre WhatsApp con el folio y el desglose listo para enviar
-      const msg = generateWhatsAppMessage();
-      const url = `https://wa.me/527731727582?text=${encodeURIComponent(msg)}`;
-      window.open(url, '_blank');
     }
   };
 
@@ -875,85 +892,43 @@ export const Builder: React.FC<BuilderProps> = ({ orderState, setOrderState }) =
                   </span>
                 </div>
 
-                {/* 1. SELECTOR DE MODALIDAD ANTES DE PEDIR */}
+                {/* 1. MODALIDAD EXCLUSIVA PICK-UP */}
                 <div className="p-4 sm:p-5 rounded-3xl bg-stone-50 border border-stone-200/80">
-                  <span className="text-xs font-black uppercase tracking-wider text-[#2B1A24]/70 block mb-3">
-                    1. Elige cómo deseas recibir tu postre:
-                  </span>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                    <button
-                      type="button"
-                      id="modalidad-pickup-btn"
-                      onClick={() => setOrderMode('pickup')}
-                      className={`p-4 rounded-2xl border-2 text-left transition-all relative flex flex-col justify-between cursor-pointer ${
-                        orderMode === 'pickup'
-                          ? 'bg-white border-[#FF4B8B] shadow-md ring-2 ring-[#FF4B8B]/20'
-                          : 'bg-white/70 border-stone-200 hover:bg-white text-[#2B1A24]/80'
-                      }`}
-                    >
-                      <div className="flex items-center justify-between mb-1.5">
-                        <span className="text-2xl">🛍️</span>
-                        {orderMode === 'pickup' && (
-                          <span className="w-5 h-5 rounded-full bg-[#FF4B8B] text-white flex items-center justify-center text-xs font-bold">
-                            ✓
-                          </span>
-                        )}
-                      </div>
-                      <div>
-                        <div className="font-['Outfit'] font-black text-sm text-[#2B1A24] leading-snug">
-                          Pick-Up (Sucursal Clavería)
-                        </div>
-                        <div className="text-[11px] font-bold text-[#48C9B0] mt-0.5">
-                          Sin fila • Pasa por tu orden
-                        </div>
-                      </div>
-                    </button>
-
-                    <button
-                      type="button"
-                      id="modalidad-delivery-btn"
-                      onClick={() => setOrderMode('delivery')}
-                      className={`p-4 rounded-2xl border-2 text-left transition-all relative flex flex-col justify-between cursor-pointer ${
-                        orderMode === 'delivery'
-                          ? 'bg-white border-[#FF4B8B] shadow-md ring-2 ring-[#FF4B8B]/20'
-                          : 'bg-white/70 border-stone-200 hover:bg-white text-[#2B1A24]/80'
-                      }`}
-                    >
-                      <div className="flex items-center justify-between mb-1.5">
-                        <span className="text-2xl">🛵</span>
-                        {orderMode === 'delivery' && (
-                          <span className="w-5 h-5 rounded-full bg-[#FF4B8B] text-white flex items-center justify-center text-xs font-bold">
-                            ✓
-                          </span>
-                        )}
-                      </div>
-                      <div>
-                        <div className="font-['Outfit'] font-black text-sm text-[#2B1A24] leading-snug">
-                          Entrega a Domicilio
-                        </div>
-                        <div className="text-[11px] font-bold text-[#FF4B8B] mt-0.5">
-                          Envío directo a tu puerta
-                        </div>
-                      </div>
-                    </button>
+                  <div className="flex items-center justify-between gap-2 mb-3">
+                    <span className="text-xs font-black uppercase tracking-wider text-[#2B1A24]/70">
+                      1. Modalidad de Pedido:
+                    </span>
+                    <span className="px-3 py-1 rounded-full bg-emerald-100 text-emerald-800 text-[11px] font-black tracking-wide border border-emerald-200 flex items-center gap-1.5">
+                      <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                      Pick-Up Express
+                    </span>
                   </div>
 
-                  {/* Aviso dinámico según modalidad */}
-                  {orderMode === 'pickup' ? (
-                    <div className="mt-4 p-3.5 rounded-2xl bg-amber-50/90 border border-amber-200 flex items-start gap-2.5 text-xs text-amber-900 animate-in fade-in duration-200">
-                      <MapPin className="w-4 h-4 text-amber-600 shrink-0 mt-0.5" />
-                      <p className="leading-relaxed font-medium">
-                        Preparamos tu orden con anticipación. Al enviar tu pedido por WhatsApp, te responderemos con tu <strong>Ticket Digital</strong> y tiempo estimado para pasar a recogerlo <strong>al lado de McCarthy's</strong>.
-                      </p>
+                  <div className="p-4 rounded-2xl bg-white border-2 border-[#FF4B8B]/40 shadow-xs flex items-center justify-between gap-3">
+                    <div className="flex items-center gap-3.5">
+                      <div className="w-11 h-11 rounded-2xl bg-rose-50 text-[#FF4B8B] flex items-center justify-center text-2xl shrink-0 border border-rose-200">
+                        🛍️
+                      </div>
+                      <div>
+                        <div className="font-['Outfit'] font-black text-sm sm:text-base text-[#2B1A24]">
+                          Recolección en Sucursal (Pick-Up Patio Clavería)
+                        </div>
+                        <div className="text-xs text-stone-500 font-medium mt-0.5">
+                          Calle Egipto 142 • En medio de la plaza, junto a McCarthy's
+                        </div>
+                      </div>
                     </div>
-                  ) : (
-                    <div className="mt-4 p-3.5 rounded-2xl bg-rose-50/90 border border-rose-200 flex items-start gap-2.5 text-xs text-rose-900 animate-in fade-in duration-200">
-                      <Bike className="w-4 h-4 text-rose-600 shrink-0 mt-0.5" />
-                      <p className="leading-relaxed font-medium">
-                        Servicio a domicilio disponible en tu zona. Al enviar tu mensaje por WhatsApp, comparte tu ubicación o dirección exacta para confirmar tiempo de llegada y costo de envío.
-                      </p>
-                    </div>
-                  )}
+                    <span className="hidden sm:inline-flex px-3 py-1 rounded-xl bg-teal-50 text-teal-800 font-extrabold text-xs border border-teal-200">
+                      Sin fila
+                    </span>
+                  </div>
+
+                  <div className="mt-3 p-3.5 rounded-2xl bg-amber-50/90 border border-amber-200 flex items-start gap-2.5 text-xs text-amber-900">
+                    <MapPin className="w-4 h-4 text-amber-600 shrink-0 mt-0.5" />
+                    <p className="leading-relaxed font-medium">
+                      Preparamos tu orden con anticipación. Al confirmar tu pedido, se descarga tu <strong>Comprobante de Pedido en PDF</strong> y se notifica a cocina por WhatsApp para que solo pases por tu postre en barra <strong>sin hacer fila</strong>.
+                    </p>
+                  </div>
                 </div>
 
                 {/* 2. TARJETA DE CONFIRMACIÓN VISUAL ESTILO "TICKET DE POSTRE" */}
@@ -1026,15 +1001,9 @@ export const Builder: React.FC<BuilderProps> = ({ orderState, setOrderState }) =
                     </div>
 
                     <div className="text-[11px] font-bold text-[#2B1A24]/80 flex items-center gap-1.5">
-                      {orderMode === 'pickup' ? (
-                        <span className="px-2.5 py-0.5 rounded-full bg-teal-100 text-teal-800 font-extrabold text-[10px]">
-                          🛍️ Recoger en Sucursal
-                        </span>
-                      ) : (
-                        <span className="px-2.5 py-0.5 rounded-full bg-rose-100 text-rose-800 font-extrabold text-[10px]">
-                          🛵 Entrega a Domicilio
-                        </span>
-                      )}
+                      <span className="px-2.5 py-0.5 rounded-full bg-teal-100 text-teal-800 font-extrabold text-[10px]">
+                        🛍️ RECOLECCIÓN EN SUCURSAL (PICK-UP)
+                      </span>
                     </div>
                   </div>
 
@@ -1120,15 +1089,9 @@ export const Builder: React.FC<BuilderProps> = ({ orderState, setOrderState }) =
 
                   {/* Receipt Footer Message */}
                   <div className="mt-4 pt-3 border-t border-stone-100 text-center text-[11px] font-sans text-stone-600 leading-relaxed">
-                    {orderMode === 'pickup' ? (
-                      <span>
-                        📍 <strong>Punto de recogida:</strong> Sucursal Clavería (en medio de la plaza, junto a McCarthy's). Muestra este folio <strong>#{orderFolio}</strong> en barra al llegar para recibir tu pedido sin hacer fila. El pago se liquida directamente en mostrador al recoger tu orden.
-                      </span>
-                    ) : (
-                      <span>
-                        🛵 <strong>Entrega a Domicilio:</strong> Te responderemos por WhatsApp con el tiempo estimado de entrega y monto de envío.
-                      </span>
-                    )}
+                    <span>
+                      📍 <strong>Punto de recogida:</strong> Sucursal Clavería (en medio de la plaza, junto a McCarthy's). Muestra este folio <strong>#{orderFolio}</strong> en barra al llegar para recibir tu pedido sin hacer fila. El pago se liquida directamente en mostrador al recoger tu orden.
+                    </span>
                   </div>
                 </div>
 
@@ -1183,12 +1146,12 @@ export const Builder: React.FC<BuilderProps> = ({ orderState, setOrderState }) =
                     {isGeneratingPdf ? (
                       <>
                         <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                        <span>Generando Comprobante y abriendo WhatsApp...</span>
+                        <span>Generando Comprobante...</span>
                       </>
                     ) : (
                       <>
                         <Download className="w-5 h-5 text-white" />
-                        <span>Confirmar y Generar Pedido</span>
+                        <span>Confirmar y Ver Comprobante en Pantalla</span>
                         <MessageCircle className="w-5 h-5 fill-white shrink-0" />
                       </>
                     )}
@@ -1234,6 +1197,9 @@ export const Builder: React.FC<BuilderProps> = ({ orderState, setOrderState }) =
                   </div>
                 </div>
 
+                {/* Delivery Coming Soon Notice in Step 5 */}
+                <DeliveryComingSoon className="mt-4" />
+
               </div>
             )}
 
@@ -1254,7 +1220,31 @@ export const Builder: React.FC<BuilderProps> = ({ orderState, setOrderState }) =
           </div>
 
         </div>
+
+        {/* Global Delivery Section Banner */}
+        <div className="mt-12">
+          <DeliveryComingSoon />
+        </div>
       </div>
+
+      {/* Modal / Ventana de "Comprobante en Pantalla" (Respaldo Visual) */}
+      <TicketModal
+        isOpen={showModalTicket}
+        onClose={() => setShowModalTicket(false)}
+        folio={orderFolio}
+        sizeName={currentSizeConfig.name}
+        sizeLabel={currentSizeConfig.label}
+        baseName={orderState.base ? orderState.base.name : 'Fresas con Crema'}
+        cremaName={orderState.crema ? orderState.crema.name : 'Crema de la Casa (Queso)'}
+        aderezoName={orderState.aderezo ? orderState.aderezo.name : 'Nutella'}
+        toppings={orderState.toppings}
+        notes={orderState.notes}
+        total={calculatedTotal}
+        pdfUrl={lastGeneratedPdfUrl}
+        onDownloadPdfAgain={handleDownloadOnlyPdf}
+        isDownloadingPdf={isGeneratingPdf}
+        whatsAppUrl={whatsAppUrl}
+      />
     </section>
   );
 };
