@@ -88,6 +88,8 @@ export const DeliverySection: React.FC<DeliverySectionProps> = ({ onOrderPickUp 
                 <img
                   src="./rappi-logo.png"
                   alt="Rappi Logo"
+                  width="160"
+                  height="64"
                   className="h-14 sm:h-16 w-auto max-w-[190px] object-contain transition-transform duration-300 group-hover:scale-105"
                   onError={() => setRappiImgError(true)}
                 />
@@ -115,7 +117,7 @@ export const DeliverySection: React.FC<DeliverySectionProps> = ({ onOrderPickUp 
                   href={RAPPI_URL}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-full py-3.5 px-5 rounded-2xl bg-[#FF441F] hover:bg-[#E03816] text-white font-extrabold text-sm shadow-md hover:shadow-lg transition-all flex items-center justify-center gap-2 cursor-pointer"
+                  className="w-full min-h-[44px] py-3.5 px-5 rounded-2xl bg-[#FF441F] hover:bg-[#E03816] text-white font-extrabold text-sm shadow-md hover:shadow-lg transition-all active:scale-95 touch-manipulation flex items-center justify-center gap-2 cursor-pointer"
                 >
                   <span>Pedir por Rappi</span>
                   <ArrowRight className="w-4 h-4" />
@@ -124,7 +126,7 @@ export const DeliverySection: React.FC<DeliverySectionProps> = ({ onOrderPickUp 
                 <a
                   href="#"
                   onClick={(e) => handleDisabledClick(e, 'Rappi')}
-                  className="w-full py-3.5 px-5 rounded-2xl bg-stone-100 hover:bg-stone-150 text-stone-500 font-bold text-sm border border-stone-200/80 flex items-center justify-center gap-2 cursor-wait transition-all"
+                  className="w-full min-h-[44px] py-3.5 px-5 rounded-2xl bg-stone-100 hover:bg-stone-150 text-stone-500 font-bold text-sm border border-stone-200/80 flex items-center justify-center gap-2 cursor-wait transition-all active:scale-95 touch-manipulation"
                   aria-disabled="true"
                   title="Disponible en unos días"
                 >
@@ -154,6 +156,8 @@ export const DeliverySection: React.FC<DeliverySectionProps> = ({ onOrderPickUp 
                 <img
                   src="./ubereats-logo.png"
                   alt="Uber Eats Logo"
+                  width="160"
+                  height="64"
                   className="h-14 sm:h-16 w-auto max-w-[190px] object-contain transition-transform duration-300 group-hover:scale-105"
                   onError={() => setUberImgError(true)}
                 />
@@ -181,7 +185,7 @@ export const DeliverySection: React.FC<DeliverySectionProps> = ({ onOrderPickUp 
                   href={UBER_URL}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-full py-3.5 px-5 rounded-2xl bg-[#06C167] hover:bg-[#05a557] text-white font-extrabold text-sm shadow-md hover:shadow-lg transition-all flex items-center justify-center gap-2 cursor-pointer"
+                  className="w-full min-h-[44px] py-3.5 px-5 rounded-2xl bg-[#06C167] hover:bg-[#05a557] text-white font-extrabold text-sm shadow-md hover:shadow-lg transition-all active:scale-95 touch-manipulation flex items-center justify-center gap-2 cursor-pointer"
                 >
                   <span>Pedir por Uber Eats</span>
                   <ArrowRight className="w-4 h-4" />
@@ -190,7 +194,7 @@ export const DeliverySection: React.FC<DeliverySectionProps> = ({ onOrderPickUp 
                 <a
                   href="#"
                   onClick={(e) => handleDisabledClick(e, 'Uber Eats')}
-                  className="w-full py-3.5 px-5 rounded-2xl bg-stone-100 hover:bg-stone-150 text-stone-500 font-bold text-sm border border-stone-200/80 flex items-center justify-center gap-2 cursor-wait transition-all"
+                  className="w-full min-h-[44px] py-3.5 px-5 rounded-2xl bg-stone-100 hover:bg-stone-150 text-stone-500 font-bold text-sm border border-stone-200/80 flex items-center justify-center gap-2 cursor-wait transition-all active:scale-95 touch-manipulation"
                   aria-disabled="true"
                   title="Disponible en unos días"
                 >

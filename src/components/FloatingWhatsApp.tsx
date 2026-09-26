@@ -39,7 +39,7 @@ export const FloatingWhatsApp: React.FC<FloatingWhatsAppProps> = ({ toppingsCoun
         target="_blank"
         rel="noopener noreferrer"
         aria-label="Abrir WhatsApp para pedir postres"
-        className="w-14 h-14 rounded-full bg-[#25D366] hover:bg-[#20ba59] text-white flex items-center justify-center shadow-lg hover:shadow-2xl transition-all transform hover:scale-105 active:scale-95 relative cursor-pointer group"
+        className="w-14 h-14 rounded-full bg-[#25D366] hover:bg-[#20ba59] text-white flex items-center justify-center shadow-lg hover:shadow-2xl transition-all transform hover:scale-105 active:scale-95 touch-manipulation relative cursor-pointer group"
       >
         {/* Animated Ripple Pulse */}
         <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#25D366] opacity-35 group-hover:opacity-60 -z-10" />

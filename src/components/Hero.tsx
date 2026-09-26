@@ -90,21 +90,21 @@ export const Hero: React.FC<HeroProps> = ({ onStartBuilding, onExploreMenu }) =>
             </div>
 
             {/* CTA Buttons */}
-            <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
+            <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3 sm:gap-4">
               <button
                 id="hero-cta-armar-postre"
                 onClick={onStartBuilding}
-                className="w-full sm:w-auto px-8 py-4 rounded-2xl bg-[#FF4B8B] hover:bg-[#E8437D] text-white font-extrabold text-base tracking-wide shadow-lg shadow-[#FF4B8B]/25 hover:shadow-xl hover:shadow-[#FF4B8B]/35 transition-all transform hover:-translate-y-0.5 active:translate-y-0 flex items-center justify-center gap-3 cursor-pointer"
+                className="w-full sm:w-auto min-h-[48px] px-8 py-3.5 sm:py-4 rounded-2xl bg-[#FF4B8B] hover:bg-[#E8437D] text-white font-extrabold text-base tracking-wide shadow-lg shadow-[#FF4B8B]/25 hover:shadow-xl hover:shadow-[#FF4B8B]/35 transition-all transform hover:-translate-y-0.5 active:scale-95 touch-manipulation flex items-center justify-center gap-3 cursor-pointer"
               >
-                <Sparkles className="w-5 h-5 text-white animate-spin-slow" />
+                <Sparkles className="w-5 h-5 text-white animate-spin-slow shrink-0" />
                 <span>¡Armar mi postre ahora!</span>
-                <ArrowRight className="w-5 h-5" />
+                <ArrowRight className="w-5 h-5 shrink-0" />
               </button>
 
               <button
                 id="hero-cta-explorar-menu"
                 onClick={onExploreMenu}
-                className="w-full sm:w-auto px-7 py-4 rounded-2xl bg-white hover:bg-stone-100 text-[#2B1A24] border border-[#2B1A24]/15 font-bold text-base shadow-xs hover:shadow-md transition-all cursor-pointer flex items-center justify-center gap-2"
+                className="w-full sm:w-auto min-h-[48px] px-7 py-3.5 sm:py-4 rounded-2xl bg-white hover:bg-stone-100 text-[#2B1A24] border border-[#2B1A24]/15 font-bold text-base shadow-xs hover:shadow-md transition-all active:scale-95 touch-manipulation cursor-pointer flex items-center justify-center gap-2"
               >
                 <span>Explorar Menú</span>
               </button>
@@ -139,7 +139,9 @@ export const Hero: React.FC<HeroProps> = ({ onStartBuilding, onExploreMenu }) =>
                   <img 
                     src={logoImg || './logo.jpg'} 
                     alt="Freséame - Mascota Fresa con chamarra rosa y lentes de corazón" 
-                    className="w-72 sm:w-88 md:w-96 rounded-3xl shadow-2xl hover:scale-105 transition-transform duration-300 object-contain mx-auto" 
+                    width="384"
+                    height="384"
+                    className="w-72 sm:w-88 md:w-96 aspect-square rounded-3xl shadow-2xl hover:scale-105 transition-transform duration-300 object-contain mx-auto" 
                     onError={() => setMascotError(true)}
                   />
                 </div>
@@ -156,7 +158,7 @@ export const Hero: React.FC<HeroProps> = ({ onStartBuilding, onExploreMenu }) =>
                 <button
                   id="hero-mascot-customize-btn"
                   onClick={onStartBuilding}
-                  className="w-full py-3.5 px-5 rounded-2xl bg-white hover:bg-stone-50 text-[#2B1A24] font-black text-xs sm:text-sm border border-[#2B1A24]/10 shadow-md hover:shadow-lg transition-all flex items-center justify-center gap-2 cursor-pointer group"
+                  className="w-full min-h-[44px] py-3.5 px-5 rounded-2xl bg-white hover:bg-stone-50 text-[#2B1A24] font-black text-xs sm:text-sm border border-[#2B1A24]/10 shadow-md hover:shadow-lg transition-all active:scale-95 touch-manipulation flex items-center justify-center gap-2 cursor-pointer group"
                 >
                   <Sparkles className="w-4 h-4 text-[#FF4B8B] group-hover:rotate-12 transition-transform" />
                   <span>¡Armar mi postre personalizado ahora!</span>

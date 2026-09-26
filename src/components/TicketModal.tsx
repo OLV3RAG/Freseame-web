@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   X,
   Download,
@@ -51,6 +51,17 @@ export const TicketModal: React.FC<TicketModalProps> = ({
 }) => {
   const [imgError, setImgError] = useState(false);
 
+  // Lock body scroll while modal is open to avoid background shifting on mobile
+  useEffect(() => {
+    if (isOpen) {
+      const originalOverflow = document.body.style.overflow;
+      document.body.style.overflow = 'hidden';
+      return () => {
+        document.body.style.overflow = originalOverflow;
+      };
+    }
+  }, [isOpen]);
+
   const handleLocalDownloadAgain = () => {
     // Si ya existe el Blob URL en memoria, disparar la descarga de forma sincrónica con el click
     if (pdfUrl) {
@@ -82,7 +93,7 @@ export const TicketModal: React.FC<TicketModalProps> = ({
   return (
     <div
       id="ticket-modal-backdrop"
-      className="fixed inset-0 z-50 overflow-y-auto bg-black/70 backdrop-blur-xs flex items-center justify-center p-3 sm:p-4 md:p-6 animate-in fade-in duration-200"
+      className="fixed inset-0 z-50 overflow-y-auto bg-black/40 backdrop-blur-sm flex items-center justify-center p-3 sm:p-4 md:p-6 animate-in fade-in duration-200"
       role="dialog"
       aria-modal="true"
       aria-labelledby="ticket-modal-title"
@@ -106,7 +117,7 @@ export const TicketModal: React.FC<TicketModalProps> = ({
           <button
             type="button"
             onClick={onClose}
-            className="w-8 h-8 rounded-full bg-white/20 hover:bg-white/30 text-white flex items-center justify-center transition-colors cursor-pointer"
+            className="min-h-[44px] min-w-[44px] rounded-full bg-white/20 hover:bg-white/30 text-white flex items-center justify-center transition-colors cursor-pointer active:scale-95 touch-manipulation"
             aria-label="Cerrar modal"
           >
             <X className="w-5 h-5" />
@@ -151,6 +162,8 @@ export const TicketModal: React.FC<TicketModalProps> = ({
                   <img
                     src={logoImg || './logo.jpg'}
                     alt="Freséame"
+                    width="48"
+                    height="48"
                     className="h-12 w-12 rounded-full object-cover border-2 border-pink-200 shadow-xs"
                     onError={() => setImgError(true)}
                   />
@@ -270,7 +283,7 @@ export const TicketModal: React.FC<TicketModalProps> = ({
               href={whatsAppUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="w-full py-4 px-6 rounded-2xl bg-gradient-to-r from-[#25D366] to-[#1eb855] hover:from-[#1eb855] hover:to-[#199d49] text-white font-black text-sm sm:text-base shadow-lg hover:shadow-xl transition-all flex items-center justify-center gap-2.5 text-center transform hover:-translate-y-0.5 active:translate-y-0"
+              className="w-full min-h-[48px] py-3.5 px-6 rounded-2xl bg-gradient-to-r from-[#25D366] to-[#1eb855] hover:from-[#1eb855] hover:to-[#199d49] text-white font-black text-sm sm:text-base shadow-lg hover:shadow-xl transition-all flex items-center justify-center gap-2.5 text-center transform hover:-translate-y-0.5 active:scale-95 touch-manipulation cursor-pointer"
             >
               <MessageCircle className="w-5 h-5 fill-white shrink-0" />
               <span>Enviar orden por WhatsApp</span>
@@ -283,7 +296,7 @@ export const TicketModal: React.FC<TicketModalProps> = ({
                 id="ticket-modal-pdf-btn"
                 onClick={handleLocalDownloadAgain}
                 disabled={isDownloadingPdf}
-                className="flex-1 py-3 px-4 rounded-xl bg-rose-50 hover:bg-rose-100 text-[#FF4B8B] font-bold text-xs sm:text-sm flex items-center justify-center gap-2 border border-rose-200 transition-colors cursor-pointer disabled:opacity-60"
+                className="flex-1 min-h-[44px] py-3 px-4 rounded-xl bg-rose-50 hover:bg-rose-100 text-[#FF4B8B] font-bold text-xs sm:text-sm flex items-center justify-center gap-2 border border-rose-200 transition-colors cursor-pointer disabled:opacity-60 active:scale-95 touch-manipulation"
               >
                 {isDownloadingPdf ? (
                   <>
@@ -303,7 +316,7 @@ export const TicketModal: React.FC<TicketModalProps> = ({
                   href={pdfUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="py-3 px-4 rounded-xl bg-stone-100 hover:bg-stone-200 text-stone-700 font-bold text-xs flex items-center justify-center gap-1.5 border border-stone-200 transition-colors"
+                  className="min-h-[44px] min-w-[44px] py-3 px-4 rounded-xl bg-stone-100 hover:bg-stone-200 text-stone-700 font-bold text-xs flex items-center justify-center gap-1.5 border border-stone-200 transition-colors active:scale-95 touch-manipulation"
                   title="Abrir PDF en pestaña nueva"
                 >
                   <ExternalLink className="w-4 h-4" />
@@ -315,9 +328,9 @@ export const TicketModal: React.FC<TicketModalProps> = ({
             <button
               type="button"
               onClick={onClose}
-              className="w-full py-2.5 text-center text-xs text-stone-500 hover:text-stone-800 font-semibold transition-colors cursor-pointer"
+              className="w-full min-h-[44px] py-2.5 text-center text-xs text-stone-500 hover:text-stone-800 font-semibold transition-colors cursor-pointer active:scale-95 touch-manipulation"
             >
-              Volver al personalizador
+              Cerrar Comprobante
             </button>
           </div>
 

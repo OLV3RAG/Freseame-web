@@ -135,7 +135,7 @@ export const CremasSection: React.FC<CremasSectionProps> = ({
                 <div className="mt-5 pt-3 border-t border-stone-100">
                   <button
                     onClick={() => onSelectCrema && onSelectCrema(crema)}
-                    className="w-full py-2.5 px-4 rounded-xl bg-stone-50 hover:bg-rose-50 text-[#FF4B8B] font-bold text-xs flex items-center justify-center gap-1.5 transition-all group-hover:bg-[#FF4B8B] group-hover:text-white"
+                    className="w-full min-h-[44px] py-2.5 px-4 rounded-xl bg-stone-50 hover:bg-rose-50 text-[#FF4B8B] font-bold text-xs flex items-center justify-center gap-1.5 transition-all group-hover:bg-[#FF4B8B] group-hover:text-white active:scale-95 touch-manipulation cursor-pointer"
                   >
                     <span>Elegir para mi Freséame</span>
                     <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />

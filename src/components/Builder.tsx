@@ -396,7 +396,7 @@ export const Builder: React.FC<BuilderProps> = ({ orderState, setOrderState }) =
               <button
                 key={size.id}
                 onClick={() => setOrderState((prev) => ({ ...prev, size: size.id }))}
-                className={`px-3 py-2 sm:px-4 sm:py-2.5 rounded-2xl text-xs sm:text-sm font-bold transition-all text-center ${
+                className={`min-h-[44px] px-3 py-2 sm:px-4 sm:py-2.5 rounded-2xl text-xs sm:text-sm font-bold transition-all text-center active:scale-95 touch-manipulation cursor-pointer ${
                   orderState.size === size.id
                     ? 'bg-[#FF4B8B] text-white shadow-md'
                     : 'bg-stone-100 text-[#2B1A24] hover:bg-stone-200/70'
@@ -424,7 +424,7 @@ export const Builder: React.FC<BuilderProps> = ({ orderState, setOrderState }) =
                 key={step.number}
                 id={`wizard-step-btn-${step.number}`}
                 onClick={() => setActiveStep(step.number)}
-                className={`flex-1 min-w-[130px] p-3 sm:p-4 rounded-2xl border text-left transition-all relative ${
+                className={`flex-1 min-w-[130px] min-h-[52px] p-3 sm:p-4 rounded-2xl border text-left transition-all relative active:scale-95 touch-manipulation cursor-pointer ${
                   isCurrent
                     ? 'bg-white border-[#FF4B8B] shadow-md ring-2 ring-[#FF4B8B]/20'
                     : isCompleted
@@ -1141,7 +1141,7 @@ export const Builder: React.FC<BuilderProps> = ({ orderState, setOrderState }) =
                     type="button"
                     onClick={handleOrderAndDownloadPdf}
                     disabled={isGeneratingPdf}
-                    className="w-full py-4 px-6 rounded-2xl bg-gradient-to-r from-[#25D366] to-[#20ba59] hover:from-[#20ba59] hover:to-[#1ea750] text-white font-black text-base sm:text-lg shadow-lg hover:shadow-xl transition-all flex items-center justify-center gap-3 cursor-pointer transform hover:-translate-y-0.5 text-center disabled:opacity-75"
+                    className="w-full min-h-[52px] py-4 px-6 rounded-2xl bg-gradient-to-r from-[#25D366] to-[#20ba59] hover:from-[#20ba59] hover:to-[#1ea750] text-white font-black text-base sm:text-lg shadow-lg hover:shadow-xl transition-all active:scale-95 touch-manipulation flex items-center justify-center gap-3 cursor-pointer transform hover:-translate-y-0.5 text-center disabled:opacity-75"
                   >
                     {isGeneratingPdf ? (
                       <>
@@ -1162,7 +1162,7 @@ export const Builder: React.FC<BuilderProps> = ({ orderState, setOrderState }) =
                       type="button"
                       onClick={handleDownloadOnlyPdf}
                       disabled={isGeneratingPdf}
-                      className="py-3 px-4 rounded-xl bg-rose-50 hover:bg-rose-100 text-[#FF4B8B] font-bold text-xs flex items-center justify-center gap-2 border border-rose-200 transition-colors cursor-pointer"
+                      className="min-h-[44px] py-3 px-4 rounded-xl bg-rose-50 hover:bg-rose-100 text-[#FF4B8B] font-bold text-xs flex items-center justify-center gap-2 border border-rose-200 transition-colors cursor-pointer active:scale-95 touch-manipulation"
                     >
                       <FileText className="w-4 h-4" />
                       <span>Descargar Comprobante PDF</span>
@@ -1171,7 +1171,7 @@ export const Builder: React.FC<BuilderProps> = ({ orderState, setOrderState }) =
                     <button
                       type="button"
                       onClick={handleCopySummary}
-                      className="py-3 px-4 rounded-xl bg-stone-100 hover:bg-stone-200 text-[#2B1A24] font-bold text-xs flex items-center justify-center gap-2 transition-colors cursor-pointer"
+                      className="min-h-[44px] py-3 px-4 rounded-xl bg-stone-100 hover:bg-stone-200 text-[#2B1A24] font-bold text-xs flex items-center justify-center gap-2 transition-colors cursor-pointer active:scale-95 touch-manipulation"
                     >
                       {copied ? (
                         <>
@@ -1189,7 +1189,7 @@ export const Builder: React.FC<BuilderProps> = ({ orderState, setOrderState }) =
                     <button
                       type="button"
                       onClick={() => setActiveStep(1)}
-                      className="py-3 px-4 rounded-xl text-[#2B1A24]/70 hover:bg-stone-100 font-bold text-xs flex items-center justify-center gap-1.5 transition-colors cursor-pointer"
+                      className="min-h-[44px] py-3 px-4 rounded-xl text-[#2B1A24]/70 hover:bg-stone-100 font-bold text-xs flex items-center justify-center gap-1.5 transition-colors cursor-pointer active:scale-95 touch-manipulation"
                     >
                       <RotateCcw className="w-4 h-4" />
                       <span>Modificar pasos</span>
@@ -1219,11 +1219,6 @@ export const Builder: React.FC<BuilderProps> = ({ orderState, setOrderState }) =
             />
           </div>
 
-        </div>
-
-        {/* Global Delivery Section Banner */}
-        <div className="mt-12">
-          <DeliveryComingSoon />
         </div>
       </div>
 

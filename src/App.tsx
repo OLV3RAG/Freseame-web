@@ -2,13 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { SplashScreen } from './components/SplashScreen';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
-import { CremasSection } from './components/CremasSection';
+import { CategoryBar, CategoryTab } from './components/CategoryBar';
 import { Builder } from './components/Builder';
-import { MenuSection } from './components/MenuSection';
-import { FrappesSection } from './components/FrappesSection';
-import { WhyUs } from './components/WhyUs';
-import { DeliverySection } from './components/DeliverySection';
+import { CrepasSection } from './components/CrepasSection';
+import { WafflesSection } from './components/WafflesSection';
+import { CremasSection } from './components/CremasSection';
 import { LocationSection } from './components/LocationSection';
+import { DeliverySection } from './components/DeliverySection';
 import { Footer } from './components/Footer';
 import { FloatingWhatsApp } from './components/FloatingWhatsApp';
 import { BASES, CREMAS, ADEREZOS, TOPPINGS } from './data/freseameData';
@@ -17,6 +17,9 @@ import { CustomOrderState, CremaOption } from './types';
 export default function App() {
   // Splash Screen Loader state
   const [isLoading, setIsLoading] = useState<boolean>(true);
+
+  // Active Category Tab (Default: 'fresas')
+  const [activeCategory, setActiveCategory] = useState<CategoryTab>('fresas');
 
   // Splash screen timer (2.3 seconds)
   useEffect(() => {
@@ -58,60 +61,117 @@ export default function App() {
 
   const handleSelectCremaAndScroll = (crema: CremaOption) => {
     setOrderState((prev) => ({ ...prev, crema }));
+    setActiveCategory('fresas');
     handleSmoothScroll('constructor');
   };
 
   return (
-    <div className="min-h-screen bg-[#FFF8F2] text-[#2B1A24] flex flex-col font-sans selection:bg-[#FF4B8B]/20 selection:text-[#FF4B8B]">
+    <div className="min-h-[100dvh] w-full overflow-x-hidden bg-[#FFF8F2] text-[#2B1A24] flex flex-col font-sans selection:bg-[#FF4B8B]/20 selection:text-[#FF4B8B]">
       {/* Animated Splash Screen Loader */}
       <SplashScreen isLoading={isLoading} />
 
       {/* Fixed Sticky Navigation */}
       <Navbar
         onNavigate={handleSmoothScroll}
+        onSelectCategory={(category) => {
+          setActiveCategory(category);
+          handleSmoothScroll('category-nav-bar');
+        }}
         selectedToppingsCount={orderState.toppings.length}
       />
 
       {/* Main Content Area */}
       <main className="flex-1">
-        {/* 1. Hero Section */}
+        {/* 1. Hero Banner */}
         <Hero
-          onStartBuilding={() => handleSmoothScroll('constructor')}
-          onExploreMenu={() => handleSmoothScroll('menu')}
+          onStartBuilding={() => {
+            setActiveCategory('fresas');
+            handleSmoothScroll('category-nav-bar');
+          }}
+          onExploreMenu={() => {
+            setActiveCategory('crepas');
+            handleSmoothScroll('category-nav-bar');
+          }}
         />
 
-        {/* 2. Nuestras 7 Cremas de Especialidad & Barra Libre */}
-        <CremasSection
-          onSelectCrema={handleSelectCremaAndScroll}
-          selectedCremaId={orderState.crema?.id}
+        {/* 2. Barra de Categorías Rápida (Píldoras / Chips con scroll horizontal en móvil) */}
+        <CategoryBar
+          activeTab={activeCategory}
+          onSelectTab={(tab) => {
+            setActiveCategory(tab);
+            handleSmoothScroll('category-nav-bar');
+          }}
         />
 
-        {/* 3. Interactive Dessert Simulator & Builder */}
-        <Builder
-          orderState={orderState}
-          setOrderState={setOrderState}
+        {/* 3. Contenido Condicional: Muestra ÚNICAMENTE la categoría activa con transición suave */}
+        <div
+          id="category-content-container"
+          key={activeCategory}
+          className="transition-all duration-300 ease-in-out animate-in fade-in-50 slide-in-from-bottom-2 fill-mode-both"
+        >
+          {activeCategory === 'fresas' && (
+            <Builder
+              orderState={orderState}
+              setOrderState={setOrderState}
+            />
+          )}
+
+          {activeCategory === 'crepas' && (
+            <CrepasSection
+              onCustomizeWithBase={() => {
+                setOrderState((prev) => ({
+                  ...prev,
+                  base: BASES.find((b) => b.id === 'hot-cakes-3mini') || BASES[0],
+                }));
+                setActiveCategory('fresas');
+                handleSmoothScroll('constructor');
+              }}
+            />
+          )}
+
+          {activeCategory === 'waffles' && (
+            <WafflesSection
+              onCustomizeWithBase={() => {
+                setOrderState((prev) => ({
+                  ...prev,
+                  base: BASES.find((b) => b.id === 'waffle-1pza') || BASES[0],
+                }));
+                setActiveCategory('fresas');
+                handleSmoothScroll('constructor');
+              }}
+            />
+          )}
+
+          {activeCategory === 'cremas' && (
+            <CremasSection
+              onSelectCrema={handleSelectCremaAndScroll}
+              selectedCremaId={orderState.crema?.id}
+            />
+          )}
+        </div>
+
+        {/* 4. CIERRE DIRECTO */}
+        {/* Acceso a Sucursal Patio Clavería (junto a McCarthy's) con botón a Google Maps */}
+        <LocationSection
+          onOrderPickUp={() => {
+            setActiveCategory('fresas');
+            handleSmoothScroll('constructor');
+          }}
         />
 
-        {/* 4. Categorized Full Menu */}
-        <MenuSection />
-
-        {/* 5. Specialized Frappés Bar */}
-        <FrappesSection />
-
-        {/* 6. Quality, Hygiene & Testimonials */}
-        <WhyUs />
-
-        {/* 7. Entrega a Domicilio / Delivery Apps Section (ID: #delivery) */}
-        <DeliverySection onOrderPickUp={() => handleSmoothScroll('constructor')} />
-
-        {/* 8. Ubicación y Horarios Patio Clavería */}
-        <LocationSection onOrderPickUp={() => handleSmoothScroll('constructor')} />
+        {/* Tarjetas de Próximamente en Rappi y Uber Eats */}
+        <DeliverySection
+          onOrderPickUp={() => {
+            setActiveCategory('fresas');
+            handleSmoothScroll('constructor');
+          }}
+        />
       </main>
 
-      {/* 7. Footer & Contact Info */}
+      {/* Footer & Contact Info */}
       <Footer />
 
-      {/* 8. Floating WhatsApp Support Button */}
+      {/* Floating WhatsApp Support Button */}
       <FloatingWhatsApp toppingsCount={orderState.toppings.length} />
     </div>
   );

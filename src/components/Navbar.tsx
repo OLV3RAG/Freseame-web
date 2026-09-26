@@ -5,10 +5,15 @@ import logoImg from '../logo.jpg';
 
 interface NavbarProps {
   onNavigate: (sectionId: string) => void;
+  onSelectCategory?: (category: 'fresas' | 'crepas' | 'waffles' | 'cremas') => void;
   selectedToppingsCount: number;
 }
 
-export const Navbar: React.FC<NavbarProps> = ({ onNavigate, selectedToppingsCount }) => {
+export const Navbar: React.FC<NavbarProps> = ({
+  onNavigate,
+  onSelectCategory,
+  selectedToppingsCount,
+}) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [logoError, setLogoError] = useState(false);
@@ -21,21 +26,31 @@ export const Navbar: React.FC<NavbarProps> = ({ onNavigate, selectedToppingsCoun
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const navLinks = [
-    { label: 'Cremas', href: '#cremas' },
-    { label: 'Arma tu Freséame', href: '#constructor', isHighlight: true },
-    { label: 'Menú', href: '#menu' },
-    { label: 'Frappés', href: '#frappes' },
-    { label: 'Delivery', href: '#delivery' },
-    { label: 'Ubicación', href: '#ubicacion' },
-    { label: 'Nosotros', href: '#calidad' },
-    { label: 'Contacto', href: '#contacto' },
+  const navLinks: Array<{
+    label: string;
+    href?: string;
+    category?: 'fresas' | 'crepas' | 'waffles' | 'cremas';
+    isHighlight?: boolean;
+  }> = [
+    { label: '🍓 Fresas con Crema', category: 'fresas', isHighlight: true },
+    { label: '🥞 Crepas', category: 'crepas' },
+    { label: '🧇 Waffles', category: 'waffles' },
+    { label: '🥛 Cremas', category: 'cremas' },
+    { label: '📍 Sucursal', href: '#ubicacion' },
+    { label: '🛵 Delivery', href: '#delivery' },
   ];
 
-  const handleLinkClick = (href: string) => {
+  const handleLinkClick = (link: typeof navLinks[0]) => {
     setMobileMenuOpen(false);
-    const target = href.replace('#', '');
-    onNavigate(target);
+    if (link.category) {
+      if (onSelectCategory) {
+        onSelectCategory(link.category);
+      }
+      onNavigate('category-nav-bar');
+    } else if (link.href) {
+      const target = link.href.replace('#', '');
+      onNavigate(target);
+    }
   };
 
   const NAVBAR_WA_URL =
@@ -54,7 +69,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onNavigate, selectedToppingsCoun
         {/* Brand Logo */}
         <button
           id="brand-logo-btn"
-          onClick={() => handleLinkClick('#hero')}
+          onClick={() => onNavigate('hero')}
           className="flex items-center gap-3 group text-left transition-transform active:scale-95"
         >
           {!logoError ? (
@@ -86,9 +101,9 @@ export const Navbar: React.FC<NavbarProps> = ({ onNavigate, selectedToppingsCoun
         <nav className="hidden md:flex items-center gap-1 lg:gap-2">
           {navLinks.map((link) => (
             <button
-              key={link.href}
+              key={link.label}
               id={`nav-link-${link.label.toLowerCase().replace(/\s+/g, '-')}`}
-              onClick={() => handleLinkClick(link.href)}
+              onClick={() => handleLinkClick(link)}
               className={`px-3.5 py-2 rounded-xl text-sm font-semibold transition-all duration-200 flex items-center gap-1.5 ${
                 link.isHighlight
                   ? 'bg-[#FF4B8B]/10 text-[#FF4B8B] hover:bg-[#FF4B8B]/20 border border-[#FF4B8B]/25'
@@ -149,9 +164,9 @@ export const Navbar: React.FC<NavbarProps> = ({ onNavigate, selectedToppingsCoun
           <div className="flex flex-col gap-1.5">
             {navLinks.map((link) => (
               <button
-                key={link.href}
+                key={link.label}
                 id={`mobile-nav-${link.label.toLowerCase().replace(/\s+/g, '-')}`}
-                onClick={() => handleLinkClick(link.href)}
+                onClick={() => handleLinkClick(link)}
                 className={`w-full text-left px-4 py-3 rounded-2xl text-base font-semibold transition-all flex items-center justify-between ${
                   link.isHighlight
                     ? 'bg-[#FF4B8B]/10 text-[#FF4B8B] border border-[#FF4B8B]/20'

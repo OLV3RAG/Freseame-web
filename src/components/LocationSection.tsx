@@ -154,7 +154,7 @@ export const LocationSection: React.FC<LocationSectionProps> = ({ onOrderPickUp 
                 href={STORE_LOCATION.mapsUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex-1 py-4 px-6 rounded-2xl bg-[#FF4B8B] hover:bg-[#E8437D] text-white font-black text-sm sm:text-base shadow-lg hover:shadow-xl transition-all flex items-center justify-center gap-2 text-center transform hover:-translate-y-0.5 active:translate-y-0"
+                className="flex-1 min-h-[48px] py-3.5 px-6 rounded-2xl bg-[#FF4B8B] hover:bg-[#E8437D] text-white font-black text-sm sm:text-base shadow-lg hover:shadow-xl transition-all flex items-center justify-center gap-2 text-center transform hover:-translate-y-0.5 active:scale-95 touch-manipulation cursor-pointer"
               >
                 <Navigation className="w-4 h-4 fill-white" />
                 <span>Ver ubicación en Google Maps</span>
@@ -166,7 +166,7 @@ export const LocationSection: React.FC<LocationSectionProps> = ({ onOrderPickUp 
                 id="btn-pedir-pickup-here"
                 type="button"
                 onClick={onOrderPickUp}
-                className="flex-1 py-4 px-6 rounded-2xl bg-white hover:bg-stone-50 text-[#2B1A24] font-black text-sm sm:text-base border-2 border-[#2B1A24]/15 hover:border-[#FF4B8B] shadow-sm transition-all flex items-center justify-center gap-2 text-center cursor-pointer"
+                className="flex-1 min-h-[48px] py-3.5 px-6 rounded-2xl bg-white hover:bg-stone-50 text-[#2B1A24] font-black text-sm sm:text-base border-2 border-[#2B1A24]/15 hover:border-[#FF4B8B] shadow-sm transition-all active:scale-95 touch-manipulation flex items-center justify-center gap-2 text-center cursor-pointer"
               >
                 <ShoppingBag className="w-4 h-4 text-[#FF4B8B]" />
                 <span>Pedir para Pick-Up aquí</span>
