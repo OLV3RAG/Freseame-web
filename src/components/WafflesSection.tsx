@@ -90,11 +90,11 @@ export const WafflesSection: React.FC<WafflesSectionProps> = ({ onCustomizeWithB
   };
 
   return (
-    <section id="waffles" className="py-8 sm:py-12 bg-[#FFF8F2]">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="waffles" className="py-4 sm:py-6 bg-[#FFF8F2]">
+      <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
         
         {/* Compact Header */}
-        <div className="max-w-2xl mx-auto text-center mb-8 sm:mb-10">
+        <div className="max-w-2xl mx-auto text-center mb-5 sm:mb-6">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-orange-100/80 border border-orange-300 text-orange-900 text-xs font-black uppercase tracking-wider mb-2">
             <span>🧇 Horneados al Momento</span>
           </div>

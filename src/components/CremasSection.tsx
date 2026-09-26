@@ -25,24 +25,24 @@ export const CremasSection: React.FC<CremasSectionProps> = ({
   };
 
   return (
-    <section id="cremas" className="py-16 md:py-24 bg-[#FFF8F2] relative overflow-hidden">
+    <section id="cremas" className="py-4 sm:py-6 bg-[#FFF8F2] relative overflow-hidden">
       {/* Soft background accents */}
       <div className="absolute top-0 right-0 w-96 h-96 bg-rose-200/20 rounded-full blur-3xl pointer-events-none -z-10" />
       <div className="absolute bottom-0 left-0 w-96 h-96 bg-teal-100/30 rounded-full blur-3xl pointer-events-none -z-10" />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
         
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-12">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#FF4B8B]/10 border border-[#FF4B8B]/20 text-[#FF4B8B] text-xs font-bold uppercase tracking-wider mb-3">
+        <div className="text-center max-w-2xl mx-auto mb-6">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#FF4B8B]/10 border border-[#FF4B8B]/20 text-[#FF4B8B] text-xs font-bold uppercase tracking-wider mb-2">
             <Sparkles className="w-3.5 h-3.5" />
-            <span>Nuestras Recetas de la Casa</span>
+            <span>Nuestras 7 Recetas</span>
           </div>
-          <h2 className="font-['Outfit'] font-black text-3xl sm:text-4xl md:text-5xl text-[#2B1A24] tracking-tight">
-            Nuestras Cremas de Especialidad 🥛✨
+          <h2 className="font-['Outfit'] font-black text-2xl sm:text-3xl md:text-4xl text-[#2B1A24] tracking-tight">
+            Cremas de Especialidad 🥛✨
           </h2>
-          <p className="mt-3 text-base sm:text-lg text-[#2B1A24]/75 leading-relaxed">
-            Siete cremas artesanales diseñadas para lograr el maridaje perfecto con fruta fresca y postres horneados. Batidas diariamente en pequeños lotes con ingredientes de la más alta calidad.
+          <p className="mt-1 text-xs sm:text-sm text-stone-600 font-medium">
+            Elige una crema para preseleccionarla de inmediato en tu postre.
           </p>
         </div>
 

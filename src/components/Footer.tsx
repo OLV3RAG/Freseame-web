@@ -1,179 +1,160 @@
 import React, { useState } from 'react';
-import { MessageCircle, Clock, MapPin, Phone, Instagram, Facebook, Heart, ShieldCheck, ExternalLink } from 'lucide-react';
-import { WHATSAPP_PHONE, WHATSAPP_DISPLAY, STORE_LOCATION } from '../data/freseameData';
+import { MapPin, Clock, MessageCircle, ExternalLink, Navigation, ShoppingBag, Sparkles, Heart } from 'lucide-react';
+import { WHATSAPP_DEFAULT_URL, STORE_LOCATION } from '../data/freseameData';
 import logoImg from '../logo.jpg';
 
 export const Footer: React.FC = () => {
   const [logoError, setLogoError] = useState(false);
-  const handleWhatsApp = () => {
-    window.open('https://wa.me/527731727582', '_blank');
-  };
 
   return (
-    <footer id="contacto" className="bg-[#2B1A24] text-stone-200 pt-16 pb-12 relative overflow-hidden">
-      {/* Decorative top ambient pink line */}
-      <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-[#FF4B8B] via-[#48C9B0] to-[#FF4B8B]" />
+    <footer className="bg-[#2B1A24] text-stone-300 pt-12 pb-8 px-4 sm:px-6 lg:px-8 border-t border-[#FF4B8B]/20 relative overflow-hidden">
+      {/* Background subtle glow */}
+      <div className="absolute top-0 right-1/4 w-96 h-96 bg-[#FF4B8B]/5 rounded-full blur-3xl pointer-events-none" />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-8 pb-12 border-b border-white/10">
+      <div className="max-w-7xl mx-auto">
+        {/* Main 4-Column Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-10 pb-12 border-b border-white/10">
           
-          {/* Col 1: Identity & Brand */}
+          {/* Columna 1: Marca e Identidad */}
           <div className="space-y-4">
             <div className="flex items-center gap-3">
               {!logoError ? (
                 <img
                   src={logoImg || './logo.jpg'}
                   alt="Freséame"
-                  className="w-10 h-10 rounded-full object-cover border border-white/20 shadow-md"
+                  width="44"
+                  height="44"
+                  className="w-11 h-11 rounded-full object-cover border-2 border-[#FF4B8B]/40 shadow-xs"
                   onError={() => setLogoError(true)}
                 />
               ) : (
-                <div className="w-10 h-10 rounded-2xl bg-gradient-to-tr from-[#FF4B8B] to-[#FF75A0] flex items-center justify-center text-white text-xl shadow-md">
+                <div className="w-11 h-11 rounded-full bg-pink-900/60 flex items-center justify-center text-xl">
                   🍓
                 </div>
               )}
-              <span className="font-['Outfit'] font-black text-2xl text-white tracking-tight">
-                Freséame
-              </span>
+              <div>
+                <h3 className="font-['Outfit'] font-black text-2xl text-white tracking-tight flex items-center gap-1">
+                  Freséame
+                  <span className="text-[#FF4B8B]">🍓</span>
+                </h3>
+                <span className="text-[11px] font-bold uppercase tracking-wider text-pink-300 block">
+                  El límite lo pones tú
+                </span>
+              </div>
             </div>
-            <p className="text-xs sm:text-sm text-stone-300 leading-relaxed">
-              "El límite lo pones tú" — La barra de postres personalizados con fresas frescas, waffles y hot cakes con cremas artesanales y más de 27 toppings únicos.
+
+            <p className="text-xs sm:text-sm text-stone-400 leading-relaxed">
+              El postre perfecto preparado al momento: fresas frescas seleccionadas, 7 cremas artesanales de receta secreta y barra libre con tus toppings favoritos.
             </p>
-            <div className="pt-2 flex items-center gap-3">
-              <a
-                href="https://instagram.com"
-                target="_blank"
-                rel="noreferrer"
-                aria-label="Instagram de Freséame"
-                className="w-9 h-9 rounded-xl bg-white/10 hover:bg-[#FF4B8B] text-white flex items-center justify-center transition-colors"
-              >
-                <Instagram className="w-4 h-4" />
-              </a>
-              <a
-                href="https://facebook.com"
-                target="_blank"
-                rel="noreferrer"
-                aria-label="Facebook de Freséame"
-                className="w-9 h-9 rounded-xl bg-white/10 hover:bg-[#1877F2] text-white flex items-center justify-center transition-colors"
-              >
-                <Facebook className="w-4 h-4" />
-              </a>
-              <a
-                href="https://wa.me/527731727582"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="WhatsApp de Freséame"
-                className="w-9 h-9 rounded-xl bg-white/10 hover:bg-[#25D366] text-white flex items-center justify-center transition-colors"
-              >
-                <MessageCircle className="w-4 h-4" />
-              </a>
+
+            <div className="flex items-center gap-2 text-xs text-pink-200/90 bg-white/5 px-3 py-1.5 rounded-xl border border-white/5 w-fit">
+              <Sparkles className="w-3.5 h-3.5 text-[#FF4B8B]" />
+              <span>Frescura y calidad garantizada</span>
             </div>
           </div>
 
-          {/* Col 2: Horarios de Atención */}
-          <div className="space-y-3">
-            <h4 className="font-['Outfit'] font-black text-base text-white flex items-center gap-2">
-              <Clock className="w-4 h-4 text-[#48C9B0]" />
-              <span>Horarios de Atención</span>
-            </h4>
-            <div className="p-3 rounded-2xl bg-white/5 border border-white/10 space-y-2">
-              <div className="flex items-center justify-between text-xs sm:text-sm">
-                <span className="text-stone-300 font-medium">Lunes a Domingo:</span>
-                <span className="font-black text-[#FF4B8B]">11:00 AM – 11:00 PM</span>
-              </div>
-              <div className="text-[11px] text-[#48C9B0] flex items-center gap-1.5 font-bold">
-                <span className="w-2 h-2 rounded-full bg-[#48C9B0] animate-pulse"></span>
-                <span>¡Abierto todos los días de la semana!</span>
-              </div>
-            </div>
-            <p className="text-xs text-stone-400 leading-relaxed">
-              Servicio continuo para Pick-Up express en mostrador o consumo en área de terrazas.
-            </p>
-          </div>
-
-          {/* Col 3: Ubicación y Contacto */}
-          <div className="space-y-3">
-            <h4 className="font-['Outfit'] font-black text-base text-white flex items-center gap-2">
+          {/* Columna 2: Sucursal y Horarios */}
+          <div className="space-y-3.5">
+            <h4 className="font-['Outfit'] font-black text-base text-white tracking-wide flex items-center gap-1.5">
               <MapPin className="w-4 h-4 text-[#FF4B8B]" />
-              <span>Sucursal Patio Clavería</span>
+              <span>Sucursal y Horarios</span>
             </h4>
-            <p className="text-xs sm:text-sm text-stone-300 leading-relaxed font-medium">
-              <strong>Plaza Patio Clavería:</strong> Calle Egipto 142, Col. Clavería, Azcapotzalco, CDMX.
-            </p>
-            <div className="p-2.5 rounded-xl bg-white/5 border border-white/10 text-xs text-amber-200/95 leading-snug">
-              📍 <strong>Referencia:</strong> En la zona central de la plaza, justo a un costado de <em>McCarthy's Irish Pub</em>.
+
+            <div className="space-y-2 text-xs sm:text-sm">
+              <div className="text-stone-300">
+                <span className="font-bold text-white block text-sm">Plaza Patio Clavería</span>
+                <span className="text-stone-400">En la zona central, justo junto a McCarthy's Irish Pub.</span>
+              </div>
+
+              <div className="flex items-start gap-2 pt-1 text-stone-300">
+                <Clock className="w-4 h-4 text-[#48C9B0] shrink-0 mt-0.5" />
+                <div>
+                  <span className="font-bold text-white block">Lunes a Domingo</span>
+                  <span className="text-stone-400">11:00 AM a 11:00 PM (Horario continuo)</span>
+                </div>
+              </div>
             </div>
-            <div className="pt-1">
+
+            <div className="pt-2">
               <a
                 href={STORE_LOCATION.mapsUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 text-xs text-[#48C9B0] hover:text-[#38b59d] font-bold underline underline-offset-4"
+                className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-white/10 hover:bg-[#FF4B8B] text-white text-xs font-bold transition-all border border-white/10 hover:border-transparent active:scale-95 touch-manipulation cursor-pointer"
               >
-                <span>Ver ubicación en Google Maps</span>
-                <ExternalLink className="w-3.5 h-3.5" />
+                <Navigation className="w-3.5 h-3.5 shrink-0" />
+                <span>Cómo llegar en Google Maps</span>
+                <ExternalLink className="w-3 h-3 shrink-0" />
               </a>
             </div>
-            <div className="pt-2 space-y-1.5 text-xs text-stone-300">
-              <div className="flex items-center gap-2">
-                <Phone className="w-3.5 h-3.5 text-[#FF4B8B]" />
-                <a
-                  href="tel:+527731727582"
-                  className="font-bold text-white hover:text-[#FF4B8B] transition-colors underline-offset-2 hover:underline"
-                >
-                  +52 773 172 7582
-                </a>
-              </div>
-              <div className="flex items-center gap-2">
-                <MessageCircle className="w-3.5 h-3.5 text-[#25D366]" />
-                <a
-                  href="https://wa.me/527731727582"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="font-bold text-white hover:text-[#25D366] transition-colors underline-offset-2 hover:underline"
-                >
-                  WhatsApp: +52 773 172 7582
-                </a>
-              </div>
-            </div>
           </div>
 
-          {/* Col 4: Métodos de Pago y Garantías */}
-          <div className="space-y-3">
-            <h4 className="font-['Outfit'] font-black text-base text-white flex items-center gap-2">
-              <ShieldCheck className="w-4 h-4 text-[#48C9B0]" />
-              <span>Garantías & Pagos</span>
+          {/* Columna 3: Modalidad de Entrega */}
+          <div className="space-y-3.5">
+            <h4 className="font-['Outfit'] font-black text-base text-white tracking-wide flex items-center gap-1.5">
+              <ShoppingBag className="w-4 h-4 text-[#48C9B0]" />
+              <span>Modalidad de Entrega</span>
             </h4>
-            <p className="text-xs text-stone-300 leading-relaxed">
-              Todos nuestros pedidos se preparan bajo estrictas normas de inocuidad y desinfección grado alimenticio.
-            </p>
-            <div className="pt-1">
-              <span className="text-[11px] font-bold text-stone-400 uppercase tracking-wider block mb-2">
-                Métodos de pago aceptados:
-              </span>
-              <div className="flex flex-wrap gap-2 text-xs">
-                <span className="px-2.5 py-1 rounded-lg bg-white/10 text-white font-medium">
-                  💵 Efectivo
-                </span>
-                <span className="px-2.5 py-1 rounded-lg bg-white/10 text-white font-medium">
-                  💳 Tarjetas (Visa/Mastercard)
-                </span>
-                <span className="px-2.5 py-1 rounded-lg bg-white/10 text-white font-medium">
-                  📲 Transferencia SPEI
-                </span>
+
+            <div className="space-y-2 text-xs sm:text-sm text-stone-400">
+              <div className="p-2.5 rounded-xl bg-white/5 border border-white/5">
+                <span className="font-bold text-white block mb-0.5">🛍️ Pick-Up en Mostrador</span>
+                <span>Arma tu pedido en línea, genera tu folio digital y recógelo listo sin filas.</span>
               </div>
+
+              <div className="p-2.5 rounded-xl bg-white/5 border border-white/5">
+                <div className="flex items-center justify-between mb-0.5">
+                  <span className="font-bold text-white">🛵 Delivery a Domicilio</span>
+                  <span className="text-[10px] bg-amber-400/20 text-amber-300 px-1.5 py-0.5 rounded font-bold uppercase">
+                    Próximamente
+                  </span>
+                </div>
+                <span>Disponible muy pronto con cobertura local a través de <strong>Rappi</strong> y <strong>Uber Eats</strong>.</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Columna 4: Contacto Directo */}
+          <div className="space-y-3.5">
+            <h4 className="font-['Outfit'] font-black text-base text-white tracking-wide flex items-center gap-1.5">
+              <MessageCircle className="w-4 h-4 text-[#25D366]" />
+              <span>Contacto Directo</span>
+            </h4>
+
+            <p className="text-xs sm:text-sm text-stone-400">
+              ¿Dudas, pedidos especiales para eventos o consulta de ingredientes? Escríbenos directamente:
+            </p>
+
+            <a
+              id="footer-whatsapp-btn"
+              href={WHATSAPP_DEFAULT_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-full min-h-[44px] py-3 px-4 rounded-2xl bg-gradient-to-r from-[#25D366] to-[#20ba59] hover:from-[#20ba59] hover:to-[#1ea750] text-white font-extrabold text-xs sm:text-sm flex items-center justify-center gap-2 shadow-md hover:shadow-lg transition-all active:scale-95 touch-manipulation cursor-pointer"
+            >
+              <MessageCircle className="w-4 h-4 fill-white shrink-0" />
+              <span>WhatsApp: +52 773 172 7582</span>
+            </a>
+
+            <div className="text-[11px] text-stone-500 text-center">
+              Respuesta rápida en horario de sucursal
             </div>
           </div>
 
         </div>
 
-        {/* Bottom bar */}
-        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-stone-400">
-          <p>© {new Date().getFullYear()} Freséame MX. Todos los derechos reservados. El límite lo pones tú.</p>
-          <p className="flex items-center gap-1">
-            Hecho con <Heart className="w-3.5 h-3.5 text-[#FF4B8B] fill-[#FF4B8B]" /> para todos los amantes de las fresas
-          </p>
+        {/* Franja Inferior: Derechos Reservados */}
+        <div className="pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-stone-500 text-center sm:text-left font-medium">
+          <div>
+            © 2026 Freséame. Todos los derechos reservados.
+          </div>
+          <div className="flex items-center gap-1 text-stone-400">
+            <span>Hecho con amor por el postre artesanal</span>
+            <Heart className="w-3.5 h-3.5 fill-[#FF4B8B] text-[#FF4B8B]" />
+            <span>en CDMX</span>
+          </div>
         </div>
+
       </div>
     </footer>
   );

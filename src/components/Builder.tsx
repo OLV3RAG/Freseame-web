@@ -317,25 +317,11 @@ export const Builder: React.FC<BuilderProps> = ({ orderState, setOrderState }) =
   const isReadyToOrder = orderState.base && orderState.crema && orderState.aderezo && hasMinToppings;
 
   return (
-    <section id="constructor" className="py-16 md:py-24 bg-[#FFF8F2] relative">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="constructor" className="py-4 sm:py-6 bg-[#FFF8F2] relative">
+      <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
         
-        {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-10">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#FF4B8B]/10 border border-[#FF4B8B]/20 text-[#FF4B8B] text-xs font-bold uppercase tracking-wider mb-3">
-            <Sparkles className="w-3.5 h-3.5" />
-            <span>El Constructor Artesanal</span>
-          </div>
-          <h2 className="font-['Outfit'] font-black text-3xl sm:text-4xl md:text-5xl text-[#2B1A24] tracking-tight">
-            ¡Arma tu Freséame! 🍓
-          </h2>
-          <p className="mt-3 text-base sm:text-lg text-[#2B1A24]/75">
-            Sigue los pasos a continuación: combina tu base, crema artesanal, aderezo y tus toppings favoritos en tiempo real.
-          </p>
-        </div>
-
         {/* Quick Presets Shortcut Banner */}
-        <div className="mb-10 p-5 rounded-3xl bg-white border border-[#2B1A24]/10 shadow-sm">
+        <div className="mb-6 p-4 rounded-3xl bg-white border border-[#2B1A24]/10 shadow-xs">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-3">
             <div className="flex items-center gap-2">
               <span className="text-lg">✨</span>

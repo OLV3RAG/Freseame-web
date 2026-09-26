@@ -90,11 +90,11 @@ export const CrepasSection: React.FC<CrepasSectionProps> = ({ onCustomizeWithBas
   };
 
   return (
-    <section id="crepas" className="py-8 sm:py-12 bg-[#FFF8F2]">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="crepas" className="py-4 sm:py-6 bg-[#FFF8F2]">
+      <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
         
         {/* Compact Header */}
-        <div className="max-w-2xl mx-auto text-center mb-8 sm:mb-10">
+        <div className="max-w-2xl mx-auto text-center mb-5 sm:mb-6">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-100/70 border border-amber-300 text-amber-900 text-xs font-black uppercase tracking-wider mb-2">
             <span>🥞 Recién Hechas a la Plancha</span>
           </div>

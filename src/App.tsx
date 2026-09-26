@@ -7,8 +7,7 @@ import { Builder } from './components/Builder';
 import { CrepasSection } from './components/CrepasSection';
 import { WafflesSection } from './components/WafflesSection';
 import { CremasSection } from './components/CremasSection';
-import { LocationSection } from './components/LocationSection';
-import { DeliverySection } from './components/DeliverySection';
+import { CompactInfoSection } from './components/CompactInfoSection';
 import { Footer } from './components/Footer';
 import { FloatingWhatsApp } from './components/FloatingWhatsApp';
 import { BASES, CREMAS, ADEREZOS, TOPPINGS } from './data/freseameData';
@@ -70,31 +69,19 @@ export default function App() {
       {/* Animated Splash Screen Loader */}
       <SplashScreen isLoading={isLoading} />
 
-      {/* Fixed Sticky Navigation */}
+      {/* Sticky Header with Navigation and WhatsApp */}
       <Navbar
-        onNavigate={handleSmoothScroll}
-        onSelectCategory={(category) => {
-          setActiveCategory(category);
-          handleSmoothScroll('category-nav-bar');
-        }}
-        selectedToppingsCount={orderState.toppings.length}
+        onNavigateToMenu={() => handleSmoothScroll('category-nav-bar')}
+        onNavigateToDelivery={() => handleSmoothScroll('delivery-section')}
+        onNavigateToLocation={() => handleSmoothScroll('sucursal-info')}
       />
 
       {/* Main Content Area */}
-      <main className="flex-1">
-        {/* 1. Hero Banner */}
-        <Hero
-          onStartBuilding={() => {
-            setActiveCategory('fresas');
-            handleSmoothScroll('category-nav-bar');
-          }}
-          onExploreMenu={() => {
-            setActiveCategory('crepas');
-            handleSmoothScroll('category-nav-bar');
-          }}
-        />
+      <main className="flex-1 w-full">
+        {/* 1. Compact Hero: Short title */}
+        <Hero />
 
-        {/* 2. Barra de Categorías Rápida (Píldoras / Chips con scroll horizontal en móvil) */}
+        {/* 2. Horizontal Category Pills Bar: [ 🍓 Fresas ] [ 🥞 Crepas ] [ 🧇 Waffles ] [ 🥛 Cremas ] */}
         <CategoryBar
           activeTab={activeCategory}
           onSelectTab={(tab) => {
@@ -103,11 +90,11 @@ export default function App() {
           }}
         />
 
-        {/* 3. Contenido Condicional: Muestra ÚNICAMENTE la categoría activa con transición suave */}
+        {/* 3. Conditional Category Product Card / Customizer */}
         <div
           id="category-content-container"
           key={activeCategory}
-          className="transition-all duration-300 ease-in-out animate-in fade-in-50 slide-in-from-bottom-2 fill-mode-both"
+          className="transition-all duration-300 ease-in-out animate-in fade-in-50 slide-in-from-bottom-2 fill-mode-both w-full"
         >
           {activeCategory === 'fresas' && (
             <Builder
@@ -150,25 +137,11 @@ export default function App() {
           )}
         </div>
 
-        {/* 4. CIERRE DIRECTO */}
-        {/* Acceso a Sucursal Patio Clavería (junto a McCarthy's) con botón a Google Maps */}
-        <LocationSection
-          onOrderPickUp={() => {
-            setActiveCategory('fresas');
-            handleSmoothScroll('constructor');
-          }}
-        />
-
-        {/* Tarjetas de Próximamente en Rappi y Uber Eats */}
-        <DeliverySection
-          onOrderPickUp={() => {
-            setActiveCategory('fresas');
-            handleSmoothScroll('constructor');
-          }}
-        />
+        {/* 4. Compact Info Card: Mini Ficha Patio Clavería + Próximamente en Delivery */}
+        <CompactInfoSection />
       </main>
 
-      {/* Footer & Contact Info */}
+      {/* 5. Minimalist Single-Line Footer */}
       <Footer />
 
       {/* Floating WhatsApp Support Button */}
