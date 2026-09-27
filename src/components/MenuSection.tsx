@@ -57,7 +57,7 @@ export const MenuSection: React.FC<MenuSectionProps> = ({ onCustomizeItem }) => 
                 key={cat.id}
                 id={`menu-filter-${cat.id}`}
                 onClick={() => setActiveCategory(cat.id as any)}
-                className={`px-5 py-3 rounded-2xl font-bold text-xs sm:text-sm transition-all flex items-center gap-2 cursor-pointer ${
+                className={`px-3 py-2 sm:px-5 sm:py-3 rounded-2xl font-bold text-xs sm:text-sm transition-all flex items-center gap-1.5 sm:gap-2 cursor-pointer touch-manipulation active:scale-95 ${
                   isActive
                     ? 'bg-[#FF4B8B] text-white shadow-md shadow-[#FF4B8B]/20 scale-105'
                     : 'bg-white hover:bg-stone-100 text-[#2B1A24] border border-[#2B1A24]/10 shadow-xs'

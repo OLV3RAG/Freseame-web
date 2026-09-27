@@ -39,7 +39,7 @@ export interface ToppingOption {
   emoji: string;
 }
 
-export type CupSize = 'chico' | 'mediano' | 'grande';
+export type CupSize = 'mediano' | 'grande';
 
 export interface SizeConfig {
   id: CupSize;

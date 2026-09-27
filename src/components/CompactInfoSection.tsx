@@ -92,7 +92,10 @@ export const CompactInfoSection: React.FC = () => {
                 {!rappiError ? (
                   <img
                     src="./rappi-logo.png"
-                    alt="Rappi"
+                    alt="Rappi Delivery Logo"
+                    width="160"
+                    height="64"
+                    loading="lazy"
                     className="h-12 sm:h-14 md:h-16 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
                     onError={() => setRappiError(true)}
                   />
@@ -117,7 +120,10 @@ export const CompactInfoSection: React.FC = () => {
                 {!uberError ? (
                   <img
                     src="./ubereats-logo.png"
-                    alt="Uber Eats"
+                    alt="Uber Eats Delivery Logo"
+                    width="160"
+                    height="64"
+                    loading="lazy"
                     className="h-12 sm:h-14 md:h-16 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
                     onError={() => setUberError(true)}
                   />

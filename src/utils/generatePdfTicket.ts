@@ -317,6 +317,13 @@ export const generatePdfTicket = async (data: TicketData): Promise<GeneratedTick
       }
     }
 
+    // 4. Liberar memoria del Blob URL tras unos segundos (30s) para evitar sobrecarga en móviles
+    setTimeout(() => {
+      try {
+        URL.revokeObjectURL(blobUrl);
+      } catch (_) {}
+    }, 30000);
+
     return { blob, url: blobUrl, fileName };
   } catch (error) {
     console.error('Error generating Comprobante de Pedido PDF:', error);

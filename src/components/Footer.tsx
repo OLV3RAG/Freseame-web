@@ -21,9 +21,10 @@ export const Footer: React.FC = () => {
               {!logoError ? (
                 <img
                   src={logoImg || './logo.jpg'}
-                  alt="Freséame"
+                  alt="Freséame - Fresas con Crema Artesanales"
                   width="44"
                   height="44"
+                  loading="lazy"
                   className="w-11 h-11 rounded-full object-cover border-2 border-[#FF4B8B]/40 shadow-xs"
                   onError={() => setLogoError(true)}
                 />
@@ -146,7 +147,7 @@ export const Footer: React.FC = () => {
         {/* Franja Inferior: Derechos Reservados */}
         <div className="pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-stone-500 text-center sm:text-left font-medium">
           <div>
-            © 2026 Freséame. Todos los derechos reservados.
+            © 2026 NovaArc Tech. Todos los derechos reservados.
           </div>
           <div className="flex items-center gap-1 text-stone-400">
             <span>Hecho con amor por el postre artesanal</span>

@@ -17,6 +17,7 @@ import logoImg from '../logo.jpg';
 interface TicketModalProps {
   isOpen: boolean;
   onClose: () => void;
+  onResetOrder?: () => void;
   folio: string;
   sizeName: string;
   sizeLabel: string;
@@ -35,6 +36,7 @@ interface TicketModalProps {
 export const TicketModal: React.FC<TicketModalProps> = ({
   isOpen,
   onClose,
+  onResetOrder,
   folio,
   sizeName,
   sizeLabel,
@@ -51,16 +53,26 @@ export const TicketModal: React.FC<TicketModalProps> = ({
 }) => {
   const [imgError, setImgError] = useState(false);
 
-  // Lock body scroll while modal is open to avoid background shifting on mobile
+  // Lock body scroll while modal is open & handle Escape key
   useEffect(() => {
     if (isOpen) {
       const originalOverflow = document.body.style.overflow;
       document.body.style.overflow = 'hidden';
+
+      const handleKeyDown = (e: KeyboardEvent) => {
+        if (e.key === 'Escape') {
+          onClose();
+        }
+      };
+
+      window.addEventListener('keydown', handleKeyDown);
+
       return () => {
         document.body.style.overflow = originalOverflow;
+        window.removeEventListener('keydown', handleKeyDown);
       };
     }
-  }, [isOpen]);
+  }, [isOpen, onClose]);
 
   const handleLocalDownloadAgain = () => {
     // Si ya existe el Blob URL en memoria, disparar la descarga de forma sincrónica con el click
@@ -93,6 +105,11 @@ export const TicketModal: React.FC<TicketModalProps> = ({
   return (
     <div
       id="ticket-modal-backdrop"
+      onClick={(e) => {
+        if (e.target === e.currentTarget) {
+          onClose();
+        }
+      }}
       className="fixed inset-0 z-50 overflow-y-auto bg-black/40 backdrop-blur-sm flex items-center justify-center p-3 sm:p-4 md:p-6 animate-in fade-in duration-200"
       role="dialog"
       aria-modal="true"
@@ -325,13 +342,28 @@ export const TicketModal: React.FC<TicketModalProps> = ({
               )}
             </div>
 
-            <button
-              type="button"
-              onClick={onClose}
-              className="w-full min-h-[44px] py-2.5 text-center text-xs text-stone-500 hover:text-stone-800 font-semibold transition-colors cursor-pointer active:scale-95 touch-manipulation"
-            >
-              Cerrar Comprobante
-            </button>
+            <div className="flex flex-col sm:flex-row gap-2 pt-1">
+              {onResetOrder && (
+                <button
+                  type="button"
+                  id="ticket-modal-reset-btn"
+                  onClick={() => {
+                    onResetOrder();
+                    onClose();
+                  }}
+                  className="flex-1 min-h-[44px] py-2.5 px-4 rounded-xl bg-pink-50 hover:bg-pink-100 text-[#FF4B8B] font-bold text-xs flex items-center justify-center gap-1.5 transition-colors cursor-pointer active:scale-95 touch-manipulation border border-pink-200"
+                >
+                  <span>🍓 Armar otro pedido</span>
+                </button>
+              )}
+              <button
+                type="button"
+                onClick={onClose}
+                className="flex-1 min-h-[44px] py-2.5 text-center text-xs text-stone-500 hover:text-stone-800 font-semibold transition-colors cursor-pointer active:scale-95 touch-manipulation hover:bg-stone-100 rounded-xl"
+              >
+                Cerrar Comprobante
+              </button>
+            </div>
           </div>
 
         </div>

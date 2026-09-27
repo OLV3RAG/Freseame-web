@@ -87,9 +87,10 @@ export const DeliverySection: React.FC<DeliverySectionProps> = ({ onOrderPickUp 
               {!rappiImgError ? (
                 <img
                   src="./rappi-logo.png"
-                  alt="Rappi Logo"
+                  alt="Rappi Delivery Logo"
                   width="160"
                   height="64"
+                  loading="lazy"
                   className="h-14 sm:h-16 w-auto max-w-[190px] object-contain transition-transform duration-300 group-hover:scale-105"
                   onError={() => setRappiImgError(true)}
                 />
@@ -155,9 +156,10 @@ export const DeliverySection: React.FC<DeliverySectionProps> = ({ onOrderPickUp 
               {!uberImgError ? (
                 <img
                   src="./ubereats-logo.png"
-                  alt="Uber Eats Logo"
+                  alt="Uber Eats Delivery Logo"
                   width="160"
                   height="64"
+                  loading="lazy"
                   className="h-14 sm:h-16 w-auto max-w-[190px] object-contain transition-transform duration-300 group-hover:scale-105"
                   onError={() => setUberImgError(true)}
                 />

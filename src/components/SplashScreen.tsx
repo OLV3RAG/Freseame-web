@@ -63,7 +63,9 @@ export const SplashScreen: React.FC<SplashScreenProps> = ({ isLoading }) => {
           {!logoError ? (
             <img
               src={logoImg || './logo.jpg'}
-              alt="Freséame"
+              alt="Freséame - Fresas con Crema Artesanales"
+              width="176"
+              height="176"
               className="w-full h-full object-cover"
               onError={() => setLogoError(true)}
             />

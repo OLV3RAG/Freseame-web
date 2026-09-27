@@ -54,7 +54,10 @@ export const DeliveryComingSoon: React.FC<DeliveryComingSoonProps> = ({
           >
             <img
               src="./rappi-logo.png"
-              alt="Rappi"
+              alt="Rappi Delivery Oficial"
+              width="80"
+              height="32"
+              loading="lazy"
               className="h-8 w-auto max-w-[80px] object-contain"
               onError={(e) => {
                 // fallback
@@ -83,9 +86,13 @@ export const DeliveryComingSoon: React.FC<DeliveryComingSoonProps> = ({
           >
             <img
               src="./ubereats-logo.png"
-              alt="Uber Eats"
+              alt="Uber Eats Delivery Oficial"
+              width="85"
+              height="32"
+              loading="lazy"
               className="h-8 w-auto max-w-[85px] object-contain"
               onError={(e) => {
+                // fallback
                 e.currentTarget.style.display = 'none';
               }}
             />

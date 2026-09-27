@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import {
   Check,
   ChevronRight,
@@ -77,7 +77,7 @@ export const Builder: React.FC<BuilderProps> = ({ orderState, setOrderState }) =
   ];
 
   const currentSizeConfig = useMemo(() => {
-    return SIZES.find((s) => s.id === orderState.size) || SIZES[1];
+    return SIZES.find((s) => s.id === orderState.size) || SIZES[0];
   }, [orderState.size]);
 
   // Dynamic price calculation
@@ -107,22 +107,28 @@ export const Builder: React.FC<BuilderProps> = ({ orderState, setOrderState }) =
     return total;
   }, [orderState.base, orderState.crema, currentSizeConfig, orderState.toppings]);
 
+  // Validation state & friendly error messages
+  const [validationAlert, setValidationAlert] = useState<string | null>(null);
+
   // Handler for Base selection
   const handleSelectBase = (base: BaseOption) => {
     setOrderState((prev) => ({ ...prev, base }));
     setSelectedPresetId(null);
+    setValidationAlert(null);
   };
 
   // Handler for Crema selection
   const handleSelectCrema = (crema: CremaOption) => {
     setOrderState((prev) => ({ ...prev, crema }));
     setSelectedPresetId(null);
+    setValidationAlert(null);
   };
 
   // Handler for Aderezo selection
   const handleSelectAderezo = (aderezo: AderezoOption) => {
     setOrderState((prev) => ({ ...prev, aderezo }));
     setSelectedPresetId(null);
+    setValidationAlert(null);
   };
 
   // Handler for Topping toggle
@@ -142,6 +148,7 @@ export const Builder: React.FC<BuilderProps> = ({ orderState, setOrderState }) =
       }
     });
     setSelectedPresetId(null);
+    setValidationAlert(null);
   };
 
   const handleRemoveTopping = (toppingId: string) => {
@@ -162,6 +169,7 @@ export const Builder: React.FC<BuilderProps> = ({ orderState, setOrderState }) =
     });
     setSelectedPresetId(null);
     generateNewFolio();
+    setValidationAlert(null);
     setActiveStep(1);
   };
 
@@ -184,6 +192,7 @@ export const Builder: React.FC<BuilderProps> = ({ orderState, setOrderState }) =
       notes: `Combo Sugerido: ${preset.title}`,
     });
     setSelectedPresetId(presetId);
+    setValidationAlert(null);
   };
 
   // Filter toppings
@@ -238,7 +247,107 @@ export const Builder: React.FC<BuilderProps> = ({ orderState, setOrderState }) =
     calculatedTotal,
   ]);
 
+  // Validation checks & missing steps list
+  const missingSteps = useMemo(() => {
+    const list: { step: number; label: string; action: () => void }[] = [];
+    if (!orderState.size) {
+      list.push({
+        step: 0,
+        label: 'Tamaño de Vaso',
+        action: () => {
+          const el = document.getElementById('step-0-size-bar');
+          if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        },
+      });
+    }
+    if (!orderState.base) {
+      list.push({
+        step: 1,
+        label: 'Base (Fresas, Waffles...)',
+        action: () => setActiveStep(1),
+      });
+    }
+    if (!orderState.crema) {
+      list.push({
+        step: 2,
+        label: 'Crema Artesanal',
+        action: () => setActiveStep(2),
+      });
+    }
+    if (!orderState.aderezo) {
+      list.push({
+        step: 3,
+        label: 'Aderezo o Salsa',
+        action: () => setActiveStep(3),
+      });
+    }
+    if (orderState.toppings.length < 2) {
+      list.push({
+        step: 4,
+        label: `Mínimo 2 Toppings (llevas ${orderState.toppings.length})`,
+        action: () => setActiveStep(4),
+      });
+    }
+    return list;
+  }, [orderState.size, orderState.base, orderState.crema, orderState.aderezo, orderState.toppings.length]);
+
+  const hasMinToppings = orderState.toppings.length >= 2;
+  const isReadyToOrder = missingSteps.length === 0;
+
+  // Revoke object URL on unmount or when replaced to free mobile memory
+  useEffect(() => {
+    return () => {
+      if (lastGeneratedPdfUrl) {
+        try {
+          URL.revokeObjectURL(lastGeneratedPdfUrl);
+        } catch (_) {}
+      }
+    };
+  }, [lastGeneratedPdfUrl]);
+
+  // Step navigation guards with visual alerts
+  const handleNextFromBase = () => {
+    if (!orderState.base) {
+      setValidationAlert('Por favor selecciona una base (fresas frescas, waffles, etc.) para avanzar.');
+      return;
+    }
+    setValidationAlert(null);
+    setActiveStep(2);
+  };
+
+  const handleNextFromCrema = () => {
+    if (!orderState.crema) {
+      setValidationAlert('Por favor selecciona una crema artesanal de la casa para continuar.');
+      return;
+    }
+    setValidationAlert(null);
+    setActiveStep(3);
+  };
+
+  const handleNextFromAderezo = () => {
+    if (!orderState.aderezo) {
+      setValidationAlert('Por favor selecciona un aderezo o jarabe para continuar.');
+      return;
+    }
+    setValidationAlert(null);
+    setActiveStep(4);
+  };
+
+  const handleNextFromToppings = () => {
+    if (orderState.toppings.length < 2) {
+      setValidationAlert(`Por favor selecciona al menos 2 toppings para tu postre (actualmente tienes ${orderState.toppings.length}).`);
+      return;
+    }
+    setValidationAlert(null);
+    setActiveStep(5);
+  };
+
   const handleDownloadOnlyPdf = async () => {
+    if (!isReadyToOrder) {
+      setValidationAlert('Completa los pasos requeridos para poder generar el comprobante PDF.');
+      return;
+    }
+    setValidationAlert(null);
     try {
       setIsGeneratingPdf(true);
       const res = await generatePdfTicket({
@@ -254,6 +363,11 @@ export const Builder: React.FC<BuilderProps> = ({ orderState, setOrderState }) =
         total: calculatedTotal,
       });
       if (res && res.url) {
+        if (lastGeneratedPdfUrl) {
+          try {
+            URL.revokeObjectURL(lastGeneratedPdfUrl);
+          } catch (_) {}
+        }
         setLastGeneratedPdfUrl(res.url);
       }
       setPdfToast(true);
@@ -266,6 +380,11 @@ export const Builder: React.FC<BuilderProps> = ({ orderState, setOrderState }) =
   };
 
   const handleOrderAndDownloadPdf = async () => {
+    if (!isReadyToOrder) {
+      setValidationAlert('Completa las selecciones obligatorias marcadas abajo para generar tu orden.');
+      return;
+    }
+    setValidationAlert(null);
     // 1. Abrir Modal de Comprobante en Pantalla de inmediato (evento de usuario directo)
     setShowModalTicket(true);
 
@@ -285,6 +404,11 @@ export const Builder: React.FC<BuilderProps> = ({ orderState, setOrderState }) =
         total: calculatedTotal,
       });
       if (res && res.url) {
+        if (lastGeneratedPdfUrl) {
+          try {
+            URL.revokeObjectURL(lastGeneratedPdfUrl);
+          } catch (_) {}
+        }
         setLastGeneratedPdfUrl(res.url);
       }
       setPdfToast(true);
@@ -294,10 +418,6 @@ export const Builder: React.FC<BuilderProps> = ({ orderState, setOrderState }) =
     } finally {
       setIsGeneratingPdf(false);
     }
-  };
-
-  const handleOrderWhatsApp = () => {
-    handleOrderAndDownloadPdf();
   };
 
   const handleCopySummary = async () => {
@@ -311,10 +431,6 @@ export const Builder: React.FC<BuilderProps> = ({ orderState, setOrderState }) =
       setTimeout(() => setCopied(false), 2500);
     }
   };
-
-  // Validation checks
-  const hasMinToppings = orderState.toppings.length >= 2;
-  const isReadyToOrder = orderState.base && orderState.crema && orderState.aderezo && hasMinToppings;
 
   return (
     <section id="constructor" className="py-4 sm:py-6 bg-[#FFF8F2] relative">
@@ -364,10 +480,10 @@ export const Builder: React.FC<BuilderProps> = ({ orderState, setOrderState }) =
           </div>
         </div>
 
-        {/* Size Selection Bar */}
-        <div className="mb-8 p-4 rounded-3xl bg-white border border-[#2B1A24]/10 shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-4">
-          <div className="flex items-center gap-2">
-            <span className="text-base">🍧</span>
+        {/* Size Selection Bar: 2 Columnas Equilibradas (Mediano y Grande) */}
+        <div className="mb-8 p-4 sm:p-5 rounded-3xl bg-white border border-[#2B1A24]/10 shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <div className="flex items-center gap-2.5">
+            <span className="text-xl">🍧</span>
             <div>
               <span className="text-xs font-bold uppercase tracking-wider text-[#2B1A24]/70 block">
                 Paso 0: Tamaño del Vaso
@@ -377,19 +493,20 @@ export const Builder: React.FC<BuilderProps> = ({ orderState, setOrderState }) =
               </span>
             </div>
           </div>
-          <div className="grid grid-cols-3 gap-2 sm:gap-3">
+          <div className="grid grid-cols-2 gap-3 sm:gap-4 w-full md:w-auto md:min-w-[340px]">
             {SIZES.map((size) => (
               <button
                 key={size.id}
+                id={`size-btn-${size.id}`}
                 onClick={() => setOrderState((prev) => ({ ...prev, size: size.id }))}
-                className={`min-h-[44px] px-3 py-2 sm:px-4 sm:py-2.5 rounded-2xl text-xs sm:text-sm font-bold transition-all text-center active:scale-95 touch-manipulation cursor-pointer ${
+                className={`min-h-[48px] px-4 py-2.5 sm:px-5 sm:py-3 rounded-2xl text-xs sm:text-sm font-bold transition-all text-center active:scale-95 touch-manipulation cursor-pointer flex flex-col items-center justify-center ${
                   orderState.size === size.id
-                    ? 'bg-[#FF4B8B] text-white shadow-md'
-                    : 'bg-stone-100 text-[#2B1A24] hover:bg-stone-200/70'
+                    ? 'bg-[#FF4B8B] text-white shadow-md ring-2 ring-[#FF4B8B]/30'
+                    : 'bg-stone-100 text-[#2B1A24] hover:bg-stone-200/70 border border-stone-200/60'
                 }`}
               >
-                <div className="font-extrabold">{size.name}</div>
-                <div className="text-[10px] opacity-80">{size.oz.split(' ')[0]} oz</div>
+                <div className="font-extrabold text-sm sm:text-base">{size.name}</div>
+                <div className="text-[11px] opacity-85">{size.label}</div>
               </button>
             ))}
           </div>
@@ -450,6 +567,26 @@ export const Builder: React.FC<BuilderProps> = ({ orderState, setOrderState }) =
           {/* Left Column: Active Step Interactive Panel */}
           <div className="lg:col-span-7 space-y-6">
             
+            {/* Friendly Validation Alert Banner */}
+            {validationAlert && (
+              <div
+                id="builder-validation-alert"
+                className="p-4 rounded-2xl bg-rose-50 border-2 border-rose-300 text-rose-900 shadow-sm flex items-center justify-between gap-3 animate-in fade-in slide-in-from-top-2 duration-200"
+              >
+                <div className="flex items-center gap-2.5">
+                  <AlertCircle className="w-5 h-5 text-rose-600 shrink-0" />
+                  <span className="text-xs sm:text-sm font-bold">{validationAlert}</span>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => setValidationAlert(null)}
+                  className="text-xs text-rose-700 hover:text-rose-950 font-black px-2.5 py-1 rounded-lg hover:bg-rose-100 transition-colors cursor-pointer shrink-0"
+                >
+                  ✕ Cerrar
+                </button>
+              </div>
+            )}
+
             {/* STEP 1: BASE */}
             {activeStep === 1 && (
               <div id="step-1-base-panel" className="bg-white rounded-3xl p-6 sm:p-8 shadow-sm border border-[#2B1A24]/10 animate-in fade-in duration-200">
@@ -518,8 +655,8 @@ export const Builder: React.FC<BuilderProps> = ({ orderState, setOrderState }) =
                 {/* Step Bottom Controls */}
                 <div className="mt-8 pt-4 border-t border-stone-100 flex justify-end">
                   <button
-                    onClick={() => setActiveStep(2)}
-                    className="px-6 py-3 rounded-2xl bg-[#FF4B8B] hover:bg-[#E8437D] text-white font-bold text-sm shadow-md flex items-center gap-2 transition-all"
+                    onClick={handleNextFromBase}
+                    className="px-6 py-3 rounded-2xl bg-[#FF4B8B] hover:bg-[#E8437D] text-white font-bold text-sm shadow-md flex items-center gap-2 transition-all cursor-pointer active:scale-95 touch-manipulation"
                   >
                     <span>Siguiente: Elige tu Crema</span>
                     <ChevronRight className="w-4 h-4" />
@@ -600,14 +737,14 @@ export const Builder: React.FC<BuilderProps> = ({ orderState, setOrderState }) =
                 <div className="mt-8 pt-4 border-t border-stone-100 flex items-center justify-between">
                   <button
                     onClick={() => setActiveStep(1)}
-                    className="px-5 py-3 rounded-2xl text-[#2B1A24]/70 hover:bg-stone-100 font-bold text-sm flex items-center gap-2 transition-all"
+                    className="px-5 py-3 rounded-2xl text-[#2B1A24]/70 hover:bg-stone-100 font-bold text-sm flex items-center gap-2 transition-all cursor-pointer active:scale-95 touch-manipulation"
                   >
                     <ChevronLeft className="w-4 h-4" />
                     <span>Volver a Base</span>
                   </button>
                   <button
-                    onClick={() => setActiveStep(3)}
-                    className="px-6 py-3 rounded-2xl bg-[#FF4B8B] hover:bg-[#E8437D] text-white font-bold text-sm shadow-md flex items-center gap-2 transition-all"
+                    onClick={handleNextFromCrema}
+                    className="px-6 py-3 rounded-2xl bg-[#FF4B8B] hover:bg-[#E8437D] text-white font-bold text-sm shadow-md flex items-center gap-2 transition-all cursor-pointer active:scale-95 touch-manipulation"
                   >
                     <span>Siguiente: Elige tu Aderezo</span>
                     <ChevronRight className="w-4 h-4" />
@@ -686,14 +823,14 @@ export const Builder: React.FC<BuilderProps> = ({ orderState, setOrderState }) =
                 <div className="mt-8 pt-4 border-t border-stone-100 flex items-center justify-between">
                   <button
                     onClick={() => setActiveStep(2)}
-                    className="px-5 py-3 rounded-2xl text-[#2B1A24]/70 hover:bg-stone-100 font-bold text-sm flex items-center gap-2 transition-all"
+                    className="px-5 py-3 rounded-2xl text-[#2B1A24]/70 hover:bg-stone-100 font-bold text-sm flex items-center gap-2 transition-all cursor-pointer active:scale-95 touch-manipulation"
                   >
                     <ChevronLeft className="w-4 h-4" />
                     <span>Volver a Crema</span>
                   </button>
                   <button
-                    onClick={() => setActiveStep(4)}
-                    className="px-6 py-3 rounded-2xl bg-[#FF4B8B] hover:bg-[#E8437D] text-white font-bold text-sm shadow-md flex items-center gap-2 transition-all"
+                    onClick={handleNextFromAderezo}
+                    className="px-6 py-3 rounded-2xl bg-[#FF4B8B] hover:bg-[#E8437D] text-white font-bold text-sm shadow-md flex items-center gap-2 transition-all cursor-pointer active:scale-95 touch-manipulation"
                   >
                     <span>Siguiente: Elige Toppings</span>
                     <ChevronRight className="w-4 h-4" />
@@ -843,14 +980,14 @@ export const Builder: React.FC<BuilderProps> = ({ orderState, setOrderState }) =
                 <div className="mt-8 pt-4 border-t border-stone-100 flex items-center justify-between">
                   <button
                     onClick={() => setActiveStep(3)}
-                    className="px-5 py-3 rounded-2xl text-[#2B1A24]/70 hover:bg-stone-100 font-bold text-sm flex items-center gap-2 transition-all"
+                    className="px-5 py-3 rounded-2xl text-[#2B1A24]/70 hover:bg-stone-100 font-bold text-sm flex items-center gap-2 transition-all cursor-pointer active:scale-95 touch-manipulation"
                   >
                     <ChevronLeft className="w-4 h-4" />
                     <span>Volver a Aderezo</span>
                   </button>
                   <button
-                    onClick={() => setActiveStep(5)}
-                    className="px-6 py-3 rounded-2xl bg-[#FF4B8B] hover:bg-[#E8437D] text-white font-bold text-sm shadow-md flex items-center gap-2 transition-all"
+                    onClick={handleNextFromToppings}
+                    className="px-6 py-3 rounded-2xl bg-[#FF4B8B] hover:bg-[#E8437D] text-white font-bold text-sm shadow-md flex items-center gap-2 transition-all cursor-pointer active:scale-95 touch-manipulation"
                   >
                     <span>Ver Resumen & Pedir</span>
                     <ChevronRight className="w-4 h-4" />
@@ -933,6 +1070,9 @@ export const Builder: React.FC<BuilderProps> = ({ orderState, setOrderState }) =
                         <img
                           src={logoImg || './logo.jpg'}
                           alt="Freséame"
+                          width="40"
+                          height="40"
+                          loading="lazy"
                           className="h-10 w-10 rounded-full object-cover border border-pink-200 shadow-2xs"
                           onError={() => setTicketLogoError(true)}
                         />
@@ -1113,10 +1253,29 @@ export const Builder: React.FC<BuilderProps> = ({ orderState, setOrderState }) =
                   </div>
                 )}
 
-                {!hasMinToppings && (
-                  <div className="p-3 rounded-2xl bg-amber-50 border border-amber-200 flex items-center gap-2 text-xs text-amber-800">
-                    <AlertCircle className="w-4 h-4 text-amber-600 shrink-0" />
-                    <span>Te sugerimos elegir al menos 2 toppings en el Paso 4 para la mejor experiencia.</span>
+                {/* Alerta de Pasos Faltantes (Prevención de Errores) */}
+                {!isReadyToOrder && (
+                  <div className="p-4 sm:p-5 rounded-2xl bg-amber-50 border-2 border-amber-300 text-amber-950 shadow-xs space-y-2.5">
+                    <div className="flex items-center gap-2 font-black text-sm text-amber-900">
+                      <AlertCircle className="w-5 h-5 text-amber-600 shrink-0" />
+                      <span>Faltan pasos obligatorios para completar tu pedido:</span>
+                    </div>
+                    <p className="text-xs text-amber-800">
+                      Selecciona las opciones pendientes a continuación para habilitar tu comprobante y confirmación:
+                    </p>
+                    <div className="flex flex-wrap gap-2 pt-1">
+                      {missingSteps.map((m) => (
+                        <button
+                          key={m.step}
+                          type="button"
+                          onClick={m.action}
+                          className="px-3 py-1.5 rounded-xl bg-white hover:bg-amber-100 text-amber-900 border border-amber-300 font-bold text-xs flex items-center gap-1.5 transition-all shadow-2xs hover:shadow-xs cursor-pointer active:scale-95"
+                        >
+                          <span>Paso {m.step}: {m.label}</span>
+                          <ChevronRight className="w-3.5 h-3.5" />
+                        </button>
+                      ))}
+                    </div>
                   </div>
                 )}
 
@@ -1126,8 +1285,12 @@ export const Builder: React.FC<BuilderProps> = ({ orderState, setOrderState }) =
                     id="confirmar-y-generar-pedido-btn"
                     type="button"
                     onClick={handleOrderAndDownloadPdf}
-                    disabled={isGeneratingPdf}
-                    className="w-full min-h-[52px] py-4 px-6 rounded-2xl bg-gradient-to-r from-[#25D366] to-[#20ba59] hover:from-[#20ba59] hover:to-[#1ea750] text-white font-black text-base sm:text-lg shadow-lg hover:shadow-xl transition-all active:scale-95 touch-manipulation flex items-center justify-center gap-3 cursor-pointer transform hover:-translate-y-0.5 text-center disabled:opacity-75"
+                    disabled={isGeneratingPdf || !isReadyToOrder}
+                    className={`w-full min-h-[52px] py-4 px-6 rounded-2xl font-black text-base sm:text-lg shadow-lg transition-all active:scale-95 touch-manipulation flex items-center justify-center gap-3 text-center ${
+                      !isReadyToOrder
+                        ? 'bg-stone-200 text-stone-400 cursor-not-allowed shadow-none border border-stone-300/50'
+                        : 'bg-gradient-to-r from-[#25D366] to-[#20ba59] hover:from-[#20ba59] hover:to-[#1ea750] text-white shadow-md hover:shadow-xl cursor-pointer transform hover:-translate-y-0.5'
+                    }`}
                   >
                     {isGeneratingPdf ? (
                       <>
@@ -1136,9 +1299,9 @@ export const Builder: React.FC<BuilderProps> = ({ orderState, setOrderState }) =
                       </>
                     ) : (
                       <>
-                        <Download className="w-5 h-5 text-white" />
+                        <Download className="w-5 h-5 text-current" />
                         <span>Confirmar y Ver Comprobante en Pantalla</span>
-                        <MessageCircle className="w-5 h-5 fill-white shrink-0" />
+                        <MessageCircle className="w-5 h-5 fill-current shrink-0" />
                       </>
                     )}
                   </button>
@@ -1212,6 +1375,7 @@ export const Builder: React.FC<BuilderProps> = ({ orderState, setOrderState }) =
       <TicketModal
         isOpen={showModalTicket}
         onClose={() => setShowModalTicket(false)}
+        onResetOrder={handleReset}
         folio={orderFolio}
         sizeName={currentSizeConfig.name}
         sizeLabel={currentSizeConfig.label}

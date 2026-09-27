@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   MapPin,
   MessageCircle,
@@ -24,6 +24,15 @@ export const Navbar: React.FC<NavbarProps> = ({
 }) => {
   const [logoError, setLogoError] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleWindowScroll = () => {
+      setIsScrolled(window.scrollY > 12);
+    };
+    window.addEventListener('scroll', handleWindowScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleWindowScroll);
+  }, []);
 
   const handleScroll = (id: string, customHandler?: () => void) => {
     setMobileMenuOpen(false);
@@ -40,7 +49,11 @@ export const Navbar: React.FC<NavbarProps> = ({
   return (
     <header
       id="main-navbar"
-      className="sticky top-0 z-50 bg-[#FFF8F2]/95 backdrop-blur-md border-b border-pink-100 shadow-2xs w-full transition-all"
+      className={`sticky top-0 z-50 w-full transition-all duration-300 ${
+        isScrolled
+          ? 'bg-[#FFF8F2]/90 backdrop-blur-md shadow-md border-b border-pink-200/70 py-0.5'
+          : 'bg-[#FFF8F2]/95 backdrop-blur-md border-b border-pink-100 shadow-2xs'
+      }`}
     >
       <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 h-14 sm:h-16 flex items-center justify-between">
         
