@@ -226,7 +226,7 @@ export const Builder: React.FC<BuilderProps> = ({ orderState, setOrderState }) =
 
   const whatsAppUrl = useMemo(() => {
     const msg = generateWhatsAppMessage();
-    return `https://wa.me/527731727582?text=${encodeURIComponent(msg)}`;
+    return `https://wa.me/${WHATSAPP_PHONE}?text=${encodeURIComponent(msg)}`;
   }, [
     orderFolio,
     currentSizeConfig,

@@ -12,7 +12,7 @@ import {
   MessageCircle,
   ShieldCheck,
 } from 'lucide-react';
-import { STORE_LOCATION } from '../data/freseameData';
+import { STORE_LOCATION, WHATSAPP_PHONE, WHATSAPP_DISPLAY } from '../data/freseameData';
 
 interface LocationSectionProps {
   onOrderPickUp: () => void;
@@ -248,13 +248,13 @@ export const LocationSection: React.FC<LocationSectionProps> = ({ onOrderPickUp 
               </div>
 
               <a
-                href="https://wa.me/527731727582?text=¡Hola!%20Estoy%20en%20Plaza%20Patio%20Clavería,%20¿dónde%20están%20ubicados?%20🍓"
+                href={`https://wa.me/${WHATSAPP_PHONE}?text=${encodeURIComponent('¡Hola! Estoy en Plaza Patio Clavería, ¿dónde están ubicados? 🍓')}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="px-4 py-2.5 rounded-xl bg-white text-emerald-800 font-black text-xs shadow-sm hover:bg-stone-100 transition-colors shrink-0 flex items-center gap-1.5"
               >
                 <MessageCircle className="w-4 h-4 fill-emerald-600 text-emerald-600" />
-                <span>WhatsApp</span>
+                <span>WhatsApp ({WHATSAPP_DISPLAY})</span>
               </a>
             </div>
           </div>

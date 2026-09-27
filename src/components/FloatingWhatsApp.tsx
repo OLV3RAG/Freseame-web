@@ -35,7 +35,7 @@ export const FloatingWhatsApp: React.FC<FloatingWhatsAppProps> = ({ toppingsCoun
       {/* Floating Action Button */}
       <a
         id="floating-whatsapp-action-btn"
-        href="https://wa.me/527731727582"
+        href={`https://wa.me/${WHATSAPP_PHONE}`}
         target="_blank"
         rel="noopener noreferrer"
         aria-label="Abrir WhatsApp para pedir postres"

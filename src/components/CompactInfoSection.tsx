@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { Clock, ExternalLink, Navigation } from 'lucide-react';
-import { STORE_LOCATION } from '../data/freseameData';
+import { Clock, ExternalLink, Navigation, MessageCircle } from 'lucide-react';
+import { STORE_LOCATION, WHATSAPP_DISPLAY, WHATSAPP_DEFAULT_URL } from '../data/freseameData';
 
 export const CompactInfoSection: React.FC = () => {
   const [rappiError, setRappiError] = useState(false);
@@ -32,11 +32,21 @@ export const CompactInfoSection: React.FC = () => {
                   En medio de la plaza, junto a McCarthy's Irish Pub • Azcapotzalco, CDMX
                 </p>
 
-                <div className="flex items-center gap-3 text-xs text-stone-500 font-semibold pt-0.5">
+                <div className="flex items-center gap-3 sm:gap-4 text-xs text-stone-500 font-semibold pt-0.5 flex-wrap">
                   <span className="flex items-center gap-1.5">
                     <Clock className="w-3.5 h-3.5 text-stone-400" />
                     <span>Lunes a Domingo: 11:00 AM – 11:00 PM</span>
                   </span>
+                  <a
+                    id="compact-whatsapp-link"
+                    href={WHATSAPP_DEFAULT_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-1.5 text-emerald-700 hover:text-emerald-800 font-bold transition-colors"
+                  >
+                    <MessageCircle className="w-3.5 h-3.5 fill-[#25D366] text-[#25D366]" />
+                    <span>WhatsApp: {WHATSAPP_DISPLAY}</span>
+                  </a>
                 </div>
               </div>
             </div>

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { MapPin, Clock, MessageCircle, ExternalLink, Navigation, ShoppingBag, Sparkles, Heart } from 'lucide-react';
-import { WHATSAPP_DEFAULT_URL, STORE_LOCATION } from '../data/freseameData';
+import { WHATSAPP_DEFAULT_URL, STORE_LOCATION, WHATSAPP_DISPLAY } from '../data/freseameData';
 import logoImg from '../logo.jpg';
 
 export const Footer: React.FC = () => {
@@ -133,7 +133,7 @@ export const Footer: React.FC = () => {
               className="w-full min-h-[44px] py-3 px-4 rounded-2xl bg-gradient-to-r from-[#25D366] to-[#20ba59] hover:from-[#20ba59] hover:to-[#1ea750] text-white font-extrabold text-xs sm:text-sm flex items-center justify-center gap-2 shadow-md hover:shadow-lg transition-all active:scale-95 touch-manipulation cursor-pointer"
             >
               <MessageCircle className="w-4 h-4 fill-white shrink-0" />
-              <span>WhatsApp: +52 773 172 7582</span>
+              <span>WhatsApp: {WHATSAPP_DISPLAY}</span>
             </a>
 
             <div className="text-[11px] text-stone-500 text-center">

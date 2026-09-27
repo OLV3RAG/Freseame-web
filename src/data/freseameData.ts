@@ -8,9 +8,9 @@ import {
   PresetCombo,
 } from '../types';
 
-export const WHATSAPP_PHONE = '527731727582';
-export const WHATSAPP_DISPLAY = '+52 773 172 7582';
-export const WHATSAPP_DEFAULT_URL = 'https://wa.me/527731727582?text=¡Hola!%20Quiero%20más%20información%20sobre%20Freséame%20🍓';
+export const WHATSAPP_PHONE = '525517898795';
+export const WHATSAPP_DISPLAY = '+52 55 1789 8795';
+export const WHATSAPP_DEFAULT_URL = 'https://wa.me/525517898795?text=¡Hola!%20Quiero%20más%20información%20sobre%20Freséame%20🍓';
 
 export const STORE_LOCATION = {
   name: 'Plaza Patio Clavería',

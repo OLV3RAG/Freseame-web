@@ -265,7 +265,7 @@ export const generatePdfTicket = async (data: TicketData): Promise<GeneratedTick
     doc.setFont('helvetica', 'bold');
     doc.setFontSize(7);
     doc.setTextColor(37, 211, 102);
-    doc.text('WhatsApp de Atencion: +52 773 172 7582', pageWidth / 2, y, { align: 'center' });
+    doc.text('WhatsApp de Atencion: +52 55 1789 8795', pageWidth / 2, y, { align: 'center' });
     y += 3.5;
 
     // Footer note
