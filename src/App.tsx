@@ -11,8 +11,7 @@ import { CompactInfoSection } from './components/CompactInfoSection';
 import { Footer } from './components/Footer';
 import { FloatingWhatsApp } from './components/FloatingWhatsApp';
 import { PapelPicado } from './components/DiaDeMuertosDecorations';
-import { PromoTopBar } from './components/PromoTopBar';
-import { PromoBentoSection } from './components/PromoBentoSection';
+import { CalaveritaPromoCard } from './components/CalaveritaPromoCard';
 import { BASES, CREMAS, ADEREZOS, TOPPINGS } from './data/freseameData';
 import { CustomOrderState, CremaOption } from './types';
 
@@ -72,9 +71,6 @@ export default function App() {
       {/* Animated Splash Screen Loader */}
       <SplashScreen isLoading={isLoading} />
 
-      {/* Top Subtle Apple-style Promo Bar */}
-      <PromoTopBar onViewDetails={() => handleSmoothScroll('promo-jueves-claveria')} />
-
       {/* Sticky Header with Navigation and WhatsApp */}
       <Navbar
         onNavigateToMenu={() => handleSmoothScroll('category-nav-bar')}
@@ -90,8 +86,13 @@ export default function App() {
         {/* 1. Compact Hero: Short title */}
         <Hero />
 
-        {/* 1.5. Bento Promo Card: Especial de Jueves 2x1/2 en Patio Clavería */}
-        <PromoBentoSection />
+        {/* 1.5. Tarjeta Promocional Temática Día de Muertos: Calaverita Fresera */}
+        <CalaveritaPromoCard
+          onCustomize={() => {
+            setActiveCategory('fresas');
+            handleSmoothScroll('constructor');
+          }}
+        />
 
         {/* 2. Horizontal Category Pills Bar: [ 🍓 Fresas ] [ 🥞 Crepas ] [ 🧇 Waffles ] [ 🥛 Cremas ] */}
         <CategoryBar
