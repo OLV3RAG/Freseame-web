@@ -1,4 +1,5 @@
 import React from 'react';
+import { CempasuchilIcon } from './DiaDeMuertosDecorations';
 
 export type CategoryTab = 'fresas' | 'crepas' | 'waffles' | 'cremas';
 
@@ -18,7 +19,7 @@ export const CategoryBar: React.FC<CategoryBarProps> = ({ activeTab, onSelectTab
   return (
     <div
       id="category-nav-bar"
-      className="sticky top-14 sm:top-16 z-40 bg-[#FFF8F2]/95 backdrop-blur-md border-y border-[#2B1A24]/10 shadow-xs transition-all w-full overflow-hidden"
+      className="sticky top-14 sm:top-16 z-40 bg-[#150D24]/90 backdrop-blur-md border-y border-[#FF8F00]/30 shadow-md transition-all w-full overflow-hidden"
     >
       <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-2">
         {/* Horizontal scrollable pills with momentum scroll and no native scrollbar on mobile */}
@@ -33,8 +34,8 @@ export const CategoryBar: React.FC<CategoryBarProps> = ({ activeTab, onSelectTab
                 onClick={() => onSelectTab(tab.id)}
                 className={`group shrink-0 inline-flex items-center justify-center gap-1.5 min-h-[44px] px-5 sm:px-6 py-2 rounded-full text-xs sm:text-sm font-extrabold transition-all duration-200 cursor-pointer select-none active:scale-95 touch-manipulation ${
                   isActive
-                    ? 'bg-gradient-to-r from-[#FF4B8B] to-[#FF6B9D] text-white shadow-md shadow-pink-500/25 ring-2 ring-[#FF4B8B]/40'
-                    : 'bg-white text-stone-700 hover:text-[#FF4B8B] border border-stone-200/90 hover:border-pink-200 hover:bg-pink-50/50 shadow-2xs'
+                    ? 'bg-gradient-to-r from-[#FF6F00] via-[#FF8F00] to-[#FFA000] text-[#0D0914] font-black shadow-md shadow-orange-500/30 ring-2 ring-[#FFD54F]/70 candle-glow'
+                    : 'bg-[#1A1228] text-stone-200 hover:text-[#FFB300] border border-[#FF8F00]/25 hover:border-[#FF8F00]/50 hover:bg-[#251838] shadow-2xs'
                 }`}
                 aria-selected={isActive}
                 role="tab"
@@ -45,6 +46,9 @@ export const CategoryBar: React.FC<CategoryBarProps> = ({ activeTab, onSelectTab
                 <span className="whitespace-nowrap font-['Outfit'] tracking-tight">
                   {tab.label}
                 </span>
+                {isActive && (
+                  <CempasuchilIcon size={14} className="text-[#0D0914] shrink-0" />
+                )}
               </button>
             );
           })}
@@ -53,3 +57,4 @@ export const CategoryBar: React.FC<CategoryBarProps> = ({ activeTab, onSelectTab
     </div>
   );
 };
+

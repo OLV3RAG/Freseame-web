@@ -10,6 +10,9 @@ import { CremasSection } from './components/CremasSection';
 import { CompactInfoSection } from './components/CompactInfoSection';
 import { Footer } from './components/Footer';
 import { FloatingWhatsApp } from './components/FloatingWhatsApp';
+import { PapelPicado } from './components/DiaDeMuertosDecorations';
+import { PromoTopBar } from './components/PromoTopBar';
+import { PromoBentoSection } from './components/PromoBentoSection';
 import { BASES, CREMAS, ADEREZOS, TOPPINGS } from './data/freseameData';
 import { CustomOrderState, CremaOption } from './types';
 
@@ -65,9 +68,12 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-[100dvh] w-full overflow-x-hidden bg-[#FFF8F2] text-[#2B1A24] flex flex-col font-sans selection:bg-[#FF4B8B]/20 selection:text-[#FF4B8B]">
+    <div className="min-h-[100dvh] w-full overflow-x-hidden bg-gradient-to-b from-[#0D0914] via-[#150D24] to-[#0A0710] text-[#FFFDF7] flex flex-col font-sans selection:bg-[#FF6F00]/30 selection:text-[#FFB300]">
       {/* Animated Splash Screen Loader */}
       <SplashScreen isLoading={isLoading} />
+
+      {/* Top Subtle Apple-style Promo Bar */}
+      <PromoTopBar onViewDetails={() => handleSmoothScroll('promo-jueves-claveria')} />
 
       {/* Sticky Header with Navigation and WhatsApp */}
       <Navbar
@@ -76,10 +82,16 @@ export default function App() {
         onNavigateToLocation={() => handleSmoothScroll('sucursal-info')}
       />
 
+      {/* Tira superior de Papel Picado Ondulante */}
+      <PapelPicado className="-mt-1 shadow-sm" />
+
       {/* Main Content Area */}
       <main className="flex-1 w-full">
         {/* 1. Compact Hero: Short title */}
         <Hero />
+
+        {/* 1.5. Bento Promo Card: Especial de Jueves 2x1/2 en Patio Clavería */}
+        <PromoBentoSection />
 
         {/* 2. Horizontal Category Pills Bar: [ 🍓 Fresas ] [ 🥞 Crepas ] [ 🧇 Waffles ] [ 🥛 Cremas ] */}
         <CategoryBar
@@ -141,6 +153,9 @@ export default function App() {
         <CompactInfoSection />
       </main>
 
+      {/* Tira inferior de Papel Picado como cenefa divisora sobre el Footer */}
+      <PapelPicado className="mt-8 mb-0" />
+
       {/* 5. Minimalist Single-Line Footer */}
       <Footer />
 
@@ -149,3 +164,4 @@ export default function App() {
     </div>
   );
 }
+

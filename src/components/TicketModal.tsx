@@ -13,6 +13,7 @@ import {
   FileText,
 } from 'lucide-react';
 import logoImg from '../logo.jpg';
+import { CempasuchilIcon, CalaveritaIcon, VeladoraIcon } from './DiaDeMuertosDecorations';
 
 interface TicketModalProps {
   isOpen: boolean;
@@ -115,18 +116,19 @@ export const TicketModal: React.FC<TicketModalProps> = ({
       aria-modal="true"
       aria-labelledby="ticket-modal-title"
     >
-      <div className="relative w-full max-w-lg bg-white rounded-3xl shadow-2xl overflow-hidden border border-stone-200 my-auto animate-in zoom-in-95 duration-200">
+      <div className="relative w-full max-w-lg bg-[#1A1228] rounded-3xl shadow-2xl overflow-hidden border-2 border-[#FF8F00]/50 ring-2 ring-[#FFD54F]/20 text-[#FFFDF7] my-auto animate-in zoom-in-95 duration-200">
         
-        {/* Top Header Bar */}
-        <div className="bg-gradient-to-r from-[#FF4B8B] to-[#FF6B9D] px-5 py-4 text-white flex items-center justify-between">
+        {/* Top Header Bar con Ofrenda Festiva */}
+        <div className="bg-gradient-to-r from-[#4A148C] via-[#6A1B9A] to-[#E91E63] border-b border-[#FF8F00]/40 px-5 py-4 text-white flex items-center justify-between">
           <div className="flex items-center gap-2.5">
-            <span className="text-xl">🍓</span>
+            <CalaveritaIcon size={22} className="shrink-0" />
             <div>
-              <h2 id="ticket-modal-title" className="font-['Outfit'] font-black text-base sm:text-lg leading-tight">
-                Comprobante de Pedido Generado
+              <h2 id="ticket-modal-title" className="font-['Outfit'] font-black text-base sm:text-lg leading-tight flex items-center gap-1.5">
+                <span>Comprobante de Pedido Generado</span>
+                <CempasuchilIcon size={16} className="text-[#FFD54F] shrink-0" />
               </h2>
               <span className="text-[11px] text-pink-100 font-medium">
-                Listo para presentar en barra al recoger
+                Listo para presentar en barra al recoger • Patio Clavería
               </span>
             </div>
           </div>
@@ -145,19 +147,19 @@ export const TicketModal: React.FC<TicketModalProps> = ({
         <div className="p-4 sm:p-6 max-h-[75vh] overflow-y-auto space-y-4">
           
           {/* Important Callout Badge: Screenshot / Save notice */}
-          <div className="p-3.5 sm:p-4 rounded-2xl bg-amber-50 border-2 border-amber-300 flex items-start gap-3 shadow-xs">
-            <div className="w-9 h-9 rounded-xl bg-amber-200/80 text-amber-900 flex items-center justify-center shrink-0">
+          <div className="p-3.5 sm:p-4 rounded-2xl bg-[#25173B] border-2 border-[#FF8F00]/40 flex items-start gap-3 shadow-xs text-[#FFFDF7]">
+            <div className="w-9 h-9 rounded-xl bg-[#FF8F00]/20 text-[#FFD54F] border border-[#FF8F00]/30 flex items-center justify-center shrink-0">
               <Camera className="w-5 h-5" />
             </div>
             <div className="space-y-0.5">
-              <div className="text-xs font-black uppercase tracking-wider text-amber-900 flex items-center gap-1.5">
+              <div className="text-xs font-black uppercase tracking-wider text-[#FFD54F] flex items-center gap-1.5">
                 <span>Respaldo Inmediato</span>
-                <span className="px-1.5 py-0.5 rounded bg-amber-200 text-[10px]">Importante</span>
+                <span className="px-1.5 py-0.5 rounded bg-[#FF8F00]/30 text-[#FFE082] text-[10px] font-bold">Importante</span>
               </div>
-              <p className="text-xs sm:text-sm font-bold text-amber-950 leading-snug">
+              <p className="text-xs sm:text-sm font-bold text-white leading-snug">
                 ¡Puedes tomarle captura de pantalla a este comprobante o volver a descargarlo!
               </p>
-              <p className="text-[11px] text-amber-800 leading-tight">
+              <p className="text-[11px] text-stone-300 leading-tight">
                 No requieres imprimir nada en papel; solo muestra este comprobante o tu folio al llegar.
               </p>
             </div>
@@ -166,11 +168,11 @@ export const TicketModal: React.FC<TicketModalProps> = ({
           {/* Thermal Boutique Digital Ticket */}
           <div
             id="ticket-en-pantalla"
-            className="rounded-2xl bg-[#FFFDF9] border-2 border-dashed border-stone-300 p-4 sm:p-5 relative shadow-inner font-mono text-xs text-[#2B1A24]"
+            className="rounded-2xl bg-[#FFFDF9] border-2 border-dashed border-[#FF8F00]/50 p-4 sm:p-5 relative shadow-inner font-mono text-xs text-[#2B1A24]"
           >
             {/* Ticket Notches */}
-            <div className="absolute -left-3 top-1/2 -translate-y-1/2 w-6 h-6 rounded-full bg-white border border-stone-300 pointer-events-none" />
-            <div className="absolute -right-3 top-1/2 -translate-y-1/2 w-6 h-6 rounded-full bg-white border border-stone-300 pointer-events-none" />
+            <div className="absolute -left-3 top-1/2 -translate-y-1/2 w-6 h-6 rounded-full bg-[#1A1228] border border-[#FF8F00]/40 pointer-events-none" />
+            <div className="absolute -right-3 top-1/2 -translate-y-1/2 w-6 h-6 rounded-full bg-[#1A1228] border border-[#FF8F00]/40 pointer-events-none" />
 
             {/* Logo & Brand Header */}
             <div className="text-center pb-3 border-b border-stone-200 space-y-1.5">
@@ -181,26 +183,28 @@ export const TicketModal: React.FC<TicketModalProps> = ({
                     alt="Freséame"
                     width="48"
                     height="48"
-                    className="h-12 w-12 rounded-full object-cover border-2 border-pink-200 shadow-xs"
+                    className="h-12 w-12 rounded-full object-cover border-2 border-[#FF8F00]/60 shadow-xs"
                     onError={() => setImgError(true)}
                   />
                 ) : (
-                  <div className="h-12 w-12 rounded-full bg-pink-100 flex items-center justify-center text-2xl">
+                  <div className="h-12 w-12 rounded-full bg-orange-100 border border-[#FF8F00] flex items-center justify-center text-2xl">
                     🍓
                   </div>
                 )}
               </div>
 
-              <div className="font-['Outfit'] font-black text-xl text-[#FF4B8B] tracking-tight">
-                FRESÉAME 🍓
+              <div className="font-['Outfit'] font-black text-xl text-[#2B1A24] tracking-tight flex items-center justify-center gap-1.5">
+                <span>FRESÉAME</span>
+                <span className="text-[#FF4B8B]">🍓</span>
+                <CempasuchilIcon size={16} className="text-[#FF8F00]" />
               </div>
 
               {/* Folio Destacado en Grande */}
-              <div className="py-1.5 px-4 bg-pink-50 rounded-2xl inline-block border border-pink-200">
+              <div className="py-1.5 px-4 bg-orange-50 rounded-2xl inline-block border-2 border-[#FF8F00]/40">
                 <span className="text-[11px] font-bold text-stone-500 block uppercase tracking-wider">
                   Folio de Orden
                 </span>
-                <span className="font-['Outfit'] font-black text-2xl sm:text-3xl text-[#FF4B8B] tracking-wider block">
+                <span className="font-['Outfit'] font-black text-2xl sm:text-3xl text-[#FF6F00] tracking-wider block">
                   #{folio}
                 </span>
               </div>
@@ -244,7 +248,7 @@ export const TicketModal: React.FC<TicketModalProps> = ({
 
               <div className="flex justify-between items-center py-0.5 border-b border-stone-100">
                 <span className="text-stone-500">🥛 Crema de la Casa:</span>
-                <span className="font-black text-[#FF4B8B]">{cremaName}</span>
+                <span className="font-black text-[#FF6F00]">{cremaName}</span>
               </div>
 
               <div className="flex justify-between items-center py-0.5 border-b border-stone-100">
@@ -286,7 +290,7 @@ export const TicketModal: React.FC<TicketModalProps> = ({
                   IVA Incluido • Sin cargos ocultos
                 </span>
               </div>
-              <span className="font-['Outfit'] font-black text-2xl text-[#FF4B8B]">
+              <span className="font-['Outfit'] font-black text-2xl text-[#FF6F00]">
                 ${total} MXN
               </span>
             </div>
@@ -294,35 +298,35 @@ export const TicketModal: React.FC<TicketModalProps> = ({
 
           {/* Action Buttons Section */}
           <div className="space-y-2.5 pt-2 font-sans">
-            {/* Botón 2: 🟢 Enviar orden por WhatsApp */}
+            {/* Botón 2: 🟢 Enviar orden por WhatsApp con resplandor verde esmeralda */}
             <a
               id="ticket-modal-whatsapp-btn"
               href={whatsAppUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="w-full min-h-[48px] py-3.5 px-6 rounded-2xl bg-gradient-to-r from-[#25D366] to-[#1eb855] hover:from-[#1eb855] hover:to-[#199d49] text-white font-black text-sm sm:text-base shadow-lg hover:shadow-xl transition-all flex items-center justify-center gap-2.5 text-center transform hover:-translate-y-0.5 active:scale-95 touch-manipulation cursor-pointer"
+              className="w-full min-h-[48px] py-3.5 px-6 rounded-2xl bg-gradient-to-r from-[#25D366] to-[#1eb855] hover:from-[#1eb855] hover:to-[#199d49] text-white font-black text-sm sm:text-base shadow-lg emerald-glow transition-all flex items-center justify-center gap-2.5 text-center transform hover:-translate-y-0.5 active:scale-95 touch-manipulation cursor-pointer"
             >
               <MessageCircle className="w-5 h-5 fill-white shrink-0" />
               <span>Enviar orden por WhatsApp</span>
             </a>
 
-            {/* Botón 1: 📄 Volver a descargar PDF */}
+            {/* Botón 1: 📄 Volver a descargar PDF con naranja cálido y resplandor de vela */}
             <div className="flex gap-2">
               <button
                 type="button"
                 id="ticket-modal-pdf-btn"
                 onClick={handleLocalDownloadAgain}
                 disabled={isDownloadingPdf}
-                className="flex-1 min-h-[44px] py-3 px-4 rounded-xl bg-rose-50 hover:bg-rose-100 text-[#FF4B8B] font-bold text-xs sm:text-sm flex items-center justify-center gap-2 border border-rose-200 transition-colors cursor-pointer disabled:opacity-60 active:scale-95 touch-manipulation"
+                className="flex-1 min-h-[44px] py-3 px-4 rounded-xl bg-gradient-to-r from-[#FF6F00] via-[#FF8F00] to-[#FFA000] hover:from-[#FF8F00] hover:to-[#FFB300] text-[#0D0914] font-black text-xs sm:text-sm flex items-center justify-center gap-2 border-2 border-[#FFD54F] shadow-md candle-glow transition-all cursor-pointer disabled:opacity-60 active:scale-95 touch-manipulation"
               >
                 {isDownloadingPdf ? (
                   <>
-                    <div className="w-4 h-4 border-2 border-[#FF4B8B] border-t-transparent rounded-full animate-spin" />
+                    <div className="w-4 h-4 border-2 border-[#0D0914] border-t-transparent rounded-full animate-spin" />
                     <span>Generando PDF...</span>
                   </>
                 ) : (
                   <>
-                    <Download className="w-4 h-4" />
+                    <Download className="w-4 h-4 text-[#0D0914]" />
                     <span>Volver a descargar PDF</span>
                   </>
                 )}
@@ -333,7 +337,7 @@ export const TicketModal: React.FC<TicketModalProps> = ({
                   href={pdfUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="min-h-[44px] min-w-[44px] py-3 px-4 rounded-xl bg-stone-100 hover:bg-stone-200 text-stone-700 font-bold text-xs flex items-center justify-center gap-1.5 border border-stone-200 transition-colors active:scale-95 touch-manipulation"
+                  className="min-h-[44px] min-w-[44px] py-3 px-4 rounded-xl bg-[#25173B] hover:bg-[#321F4E] text-[#FFD54F] font-bold text-xs flex items-center justify-center gap-1.5 border border-[#FF8F00]/30 transition-colors active:scale-95 touch-manipulation"
                   title="Abrir PDF en pestaña nueva"
                 >
                   <ExternalLink className="w-4 h-4" />
@@ -351,15 +355,16 @@ export const TicketModal: React.FC<TicketModalProps> = ({
                     onResetOrder();
                     onClose();
                   }}
-                  className="flex-1 min-h-[44px] py-2.5 px-4 rounded-xl bg-pink-50 hover:bg-pink-100 text-[#FF4B8B] font-bold text-xs flex items-center justify-center gap-1.5 transition-colors cursor-pointer active:scale-95 touch-manipulation border border-pink-200"
+                  className="flex-1 min-h-[44px] py-2.5 px-4 rounded-xl bg-[#25173B] hover:bg-[#321F4E] text-[#FFD54F] font-bold text-xs flex items-center justify-center gap-1.5 transition-colors cursor-pointer active:scale-95 touch-manipulation border border-[#FF8F00]/40"
                 >
+                  <CempasuchilIcon size={14} className="text-[#FF8F00]" />
                   <span>🍓 Armar otro pedido</span>
                 </button>
               )}
               <button
                 type="button"
                 onClick={onClose}
-                className="flex-1 min-h-[44px] py-2.5 text-center text-xs text-stone-500 hover:text-stone-800 font-semibold transition-colors cursor-pointer active:scale-95 touch-manipulation hover:bg-stone-100 rounded-xl"
+                className="flex-1 min-h-[44px] py-2.5 text-center text-xs text-stone-300 hover:text-white font-semibold transition-colors cursor-pointer active:scale-95 touch-manipulation hover:bg-white/10 rounded-xl"
               >
                 Cerrar Comprobante
               </button>

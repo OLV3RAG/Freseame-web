@@ -6,8 +6,12 @@
   --color-crema: #FFF8F2;
   --color-fresa: #FF4B8B;
   --color-fresa-dark: #E8437D;
-  --color-menta: #48C9B0;
-  --color-cacao: #2B1A24;
+  --color-cempasuchil: #FF6F00;
+  --color-cempasuchil-light: #FFB300;
+  --color-mexicano: #E91E63;
+  --color-morado-noche: #0D0914;
+  --color-morado-card: #1A1228;
+  --color-oro: #FFD54F;
 }
 
 /* Custom scrollbar and smooth transitions */
@@ -19,6 +23,7 @@ html, body {
   overflow-x: hidden;
   width: 100%;
   min-height: 100dvh;
+  background-color: #0D0914;
 }
 
 /* Hide native scrollbar for app-like horizontal scrolls */
@@ -42,14 +47,77 @@ button, a, input, select, textarea {
 }
 
 ::-webkit-scrollbar-track {
-  background: #FFF8F2;
+  background: #0D0914;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #fbcfe8;
+  background: #3B1D54;
   border-radius: 9999px;
+  border: 1px solid rgba(255, 111, 0, 0.3);
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #FF4B8B;
+  background: #FF6F00;
+}
+
+/* Keyframes for Día de Muertos */
+@keyframes float-petal {
+  0% {
+    transform: translateY(-20px) translateX(0) rotate(0deg) scale(0.9);
+    opacity: 0;
+  }
+  15% {
+    opacity: 0.85;
+  }
+  50% {
+    transform: translateY(220px) translateX(35px) rotate(180deg) scale(1);
+    opacity: 0.75;
+  }
+  85% {
+    opacity: 0.6;
+  }
+  100% {
+    transform: translateY(480px) translateX(-25px) rotate(360deg) scale(0.85);
+    opacity: 0;
+  }
+}
+
+@keyframes wave-flag {
+  0%, 100% {
+    transform: skewX(-1.5deg) rotate(-0.8deg);
+  }
+  50% {
+    transform: skewX(1.8deg) rotate(1deg);
+  }
+}
+
+@keyframes candle-flicker {
+  0%, 100% {
+    box-shadow: 0 0 14px rgba(255, 111, 0, 0.45), 0 0 28px rgba(255, 143, 0, 0.2);
+  }
+  50% {
+    box-shadow: 0 0 24px rgba(255, 143, 0, 0.7), 0 0 40px rgba(255, 111, 0, 0.35);
+  }
+}
+
+@keyframes emerald-flicker {
+  0%, 100% {
+    box-shadow: 0 0 14px rgba(37, 211, 102, 0.45), 0 0 28px rgba(37, 211, 102, 0.25);
+  }
+  50% {
+    box-shadow: 0 0 24px rgba(37, 211, 102, 0.75), 0 0 42px rgba(37, 211, 102, 0.4);
+  }
+}
+
+.candle-glow {
+  animation: candle-flicker 2.8s ease-in-out infinite;
+}
+
+.emerald-glow {
+  animation: emerald-flicker 2.8s ease-in-out infinite;
+}
+
+.wave-flag-anim {
+  animation: wave-flag 3.5s ease-in-out infinite;
+  transform-origin: top center;
 }
