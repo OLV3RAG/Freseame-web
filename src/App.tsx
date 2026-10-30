@@ -12,6 +12,7 @@ import { Footer } from './components/Footer';
 import { FloatingWhatsApp } from './components/FloatingWhatsApp';
 import { PapelPicado } from './components/DiaDeMuertosDecorations';
 import { CalaveritaPromoCard } from './components/CalaveritaPromoCard';
+import { MenuCarousel } from './components/MenuCarousel';
 import { BASES, CREMAS, ADEREZOS, TOPPINGS } from './data/freseameData';
 import { CustomOrderState, CremaOption } from './types';
 
@@ -89,6 +90,14 @@ export default function App() {
         {/* 1.5. Tarjeta Promocional Temática Día de Muertos: Calaverita Fresera */}
         <CalaveritaPromoCard
           onCustomize={() => {
+            setActiveCategory('fresas');
+            handleSmoothScroll('constructor');
+          }}
+        />
+
+        {/* 1.8. Cartelera Digital Animada Día de Muertos (Carrusel de 3 Láminas) */}
+        <MenuCarousel
+          onSelectToCustomize={() => {
             setActiveCategory('fresas');
             handleSmoothScroll('constructor');
           }}
