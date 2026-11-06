@@ -74,7 +74,7 @@ export type DigitalMenuSlide =
 
 /**
  * Datos 100% fidedignos extraídos de la Cartelera Digital Animada "MENU ANIMADO_FRESEAME.mp4"
- * de Freseame (Edición Día de Muertos / Franquicia).
+ * de Freséame (Menú Oficial de Franquicia).
  */
 export const DIGITAL_MENU_DATA: {
   slide1: DigitalMenuSlide1Data;

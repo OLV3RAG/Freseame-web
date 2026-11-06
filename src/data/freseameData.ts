@@ -8,20 +8,45 @@ import {
   PresetCombo,
 } from '../types';
 
-export const WHATSAPP_PHONE = '525517898795';
-export const WHATSAPP_DISPLAY = '+52 55 1789 8795';
-export const WHATSAPP_DEFAULT_URL = 'https://wa.me/525517898795?text=¡Hola!%20Quiero%20más%20información%20sobre%20Freséame%20🍓';
+export const WHATSAPP_PHONE = '525535021829';
+export const WHATSAPP_DISPLAY = '+52 55 3502 1829';
+export const WHATSAPP_DEFAULT_URL = 'https://wa.me/525535021829?text=Hola%20Fres%C3%A9ame!%20Me%20gustar%C3%ADa%20hacer%20un%20pedido.';
+export const WHATSAPP_UNIVERSAL_URL = WHATSAPP_DEFAULT_URL;
+
+export const STORE_BRANCHES = [
+  {
+    id: 'tlatelolco',
+    name: 'Sucursal Puerta Tlatelolco',
+    isNew: true,
+    badgeText: '✨ ¡NUEVA SUCURSAL!',
+    openStatus: 'ABIERTO HOY',
+    address: 'Manuel González 113, San Simón Tolnahuac, Cuauhtémoc, C.P. 06920 Ciudad de México, CDMX',
+    reference: '1er piso, frente a Walmart, a un lado de Jack Papotas.',
+    hours: 'Lunes a Domingo: 11:00 AM – 10:00 PM',
+    phoneDisplay: '+52 55 3502 1829',
+    phoneRaw: '525535021829',
+    mapsUrl: 'https://maps.app.goo.gl/7VkEx88bJ5SvGkEH6',
+  },
+  {
+    id: 'claveria',
+    name: 'Sucursal Patio Clavería',
+    isNew: false,
+    openStatus: 'ABIERTO HOY',
+    address: 'Plaza Patio Clavería, Calle Egipto 142, Col. Clavería, Azcapotzalco, C.P. 02080, Ciudad de México',
+    reference: "Nos encontramos en la zona central de la plaza, justo a un costado de McCarthy's Irish Pub.",
+    hours: 'Lunes a Domingo: 11:00 AM – 11:00 PM',
+    phoneDisplay: '+52 55 3502 1829',
+    phoneRaw: '525535021829',
+    mapsUrl: 'https://maps.google.com/?q=Plaza+Patio+Claveria',
+  },
+];
 
 export const STORE_LOCATION = {
-  name: 'Plaza Patio Clavería',
+  ...STORE_BRANCHES[1],
   plaza: 'Plaza Patio Clavería',
-  address: 'Calle Egipto 142, Col. Clavería, Azcapotzalco, CDMX',
-  fullAddress: 'Plaza Patio Clavería, Calle Egipto 142, Col. Clavería, Azcapotzalco, C.P. 02080, Ciudad de México',
-  reference: "Nos encontramos en la zona central de la plaza, justo a un costado de McCarthy's Irish Pub.",
+  fullAddress: STORE_BRANCHES[1].address,
   shortReference: "En medio de la plaza, junto a McCarthy's",
-  hours: 'Lunes a Domingo: 11:00 AM – 11:00 PM',
   openBadge: 'Abierto todos los días',
-  mapsUrl: 'https://share.google/btYN2jmVcMYCn3NGz',
   embedMapUrl: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3761.782459461159!2d-99.18244032392762!3d19.464958181821815!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85d1f893129528d9%3A0xc0289a05b331000!2sPatio%20Claveria!5e0!3m2!1ses!2smx!4v1710000000000!5m2!1ses!2smx',
 };
 

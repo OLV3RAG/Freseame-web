@@ -43,7 +43,6 @@ import {
   CustomOrderState,
 } from '../types';
 import { DessertVisualizer } from './DessertVisualizer';
-import { CempasuchilIcon, CalaveritaIcon, VeladoraIcon } from './DiaDeMuertosDecorations';
 
 interface BuilderProps {
   orderState: CustomOrderState;
@@ -438,15 +437,16 @@ export const Builder: React.FC<BuilderProps> = ({ orderState, setOrderState }) =
       <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
         
         {/* Quick Presets Shortcut Banner */}
-        <div className="mb-6 p-4 rounded-3xl bg-[#1A1228]/95 border border-[#FF8F00]/30 shadow-lg backdrop-blur-md">
+        {/* Quick Presets Shortcut Banner */}
+        <div className="mb-6 p-4 rounded-3xl bg-white border border-rose-100 shadow-md">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-3">
             <div className="flex items-center gap-2">
-              <CempasuchilIcon size={18} className="text-[#FF8F00]" />
-              <h3 className="font-['Outfit'] font-black text-sm text-[#FFFDF7]">
+              <span className="text-rose-600 font-bold">✨</span>
+              <h3 className="font-['Outfit'] font-black text-sm text-gray-900">
                 ¿Prefieres una combinación probada y consentida?
               </h3>
             </div>
-            <span className="text-xs text-stone-300">Carga una especialidad con un toque:</span>
+            <span className="text-xs text-gray-500">Carga una especialidad con un toque:</span>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
             {PRESET_COMBOS.map((preset) => {
@@ -457,8 +457,8 @@ export const Builder: React.FC<BuilderProps> = ({ orderState, setOrderState }) =
                   onClick={() => handleApplyPreset(preset.id)}
                   className={`text-left p-3.5 rounded-2xl border transition-all flex flex-col justify-between cursor-pointer active:scale-95 touch-manipulation ${
                     isSelected
-                      ? 'bg-gradient-to-br from-[#2F1B47] to-[#201235] border-[#FF8F00] shadow-md ring-2 ring-[#FF8F00]/60 candle-glow'
-                      : 'bg-[#150D24]/80 hover:bg-[#25173B] border-white/10 hover:border-[#FF8F00]/40'
+                      ? 'bg-rose-50/80 border-rose-500 shadow-xs ring-1 ring-rose-400'
+                      : 'bg-white hover:bg-rose-50/30 border-gray-100 hover:border-rose-200'
                   }`}
                 >
                   <div className="flex items-center justify-between mb-1.5">
@@ -467,16 +467,15 @@ export const Builder: React.FC<BuilderProps> = ({ orderState, setOrderState }) =
                     </span>
                     {isSelected && (
                       <div className="flex items-center gap-1">
-                        <Check className="w-4 h-4 text-[#FFD54F]" />
-                        <CempasuchilIcon size={12} className="text-[#FF8F00]" />
+                        <Check className="w-4 h-4 text-rose-600" />
                       </div>
                     )}
                   </div>
                   <div>
-                    <h4 className="font-['Outfit'] font-bold text-sm text-[#FFFDF7] leading-snug">
+                    <h4 className="font-['Outfit'] font-bold text-sm text-gray-900 leading-snug">
                       {preset.title}
                     </h4>
-                    <p className="text-[11px] text-stone-400 mt-0.5 line-clamp-1">
+                    <p className="text-[11px] text-gray-500 mt-0.5 line-clamp-1">
                       {preset.subtitle}
                     </p>
                   </div>
@@ -487,15 +486,14 @@ export const Builder: React.FC<BuilderProps> = ({ orderState, setOrderState }) =
         </div>
 
         {/* Size Selection Bar: 2 Columnas Equilibradas (Mediano y Grande) */}
-        <div className="mb-8 p-4 sm:p-5 rounded-3xl bg-[#1A1228]/95 border border-[#FF8F00]/30 shadow-md flex flex-col md:flex-row md:items-center justify-between gap-4 backdrop-blur-md">
+        <div className="mb-8 p-4 sm:p-5 rounded-3xl bg-white border border-rose-100 shadow-md flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div className="flex items-center gap-2.5">
             <span className="text-xl">🍧</span>
             <div>
-              <span className="text-xs font-bold uppercase tracking-wider text-[#FFB300] flex items-center gap-1">
+              <span className="text-xs font-bold uppercase tracking-wider text-rose-600 flex items-center gap-1">
                 <span>Paso 0: Tamaño del Vaso</span>
-                <CempasuchilIcon size={12} />
               </span>
-              <span className="text-sm font-extrabold text-[#FFFDF7]">
+              <span className="text-sm font-extrabold text-gray-900">
                 ¿Cuánto antojo tienes hoy?
               </span>
             </div>
@@ -508,15 +506,14 @@ export const Builder: React.FC<BuilderProps> = ({ orderState, setOrderState }) =
                 onClick={() => setOrderState((prev) => ({ ...prev, size: size.id }))}
                 className={`min-h-[50px] px-4 py-2.5 sm:px-5 sm:py-3 rounded-2xl text-xs sm:text-sm font-bold transition-all text-center active:scale-95 touch-manipulation cursor-pointer flex flex-col items-center justify-center relative ${
                   orderState.size === size.id
-                    ? 'bg-gradient-to-r from-[#FF6F00] via-[#FF8F00] to-[#FFA000] text-[#0D0914] font-black shadow-lg shadow-orange-500/30 border-2 border-[#FFD54F] candle-glow'
-                    : 'bg-[#241738] text-stone-200 hover:text-white border border-[#FF8F00]/30 hover:border-[#FF8F00]/70 hover:bg-[#2C1C45]'
+                    ? 'bg-rose-600 text-white font-black shadow-md shadow-rose-600/30'
+                    : 'bg-rose-50 text-gray-700 hover:text-rose-600 border border-rose-100 hover:border-rose-200 hover:bg-rose-100/50'
                 }`}
               >
                 <div className="font-extrabold text-sm sm:text-base flex items-center gap-1.5">
                   <span>{size.name}</span>
-                  {orderState.size === size.id && <CempasuchilIcon size={14} className="text-[#0D0914]" />}
                 </div>
-                <div className={`text-[11px] ${orderState.size === size.id ? 'opacity-90 font-bold' : 'text-stone-400'}`}>
+                <div className={`text-[11px] ${orderState.size === size.id ? 'opacity-90 font-bold' : 'text-gray-500'}`}>
                   {size.label}
                 </div>
               </button>
@@ -541,10 +538,10 @@ export const Builder: React.FC<BuilderProps> = ({ orderState, setOrderState }) =
                 onClick={() => setActiveStep(step.number)}
                 className={`flex-1 min-w-[130px] min-h-[52px] p-3 sm:p-4 rounded-2xl border text-left transition-all relative active:scale-95 touch-manipulation cursor-pointer ${
                   isCurrent
-                    ? 'bg-[#25173B] border-2 border-[#FF8F00] shadow-md ring-2 ring-[#FF8F00]/40 candle-glow text-[#FFFDF7]'
+                    ? 'bg-rose-50/80 border-2 border-rose-600 shadow-sm text-gray-900'
                     : isCompleted
-                    ? 'bg-[#1A1228] border border-emerald-500/50 hover:bg-[#221535] text-stone-200'
-                    : 'bg-[#150D24]/80 border border-white/10 hover:bg-[#1E1230] text-stone-400'
+                    ? 'bg-white border border-emerald-300 hover:bg-emerald-50/30 text-gray-800'
+                    : 'bg-white border border-gray-200 hover:bg-rose-50/30 text-gray-500'
                 }`}
               >
                 <div className="flex items-center justify-between mb-1">
@@ -554,13 +551,13 @@ export const Builder: React.FC<BuilderProps> = ({ orderState, setOrderState }) =
                       ✓
                     </span>
                   ) : (
-                    <span className="text-xs font-bold text-stone-500">#{step.number}</span>
+                    <span className="text-xs font-bold text-gray-400">#{step.number}</span>
                   )}
                 </div>
-                <div className="font-['Outfit'] font-bold text-sm text-[#FFFDF7]">
+                <div className="font-['Outfit'] font-bold text-sm text-gray-900">
                   {step.label}
                 </div>
-                <div className="text-[10px] text-stone-400 truncate">
+                <div className="text-[10px] text-gray-500 truncate">
                   {step.number === 1 && orderState.base ? orderState.base.name : ''}
                   {step.number === 2 && orderState.crema ? orderState.crema.name : ''}
                   {step.number === 3 && orderState.aderezo ? orderState.aderezo.name : ''}
@@ -602,18 +599,17 @@ export const Builder: React.FC<BuilderProps> = ({ orderState, setOrderState }) =
 
             {/* STEP 1: BASE */}
             {activeStep === 1 && (
-              <div id="step-1-base-panel" className="bg-[#1A1228]/95 rounded-3xl p-6 sm:p-8 shadow-xl border border-[#FF8F00]/30 animate-in fade-in duration-200 text-[#FFFDF7]">
+              <div id="step-1-base-panel" className="bg-white rounded-3xl p-6 sm:p-8 shadow-xl shadow-rose-950/5 border border-rose-100 animate-in fade-in duration-200 text-gray-900">
                 <div className="flex items-center justify-between mb-6">
                   <div>
-                    <span className="text-xs font-bold text-[#FFB300] uppercase tracking-wider flex items-center gap-1.5">
-                      <CempasuchilIcon size={13} />
+                    <span className="text-xs font-bold text-rose-600 uppercase tracking-wider flex items-center gap-1.5">
                       <span>Paso 1 de 4 (Selección única)</span>
                     </span>
-                    <h3 className="font-['Outfit'] font-black text-2xl text-[#FFFDF7] mt-0.5">
+                    <h3 className="font-['Outfit'] font-black text-2xl text-gray-900 mt-0.5">
                       Elige tu Base 🍓
                     </h3>
                   </div>
-                  <span className="text-xs font-semibold px-3 py-1 rounded-full bg-white/5 border border-white/10 text-stone-300">
+                  <span className="text-xs font-semibold px-3 py-1 rounded-full bg-rose-50 border border-rose-100 text-rose-700">
                     7 opciones disponibles
                   </span>
                 </div>
@@ -628,8 +624,8 @@ export const Builder: React.FC<BuilderProps> = ({ orderState, setOrderState }) =
                         onClick={() => handleSelectBase(base)}
                         className={`text-left p-4 rounded-2xl border-2 transition-all relative flex flex-col justify-between group cursor-pointer active:scale-95 touch-manipulation ${
                           isSelected
-                            ? 'border-[#FF8F00] bg-[#2C1945] shadow-md ring-2 ring-[#FF8F00]/40 candle-glow text-[#FFFDF7]'
-                            : 'border-white/10 bg-[#201335]/70 hover:border-[#FF8F00]/40 hover:bg-[#25183E] text-stone-200'
+                            ? 'border-rose-500 bg-rose-50/80 shadow-xs ring-1 ring-rose-400 text-gray-900'
+                            : 'border-gray-100 bg-white hover:border-rose-200 hover:bg-rose-50/30 text-gray-700'
                         }`}
                       >
                         <div className="flex items-start justify-between gap-2 mb-2">
@@ -637,32 +633,29 @@ export const Builder: React.FC<BuilderProps> = ({ orderState, setOrderState }) =
                             <span className="text-2xl group-hover:scale-110 transition-transform">
                               {base.icon}
                             </span>
-                            <span className="text-[10px] font-bold px-2 py-0.5 rounded-md bg-white/10 text-[#FFD54F]">
+                            <span className="text-[10px] font-bold px-2 py-0.5 rounded-md bg-rose-100 text-rose-700">
                               {base.tag}
                             </span>
                           </div>
                           {isSelected && (
-                            <div className="flex items-center gap-1">
-                              <div className="w-6 h-6 rounded-full bg-[#FF8F00] text-[#0D0914] flex items-center justify-center text-xs font-black shadow-xs">
-                                <Check className="w-3.5 h-3.5 stroke-[3]" />
-                              </div>
-                              <CempasuchilIcon size={14} className="text-[#FFB300]" />
+                            <div className="w-6 h-6 rounded-full bg-rose-600 text-white flex items-center justify-center text-xs font-black shadow-xs">
+                              <Check className="w-3.5 h-3.5 stroke-[3]" />
                             </div>
                           )}
                         </div>
 
                         <div>
-                          <h4 className="font-['Outfit'] font-black text-base text-[#FFFDF7]">
+                          <h4 className="font-['Outfit'] font-black text-base text-gray-900">
                             {base.name}
                           </h4>
-                          <p className="text-xs text-stone-300 mt-1 leading-relaxed">
+                          <p className="text-xs text-gray-500 mt-1 leading-relaxed">
                             {base.description}
                           </p>
                         </div>
 
-                        <div className="mt-3 pt-2 border-t border-white/10 flex items-center justify-between text-xs">
-                          <span className="text-stone-400 font-medium">{base.calories}</span>
-                          <span className="font-black text-[#FFD54F]">${base.basePrice} MXN</span>
+                        <div className="mt-3 pt-2 border-t border-gray-100 flex items-center justify-between text-xs">
+                          <span className="text-gray-400 font-medium">{base.calories}</span>
+                          <span className="font-black text-rose-600">${base.basePrice} MXN</span>
                         </div>
                       </button>
                     );
@@ -684,18 +677,17 @@ export const Builder: React.FC<BuilderProps> = ({ orderState, setOrderState }) =
 
             {/* STEP 2: CREMA */}
             {activeStep === 2 && (
-              <div id="step-2-crema-panel" className="bg-[#1A1228]/95 rounded-3xl p-6 sm:p-8 shadow-xl border border-[#FF8F00]/30 animate-in fade-in duration-200 text-[#FFFDF7]">
+              <div id="step-2-crema-panel" className="bg-white rounded-3xl p-6 sm:p-8 shadow-xl shadow-rose-950/5 border border-rose-100 animate-in fade-in duration-200 text-gray-900">
                 <div className="flex items-center justify-between mb-6">
                   <div>
-                    <span className="text-xs font-bold text-[#FFB300] uppercase tracking-wider flex items-center gap-1.5">
-                      <CempasuchilIcon size={13} />
+                    <span className="text-xs font-bold text-rose-600 uppercase tracking-wider flex items-center gap-1.5">
                       <span>Paso 2 de 4 (Selección única)</span>
                     </span>
-                    <h3 className="font-['Outfit'] font-black text-2xl text-[#FFFDF7] mt-0.5">
+                    <h3 className="font-['Outfit'] font-black text-2xl text-gray-900 mt-0.5">
                       Elige tu Crema 🥛
                     </h3>
                   </div>
-                  <span className="text-xs font-semibold px-3 py-1 rounded-full bg-white/5 border border-white/10 text-stone-300">
+                  <span className="text-xs font-semibold px-3 py-1 rounded-full bg-rose-50 border border-rose-100 text-rose-700">
                     7 cremas de la casa
                   </span>
                 </div>
@@ -710,42 +702,39 @@ export const Builder: React.FC<BuilderProps> = ({ orderState, setOrderState }) =
                         onClick={() => handleSelectCrema(crema)}
                         className={`text-left p-4 rounded-2xl border-2 transition-all relative flex flex-col justify-between group cursor-pointer active:scale-95 touch-manipulation ${
                           isSelected
-                            ? 'border-[#FF8F00] bg-[#2C1945] shadow-md ring-2 ring-[#FF8F00]/40 candle-glow text-[#FFFDF7]'
-                            : 'border-white/10 bg-[#201335]/70 hover:border-[#FF8F00]/40 hover:bg-[#25183E] text-stone-200'
+                            ? 'border-rose-500 bg-rose-50/80 shadow-xs ring-1 ring-rose-400 text-gray-900'
+                            : 'border-gray-100 bg-white hover:border-rose-200 hover:bg-rose-50/30 text-gray-700'
                         }`}
                       >
                         <div className="flex items-start justify-between gap-2 mb-2">
                           <div className="flex items-center gap-2">
                             <span
-                              className="w-5 h-5 rounded-full border border-stone-200 shadow-2xs inline-block"
+                              className="w-5 h-5 rounded-full border border-gray-200 shadow-2xs inline-block"
                               style={{ backgroundColor: crema.color }}
                             />
-                            <span className="text-[10px] font-bold px-2 py-0.5 rounded-md bg-white/10 text-[#FFD54F]">
+                            <span className="text-[10px] font-bold px-2 py-0.5 rounded-md bg-rose-100 text-rose-700">
                               {crema.tag}
                             </span>
                           </div>
                           {isSelected && (
-                            <div className="flex items-center gap-1">
-                              <div className="w-6 h-6 rounded-full bg-[#FF8F00] text-[#0D0914] flex items-center justify-center text-xs font-black shadow-xs">
-                                <Check className="w-3.5 h-3.5 stroke-[3]" />
-                              </div>
-                              <CempasuchilIcon size={14} className="text-[#FFB300]" />
+                            <div className="w-6 h-6 rounded-full bg-rose-600 text-white flex items-center justify-center text-xs font-black shadow-xs">
+                              <Check className="w-3.5 h-3.5 stroke-[3]" />
                             </div>
                           )}
                         </div>
 
                         <div>
-                          <h4 className="font-['Outfit'] font-black text-base text-[#FFFDF7]">
+                          <h4 className="font-['Outfit'] font-black text-base text-gray-900">
                             {crema.name}
                           </h4>
-                          <p className="text-xs text-stone-300 mt-1 leading-relaxed">
+                          <p className="text-xs text-gray-500 mt-1 leading-relaxed">
                             {crema.description}
                           </p>
                         </div>
 
-                        <div className="mt-3 pt-2 border-t border-white/10 flex items-center justify-between text-xs">
-                          <span className="text-stone-400 font-medium">{crema.texture}</span>
-                          <span className="font-black text-[#FFD54F]">
+                        <div className="mt-3 pt-2 border-t border-gray-100 flex items-center justify-between text-xs">
+                          <span className="text-gray-400 font-medium">{crema.texture}</span>
+                          <span className="font-black text-rose-600">
                             {crema.extraPrice > 0 ? `+$${crema.extraPrice} MXN` : 'Incluida'}
                           </span>
                         </div>
@@ -776,18 +765,17 @@ export const Builder: React.FC<BuilderProps> = ({ orderState, setOrderState }) =
 
             {/* STEP 3: ADEREZO */}
             {activeStep === 3 && (
-              <div id="step-3-aderezo-panel" className="bg-[#1A1228]/95 rounded-3xl p-6 sm:p-8 shadow-xl border border-[#FF8F00]/30 animate-in fade-in duration-200 text-[#FFFDF7]">
+              <div id="step-3-aderezo-panel" className="bg-white rounded-3xl p-6 sm:p-8 shadow-xl shadow-rose-950/5 border border-rose-100 animate-in fade-in duration-200 text-gray-900">
                 <div className="flex items-center justify-between mb-6">
                   <div>
-                    <span className="text-xs font-bold text-[#FFB300] uppercase tracking-wider flex items-center gap-1.5">
-                      <CempasuchilIcon size={13} />
+                    <span className="text-xs font-bold text-rose-600 uppercase tracking-wider flex items-center gap-1.5">
                       <span>Paso 3 de 4 (Selección única)</span>
                     </span>
-                    <h3 className="font-['Outfit'] font-black text-2xl text-[#FFFDF7] mt-0.5">
+                    <h3 className="font-['Outfit'] font-black text-2xl text-gray-900 mt-0.5">
                       Elige tu Aderezo 🍯
                     </h3>
                   </div>
-                  <span className="text-xs font-semibold px-3 py-1 rounded-full bg-white/5 border border-white/10 text-stone-300">
+                  <span className="text-xs font-semibold px-3 py-1 rounded-full bg-rose-50 border border-rose-100 text-rose-700">
                     7 aderezos disponibles
                   </span>
                 </div>
@@ -802,42 +790,39 @@ export const Builder: React.FC<BuilderProps> = ({ orderState, setOrderState }) =
                         onClick={() => handleSelectAderezo(aderezo)}
                         className={`text-left p-4 rounded-2xl border-2 transition-all relative flex flex-col justify-between group cursor-pointer active:scale-95 touch-manipulation ${
                           isSelected
-                            ? 'border-[#FF8F00] bg-[#2C1945] shadow-md ring-2 ring-[#FF8F00]/40 candle-glow text-[#FFFDF7]'
-                            : 'border-white/10 bg-[#201335]/70 hover:border-[#FF8F00]/40 hover:bg-[#25183E] text-stone-200'
+                            ? 'border-rose-500 bg-rose-50/80 shadow-xs ring-1 ring-rose-400 text-gray-900'
+                            : 'border-gray-100 bg-white hover:border-rose-200 hover:bg-rose-50/30 text-gray-700'
                         }`}
                       >
                         <div className="flex items-start justify-between gap-2 mb-2">
                           <div className="flex items-center gap-2">
                             <span
-                              className="w-5 h-5 rounded-full shadow-xs border border-white"
+                              className="w-5 h-5 rounded-full shadow-2xs border border-gray-200"
                               style={{ backgroundColor: aderezo.color }}
                             />
-                            <span className="text-[10px] font-bold px-2 py-0.5 rounded-md bg-white/10 text-[#FFD54F]">
+                            <span className="text-[10px] font-bold px-2 py-0.5 rounded-md bg-rose-100 text-rose-700">
                               Aderezo
                             </span>
                           </div>
                           {isSelected && (
-                            <div className="flex items-center gap-1">
-                              <div className="w-6 h-6 rounded-full bg-[#FF8F00] text-[#0D0914] flex items-center justify-center text-xs font-black shadow-xs">
-                                <Check className="w-3.5 h-3.5 stroke-[3]" />
-                              </div>
-                              <CempasuchilIcon size={14} className="text-[#FFB300]" />
+                            <div className="w-6 h-6 rounded-full bg-rose-600 text-white flex items-center justify-center text-xs font-black shadow-xs">
+                              <Check className="w-3.5 h-3.5 stroke-[3]" />
                             </div>
                           )}
                         </div>
 
                         <div>
-                          <h4 className="font-['Outfit'] font-black text-base text-[#FFFDF7]">
+                          <h4 className="font-['Outfit'] font-black text-base text-gray-900">
                             {aderezo.name}
                           </h4>
-                          <p className="text-xs text-stone-300 mt-1 leading-relaxed">
+                          <p className="text-xs text-gray-500 mt-1 leading-relaxed">
                             {aderezo.description}
                           </p>
                         </div>
 
-                        <div className="mt-3 pt-2 border-t border-white/10 flex items-center justify-between text-xs">
-                          <span className="text-stone-400 font-medium">Toque dulce</span>
-                          <span className="font-bold text-[#48C9B0]">Incluido</span>
+                        <div className="mt-3 pt-2 border-t border-gray-100 flex items-center justify-between text-xs">
+                          <span className="text-gray-400 font-medium">Toque dulce</span>
+                          <span className="font-bold text-emerald-600">Incluido</span>
                         </div>
                       </button>
                     );
@@ -867,45 +852,43 @@ export const Builder: React.FC<BuilderProps> = ({ orderState, setOrderState }) =
 
             {/* STEP 4: TOPPINGS (Selection multiple, 2 or more) */}
             {activeStep === 4 && (
-              <div id="step-4-toppings-panel" className="bg-[#1A1228]/95 rounded-3xl p-6 sm:p-8 shadow-xl border border-[#FF8F00]/30 animate-in fade-in duration-200 text-[#FFFDF7]">
+              <div id="step-4-toppings-panel" className="bg-white rounded-3xl p-6 sm:p-8 shadow-xl shadow-rose-950/5 border border-rose-100 animate-in fade-in duration-200 text-gray-900">
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6">
                   <div>
-                    <span className="text-xs font-bold text-[#FFB300] uppercase tracking-wider flex items-center gap-1.5">
-                      <CempasuchilIcon size={13} />
+                    <span className="text-xs font-bold text-rose-600 uppercase tracking-wider flex items-center gap-1.5">
                       <span>Paso 4 de 4 (Selección múltiple, 2 o más)</span>
                     </span>
-                    <h3 className="font-['Outfit'] font-black text-2xl text-[#FFFDF7] mt-0.5">
+                    <h3 className="font-['Outfit'] font-black text-2xl text-gray-900 mt-0.5">
                       Elige tus Toppings 🍫
                     </h3>
                   </div>
                   <div className="flex items-center gap-2">
-                    <span className="px-3.5 py-1.5 rounded-full bg-[#FF6F00]/20 text-[#FFD54F] font-extrabold text-xs border border-[#FF8F00]/40">
+                    <span className="px-3.5 py-1.5 rounded-full bg-rose-50 text-rose-700 font-extrabold text-xs border border-rose-200">
                       {orderState.toppings.length} seleccionados
                     </span>
                   </div>
                 </div>
 
                 {/* Leyenda Destacada: Barra libre en sucursal */}
-                <div className="mb-5 p-4 rounded-2xl bg-[#25173B] border-2 border-[#FF8F00]/40 shadow-xs flex items-start gap-3 text-[#FFFDF7]">
-                  <div className="w-8 h-8 rounded-xl bg-[#FF8F00] text-[#0D0914] flex items-center justify-center text-sm shrink-0 shadow-xs mt-0.5 font-black">
+                <div className="mb-5 p-4 rounded-2xl bg-rose-50/70 border border-rose-200 shadow-xs flex items-start gap-3 text-gray-900">
+                  <div className="w-8 h-8 rounded-xl bg-rose-600 text-white flex items-center justify-center text-sm shrink-0 shadow-xs mt-0.5 font-black">
                     ✨
                   </div>
                   <div>
-                    <span className="text-[11px] font-black uppercase tracking-wider text-[#FFD54F] block mb-0.5 flex items-center gap-1.5">
-                      <CempasuchilIcon size={12} />
+                    <span className="text-[11px] font-black uppercase tracking-wider text-rose-600 block mb-0.5 flex items-center gap-1.5">
                       <span>¡Barra Libre de Toppings en Sucursal!</span>
                     </span>
-                    <p className="text-xs sm:text-sm font-extrabold text-stone-100 leading-relaxed">
+                    <p className="text-xs sm:text-sm font-semibold text-gray-700 leading-relaxed">
                       ¡En sucursal sírvete tú mismo los toppings con tu propia mano y a tu gusto! Para entrega a domicilio selecciona aquí tus favoritos.
                     </p>
                   </div>
                 </div>
 
                 {/* Notice pill */}
-                <div className="mb-5 p-3 rounded-2xl bg-[#201335] border border-[#FF8F00]/30 flex items-center gap-2.5 text-xs text-stone-300">
-                  <Info className="w-4 h-4 shrink-0 text-[#FFB300]" />
+                <div className="mb-5 p-3 rounded-2xl bg-gray-50 border border-gray-200 flex items-center gap-2.5 text-xs text-gray-600">
+                  <Info className="w-4 h-4 shrink-0 text-rose-500" />
                   <span>
-                    Elige <strong className="text-[#FFD54F]">al menos 2 toppings</strong> para una explosión completa de sabor. ¡Puedes agregar tantos como quieras!
+                    Elige <strong className="text-rose-600">al menos 2 toppings</strong> para una explosión completa de sabor. ¡Puedes agregar tantos como quieras!
                   </span>
                 </div>
 
@@ -1026,62 +1009,59 @@ export const Builder: React.FC<BuilderProps> = ({ orderState, setOrderState }) =
 
             {/* STEP 5: CONFIRMAR Y PEDIR POR WHATSAPP */}
             {activeStep === 5 && (
-              <div id="step-5-summary-panel" className="bg-[#1A1228]/95 rounded-3xl p-6 sm:p-8 shadow-xl border-2 border-[#FF8F00]/30 animate-in fade-in duration-200 space-y-6 text-[#FFFDF7] backdrop-blur-md">
+              <div id="step-5-summary-panel" className="bg-white rounded-3xl p-6 sm:p-8 shadow-xl shadow-rose-950/5 border border-rose-100 animate-in fade-in duration-200 space-y-6 text-gray-900">
                 
                 {/* Header */}
                 <div className="flex items-center justify-between">
                   <div>
-                    <span className="text-xs font-bold text-[#FFD54F] uppercase tracking-wider flex items-center gap-1.5">
-                      <CempasuchilIcon size={13} />
+                    <span className="text-xs font-bold text-rose-600 uppercase tracking-wider flex items-center gap-1.5">
                       <span>¡Tu combinación está lista!</span>
                     </span>
-                    <h3 className="font-['Outfit'] font-black text-2xl text-[#FFFDF7] mt-0.5 flex items-center gap-2">
+                    <h3 className="font-['Outfit'] font-black text-2xl text-gray-900 mt-0.5 flex items-center gap-2">
                       <span>Confirmar Pedido & Ticket Digital</span>
                       <span className="text-xl">🍓</span>
-                      <CempasuchilIcon size={20} className="text-[#FF8F00]" />
                     </h3>
                   </div>
-                  <span className="text-xs font-extrabold px-3 py-1 rounded-full bg-[#FF6F00]/20 border border-[#FF8F00]/40 text-[#FFD54F]">
+                  <span className="text-xs font-extrabold px-3 py-1 rounded-full bg-rose-50 border border-rose-200 text-rose-700">
                     Paso Final
                   </span>
                 </div>
 
                 {/* 1. MODALIDAD EXCLUSIVA PICK-UP */}
-                <div className="p-4 sm:p-5 rounded-3xl bg-[#25173B] border border-[#FF8F00]/30">
+                <div className="p-4 sm:p-5 rounded-3xl bg-rose-50/60 border border-rose-100">
                   <div className="flex items-center justify-between gap-2 mb-3">
-                    <span className="text-xs font-black uppercase tracking-wider text-[#FFD54F] flex items-center gap-1.5">
-                      <CalaveritaIcon size={14} />
+                    <span className="text-xs font-black uppercase tracking-wider text-rose-700 flex items-center gap-1.5">
                       <span>1. Modalidad de Pedido:</span>
                     </span>
-                    <span className="px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-300 text-[11px] font-black tracking-wide border border-emerald-400/30 flex items-center gap-1.5">
-                      <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                    <span className="px-3 py-1 rounded-full bg-emerald-50 text-emerald-700 text-[11px] font-black tracking-wide border border-emerald-200 flex items-center gap-1.5">
+                      <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
                       Pick-Up Express
                     </span>
                   </div>
 
-                  <div className="p-4 rounded-2xl bg-[#1A1228] border-2 border-[#FF8F00]/40 shadow-xs flex items-center justify-between gap-3 text-[#FFFDF7]">
+                  <div className="p-4 rounded-2xl bg-white border border-rose-200 shadow-xs flex items-center justify-between gap-3 text-gray-900">
                     <div className="flex items-center gap-3.5">
-                      <div className="w-11 h-11 rounded-2xl bg-[#FF6F00]/20 text-[#FFD54F] flex items-center justify-center text-2xl shrink-0 border border-[#FF8F00]/30">
+                      <div className="w-11 h-11 rounded-2xl bg-rose-100 text-rose-600 flex items-center justify-center text-2xl shrink-0 border border-rose-200">
                         🛍️
                       </div>
                       <div>
-                        <div className="font-['Outfit'] font-black text-sm sm:text-base text-[#FFFDF7]">
+                        <div className="font-['Outfit'] font-black text-sm sm:text-base text-gray-900">
                           Recolección en Sucursal (Pick-Up Patio Clavería)
                         </div>
-                        <div className="text-xs text-stone-300 font-medium mt-0.5">
+                        <div className="text-xs text-gray-500 font-medium mt-0.5">
                           Calle Egipto 142 • En medio de la plaza, junto a McCarthy's
                         </div>
                       </div>
                     </div>
-                    <span className="hidden sm:inline-flex px-3 py-1 rounded-xl bg-teal-500/20 text-teal-300 font-extrabold text-xs border border-teal-400/30">
+                    <span className="hidden sm:inline-flex px-3 py-1 rounded-xl bg-teal-50 text-teal-700 font-extrabold text-xs border border-teal-200">
                       Sin fila
                     </span>
                   </div>
 
-                  <div className="mt-3 p-3.5 rounded-2xl bg-[#1A1228] border border-[#FF8F00]/30 flex items-start gap-2.5 text-xs text-stone-300">
-                    <MapPin className="w-4 h-4 text-[#FF8F00] shrink-0 mt-0.5" />
+                  <div className="mt-3 p-3.5 rounded-2xl bg-white border border-rose-100 flex items-start gap-2.5 text-xs text-gray-600">
+                    <MapPin className="w-4 h-4 text-rose-500 shrink-0 mt-0.5" />
                     <p className="leading-relaxed font-medium">
-                      Preparamos tu orden con anticipación. Al confirmar tu pedido, se descarga tu <strong className="text-[#FFD54F]">Comprobante de Pedido en PDF</strong> y se notifica a cocina por WhatsApp para que solo pases por tu postre en barra <strong className="text-white">sin hacer fila</strong>.
+                      Preparamos tu orden con anticipación. Al confirmar tu pedido, se descarga tu <strong className="text-rose-600">Comprobante de Pedido en PDF</strong> y se notifica a cocina por WhatsApp para que solo pases por tu postre en barra <strong className="text-gray-900">sin hacer fila</strong>.
                     </p>
                   </div>
                 </div>
@@ -1089,11 +1069,11 @@ export const Builder: React.FC<BuilderProps> = ({ orderState, setOrderState }) =
                 {/* 2. TARJETA DE CONFIRMACIÓN VISUAL ESTILO "TICKET DE POSTRE" */}
                 <div
                   id="ticket-digital-preview"
-                  className="rounded-3xl bg-gradient-to-b from-[#FFFDF9] via-white to-[#FFF8F2] border-2 border-[#FF8F00]/50 shadow-xl p-6 sm:p-7 relative overflow-hidden font-mono text-xs text-[#2B1A24]"
+                  className="rounded-3xl bg-gradient-to-b from-[#FFFDF9] via-white to-[#FFF8F2] border-2 border-dashed border-rose-200 shadow-md p-6 sm:p-7 relative overflow-hidden font-mono text-xs text-[#2B1A24]"
                 >
                   {/* Decorative Ticket Punch Notches */}
-                  <div className="absolute -left-3.5 top-1/2 -translate-y-1/2 w-7 h-7 rounded-full bg-[#1A1228] border-2 border-[#FF8F00]/40 pointer-events-none" />
-                  <div className="absolute -right-3.5 top-1/2 -translate-y-1/2 w-7 h-7 rounded-full bg-[#1A1228] border-2 border-[#FF8F00]/40 pointer-events-none" />
+                  <div className="absolute -left-3.5 top-1/2 -translate-y-1/2 w-7 h-7 rounded-full bg-white border-2 border-rose-200 pointer-events-none" />
+                  <div className="absolute -right-3.5 top-1/2 -translate-y-1/2 w-7 h-7 rounded-full bg-white border-2 border-rose-200 pointer-events-none" />
 
                   {/* Ticket Header */}
                   <div className="text-center pb-4 border-b-2 border-dashed border-stone-200">
@@ -1113,13 +1093,12 @@ export const Builder: React.FC<BuilderProps> = ({ orderState, setOrderState }) =
                           🍓
                         </div>
                       )}
-                      <span className="font-['Outfit'] font-black text-xl tracking-tight text-[#2B1A24] flex items-center gap-1.5">
+                      <span className="font-['Outfit'] font-black text-xl tracking-tight text-gray-900 flex items-center gap-1.5">
                         <span>Freséame</span>
-                        <span className="text-[#FF4B8B]">🍓</span>
-                        <CempasuchilIcon size={16} className="text-[#FF8F00]" />
+                        <span className="text-rose-600">🍓</span>
                       </span>
                     </div>
-                    <div className="font-sans text-[10px] font-black uppercase tracking-widest text-[#FF6F00]">
+                    <div className="font-sans text-[10px] font-black uppercase tracking-widest text-rose-600">
                       ★ COMPROBANTE DE PEDIDO / ORDEN DE PREPARACIÓN ★
                     </div>
                     <div className="font-sans text-[11px] font-bold text-[#2B1A24] mt-0.5">
@@ -1303,7 +1282,7 @@ export const Builder: React.FC<BuilderProps> = ({ orderState, setOrderState }) =
                           key={m.step}
                           type="button"
                           onClick={m.action}
-                          className="px-3 py-1.5 rounded-xl bg-[#1A1228] hover:bg-[#321F4E] text-[#FFD54F] border border-[#FF8F00]/40 font-bold text-xs flex items-center gap-1.5 transition-all shadow-xs cursor-pointer active:scale-95"
+                          className="px-3 py-1.5 rounded-xl bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-200 font-bold text-xs flex items-center gap-1.5 transition-all shadow-2xs cursor-pointer active:scale-95"
                         >
                           <span>Paso {m.step}: {m.label}</span>
                           <ChevronRight className="w-3.5 h-3.5" />
@@ -1320,10 +1299,10 @@ export const Builder: React.FC<BuilderProps> = ({ orderState, setOrderState }) =
                     type="button"
                     onClick={handleOrderAndDownloadPdf}
                     disabled={isGeneratingPdf || !isReadyToOrder}
-                    className={`w-full min-h-[52px] py-4 px-6 rounded-2xl font-black text-base sm:text-lg shadow-lg transition-all active:scale-95 touch-manipulation flex items-center justify-center gap-3 text-center ${
+                    className={`w-full min-h-[52px] py-4 px-6 rounded-2xl font-black text-base sm:text-lg shadow-md transition-all active:scale-95 touch-manipulation flex items-center justify-center gap-3 text-center ${
                       !isReadyToOrder
-                        ? 'bg-stone-800 text-stone-500 cursor-not-allowed shadow-none border border-white/10'
-                        : 'bg-gradient-to-r from-[#25D366] to-[#20ba59] hover:from-[#20ba59] hover:to-[#1ea750] text-white shadow-md hover:shadow-xl cursor-pointer transform hover:-translate-y-0.5 emerald-glow'
+                        ? 'bg-gray-100 text-gray-400 cursor-not-allowed shadow-none border border-gray-200'
+                        : 'bg-gradient-to-r from-emerald-500 to-green-600 hover:from-emerald-600 hover:to-green-700 text-white shadow-md hover:shadow-xl cursor-pointer transform hover:-translate-y-0.5'
                     }`}
                   >
                     {isGeneratingPdf ? (
@@ -1345,25 +1324,25 @@ export const Builder: React.FC<BuilderProps> = ({ orderState, setOrderState }) =
                       type="button"
                       onClick={handleDownloadOnlyPdf}
                       disabled={isGeneratingPdf}
-                      className="min-h-[44px] py-3 px-4 rounded-xl bg-[#25173B] hover:bg-[#321F4E] text-[#FFD54F] font-bold text-xs flex items-center justify-center gap-2 border border-[#FF8F00]/30 transition-colors cursor-pointer active:scale-95 touch-manipulation"
+                      className="min-h-[44px] py-3 px-4 rounded-xl bg-rose-50 hover:bg-rose-100 text-rose-700 font-bold text-xs flex items-center justify-center gap-2 border border-rose-200 transition-colors cursor-pointer active:scale-95 touch-manipulation"
                     >
-                      <FileText className="w-4 h-4 text-[#FFD54F]" />
+                      <FileText className="w-4 h-4 text-rose-600" />
                       <span>Descargar Comprobante PDF</span>
                     </button>
 
                     <button
                       type="button"
                       onClick={handleCopySummary}
-                      className="min-h-[44px] py-3 px-4 rounded-xl bg-[#1A1228] hover:bg-[#25173B] text-stone-200 font-bold text-xs flex items-center justify-center gap-2 border border-white/10 transition-colors cursor-pointer active:scale-95 touch-manipulation"
+                      className="min-h-[44px] py-3 px-4 rounded-xl bg-white hover:bg-gray-50 text-gray-700 font-bold text-xs flex items-center justify-center gap-2 border border-gray-200 transition-colors cursor-pointer active:scale-95 touch-manipulation shadow-2xs"
                     >
                       {copied ? (
                         <>
-                          <CheckCheck className="w-4 h-4 text-emerald-400" />
-                          <span className="text-emerald-400">¡Copiado!</span>
+                          <CheckCheck className="w-4 h-4 text-emerald-600" />
+                          <span className="text-emerald-600 font-bold">¡Copiado!</span>
                         </>
                       ) : (
                         <>
-                          <Copy className="w-4 h-4 text-stone-400" />
+                          <Copy className="w-4 h-4 text-gray-500" />
                           <span>Copiar texto comanda</span>
                         </>
                       )}

@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-import { Sparkles, MessageCircle, ArrowRight, Check, Heart, MapPin } from 'lucide-react';
-import { WHATSAPP_PHONE, STORE_LOCATION } from '../data/freseameData';
-import { CempasuchilIcon, CalaveritaIcon } from './DiaDeMuertosDecorations';
+import { MessageCircle } from 'lucide-react';
+import { WHATSAPP_PHONE } from '../data/freseameData';
 
 interface CrepasSectionProps {
   onCustomizeWithBase?: () => void;
@@ -40,105 +39,94 @@ export const CrepasSection: React.FC<CrepasSectionProps> = ({ onCustomizeWithBas
       toppings: ['Nutella Pura', 'Fresas Frescas', 'Nuez Picada'],
     },
     {
-      id: 'crepa-kinder-bueno',
-      name: 'Crepa Kinder Bueno & Crema Kinder',
-      description: 'Nuestra exclusiva crema artesanal Kinder combinada con barritas de Kinder Bueno, fresas y chocolate blanco derretido.',
-      price: 95,
-      tag: 'Especialidad',
-      emoji: '✨',
-      toppings: ['Crema Kinder', 'Kinder Bueno', 'Chocolate Blanco'],
-    },
-    {
-      id: 'crepa-cajeta-platano',
-      name: 'Crepa Cajeta de Celaya & Plátano',
-      description: 'Cajeta quemada tradicional, rebanadas de plátano fresco, nuez picada y un toque suave de crema 3 leches.',
+      id: 'crepa-tres-leches-durazno',
+      name: 'Crepa 3 Leches con Durazno',
+      description: 'Relleno de durazno en almíbar dulce con nuestra crema 3 leches mexicana y toque de canela molida.',
       price: 85,
-      tag: 'Clásico Dulce',
-      emoji: '🍌',
-      toppings: ['Cajeta Quemada', 'Plátano', 'Crema 3 Leches'],
-    },
-    {
-      id: 'crepa-lotus-biscoff',
-      name: 'Crepa Lotus Biscoff Crunch',
-      description: 'Untable cremoso de galleta Lotus Biscoff con trozos crujientes de galleta caramelizada, fresas frescas y canela.',
-      price: 95,
-      tag: 'Tendencia',
-      emoji: '🍪',
-      toppings: ['Crema Lotus', 'Galleta Biscoff', 'Canela'],
-    },
-    {
-      id: 'crepa-3-leches-durazno',
-      name: 'Crepa 3 Leches & Durazno Glaseado',
-      description: 'Gajos seleccionados de durazno dulce en su punto, bañados en nuestra crema 3 leches y almendra fileteada.',
-      price: 85,
-      tag: 'Suave & Fresca',
+      tag: 'Muy Suave',
       emoji: '🍑',
-      toppings: ['Durazno Dulce', 'Crema 3 Leches', 'Almendra'],
+      toppings: ['Duraznos Dulces', 'Crema 3 Leches', 'Canela'],
+    },
+    {
+      id: 'crepa-fit-proteina',
+      name: 'Crepa Fit con Frutos & Crema Proteica',
+      description: 'Crepa ligera con yogur proteico, fresas, uvas sin semilla y almendras tostadas sin culpa.',
+      price: 95,
+      tag: '💪 High Protein',
+      emoji: '🍇',
+      toppings: ['Yogur Proteico', 'Fresas & Uvas', 'Almendra'],
+    },
+    {
+      id: 'crepa-kinder-deluxe',
+      name: 'Crepa Kinder Deluxe con Avellana',
+      description: 'Rellena de trozos de Kinder Bueno, crema de avellana, chocolate rallado y crema de chocolate de la casa.',
+      price: 95,
+      tag: 'Especial',
+      emoji: '🍪',
+      toppings: ['Kinder Bueno', 'Crema de Avellana', 'Chispas'],
+    },
+    {
+      id: 'crepa-cajeta-nuez',
+      name: 'Crepa Tradicional Cajeta & Nuez',
+      description: 'Cajeta quemada artesanal de Celaya con abundante nuez pecana troceada y toque de crema de café.',
+      price: 85,
+      tag: 'Clásica',
+      emoji: '🍯',
+      toppings: ['Cajeta Artesanal', 'Nuez Pecana', 'Crema Café'],
     },
   ];
 
   const handleOrderWhatsApp = (crepa: CrepaItem) => {
-    const folio = `FSM-${Math.floor(100 + Math.random() * 900)}`;
-    const msg =
-      `¡Hola Freséame! 🍓 Quiero ordenar una orden de Crepas:\n\n` +
-      `🧾 Folio: #${folio}\n` +
-      `🥞 Producto: ${crepa.name}\n` +
-      `💰 Precio: $${crepa.price} MXN\n` +
-      `🍓 Ingredientes: ${crepa.toppings.join(', ')}\n` +
-      `📍 Servicio: Pick-Up en Patio Clavería (junto a McCarthy's)\n\n` +
-      `¿Tienen disponible para pasar a recoger?`;
+    const msg = `¡Hola Freséame! 🍓 Quiero ordenar la ${crepa.name} ($${crepa.price} MXN). ¿Me confirman tiempo de preparación en Patio Clavería? ✨`;
     window.open(`https://wa.me/${WHATSAPP_PHONE}?text=${encodeURIComponent(msg)}`, '_blank');
   };
 
   return (
-    <section id="crepas" className="py-4 sm:py-6 bg-transparent">
-      <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
+    <section id="crepas" className="py-6 sm:py-10 bg-transparent">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Compact Header */}
-        <div className="max-w-2xl mx-auto text-center mb-5 sm:mb-6">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#1A1228] border border-[#FF8F00]/40 text-[#FFD54F] text-xs font-black uppercase tracking-wider mb-2 shadow-xs">
-            <CalaveritaIcon size={14} />
-            <span>🥞 Recién Hechas a la Plancha</span>
-            <CempasuchilIcon size={14} />
-          </div>
-          <h2 className="font-['Outfit'] font-black text-2xl sm:text-3xl md:text-4xl text-[#FFFDF7] tracking-tight flex items-center justify-center gap-2">
-            <span>Crepas Artesanales Freséame</span>
-            <CempasuchilIcon size={24} className="text-[#FF8F00]" />
+        <div className="max-w-2xl mx-auto text-center mb-6 sm:mb-8">
+          <span className="text-xs font-bold text-rose-600 uppercase tracking-widest bg-rose-50 px-3 py-1 rounded-full border border-rose-100">
+            🥞 Recién Hechas a la Plancha
+          </span>
+          <h2 className="font-['Outfit'] font-black text-2xl sm:text-3xl md:text-4xl text-gray-900 tracking-tight mt-2">
+            Crepas Artesanales Freséame
           </h2>
-          <p className="mt-1.5 text-xs sm:text-sm text-stone-300 font-medium">
+          <p className="mt-1.5 text-xs sm:text-sm text-gray-600 font-medium">
             Masa delgada, doradita con mantequilla y rellena con nuestras 7 cremas de especialidad y frutas frescas.
           </p>
         </div>
 
         {/* Clean, Mobile-First Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
           {crepasList.map((crepa) => {
             const isSelected = selectedCrepaId === crepa.id;
             return (
               <div
                 key={crepa.id}
-                className={`rounded-3xl bg-[#1A1228]/95 border p-5 sm:p-6 flex flex-col justify-between transition-all duration-200 shadow-md hover:shadow-xl cursor-pointer ${
+                className={`rounded-3xl bg-white border p-5 sm:p-6 flex flex-col justify-between transition-all duration-200 shadow-md hover:shadow-xl cursor-pointer ${
                   isSelected
-                    ? 'border-[#FF8F00] ring-2 ring-[#FF8F00]/60 candle-glow bg-[#221636]'
-                    : 'border-[#FF8F00]/25 hover:border-[#FF8F00]/60 hover:bg-[#201433]'
+                    ? 'border-rose-500 ring-2 ring-rose-200 bg-rose-50/30'
+                    : 'border-rose-100 hover:border-rose-300'
                 }`}
                 onClick={() => setSelectedCrepaId(crepa.id)}
               >
                 <div>
                   <div className="flex items-start justify-between gap-3 mb-2">
-                    <span className="text-3xl p-2 rounded-2xl bg-[#25173B] border border-[#FF8F00]/30 shrink-0">
+                    <span className="text-3xl p-2 rounded-2xl bg-rose-50 border border-rose-100 shrink-0">
                       {crepa.emoji}
                     </span>
-                    <span className="px-2.5 py-0.5 rounded-full bg-[#FF6F00]/20 border border-[#FF8F00]/40 text-[#FFD54F] text-[11px] font-black uppercase tracking-wider">
+                    <span className="px-2.5 py-0.5 rounded-full bg-rose-100 text-rose-700 text-[11px] font-bold uppercase tracking-wider">
                       {crepa.tag}
                     </span>
                   </div>
 
-                  <h3 className="font-['Outfit'] font-black text-lg text-[#FFFDF7] leading-snug">
+                  <h3 className="font-['Outfit'] font-black text-lg text-gray-900 leading-snug">
                     {crepa.name}
                   </h3>
 
-                  <p className="text-xs text-stone-300 font-medium leading-relaxed mt-2 mb-3">
+                  <p className="text-xs text-gray-600 font-medium leading-relaxed mt-2 mb-3">
                     {crepa.description}
                   </p>
 
@@ -146,7 +134,7 @@ export const CrepasSection: React.FC<CrepasSectionProps> = ({ onCustomizeWithBas
                     {crepa.toppings.map((t, idx) => (
                       <span
                         key={idx}
-                        className="px-2 py-0.5 rounded-md bg-[#25173B] text-stone-200 border border-white/5 text-[10px] font-bold"
+                        className="px-2 py-0.5 rounded-md bg-gray-50 text-gray-700 border border-gray-200 text-[10px] font-bold"
                       >
                         ✓ {t}
                       </span>
@@ -154,10 +142,10 @@ export const CrepasSection: React.FC<CrepasSectionProps> = ({ onCustomizeWithBas
                   </div>
                 </div>
 
-                <div className="pt-3 border-t border-white/10 flex items-center justify-between gap-3">
+                <div className="pt-3 border-t border-gray-100 flex items-center justify-between gap-3">
                   <div>
-                    <span className="text-[10px] text-stone-400 font-bold block uppercase">Precio</span>
-                    <span className="font-['Outfit'] font-black text-xl text-[#FFD54F]">
+                    <span className="text-[10px] text-gray-400 font-bold block uppercase">Precio</span>
+                    <span className="font-['Outfit'] font-black text-xl text-gray-900">
                       ${crepa.price} MXN
                     </span>
                   </div>
@@ -168,7 +156,7 @@ export const CrepasSection: React.FC<CrepasSectionProps> = ({ onCustomizeWithBas
                       e.stopPropagation();
                       handleOrderWhatsApp(crepa);
                     }}
-                    className="min-h-[44px] py-2.5 px-4 rounded-xl bg-gradient-to-r from-[#25D366] to-[#1eb855] hover:from-[#1eb855] hover:to-[#199d49] text-white text-xs font-black shadow-md emerald-glow transition-all flex items-center justify-center gap-1.5 cursor-pointer active:scale-95 touch-manipulation"
+                    className="min-h-[42px] py-2 px-4 rounded-xl bg-gradient-to-r from-emerald-500 to-green-600 hover:from-emerald-600 hover:to-green-700 text-white text-xs font-bold shadow-xs transition-all flex items-center justify-center gap-1.5 cursor-pointer active:scale-95"
                   >
                     <MessageCircle className="w-4 h-4 fill-white shrink-0" />
                     <span>Pedir Crepa</span>
@@ -180,14 +168,14 @@ export const CrepasSection: React.FC<CrepasSectionProps> = ({ onCustomizeWithBas
         </div>
 
         {/* Customizer link banner */}
-        <div className="mt-8 p-4 sm:p-5 rounded-2xl bg-[#1A1228]/95 border border-[#FF8F00]/30 shadow-md flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left backdrop-blur-md">
+        <div className="mt-8 p-5 sm:p-6 rounded-3xl bg-rose-50/60 border border-rose-100 shadow-xs flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
           <div className="flex items-center gap-3">
-            <CalaveritaIcon size={24} />
+            <span className="text-3xl">🥞</span>
             <div>
-              <h4 className="font-['Outfit'] font-black text-sm text-[#FFFDF7]">
+              <h4 className="font-['Outfit'] font-black text-sm sm:text-base text-gray-900">
                 ¿Prefieres armar tu crepa desde cero?
               </h4>
-              <p className="text-xs text-stone-300">
+              <p className="text-xs text-gray-600">
                 Elige tu crema artesanal favorita, aderezo y toppings de la barra libre en el simulador.
               </p>
             </div>
@@ -197,7 +185,7 @@ export const CrepasSection: React.FC<CrepasSectionProps> = ({ onCustomizeWithBas
             <button
               type="button"
               onClick={onCustomizeWithBase}
-              className="min-h-[44px] py-2.5 px-5 rounded-xl bg-gradient-to-r from-[#FF6F00] via-[#FF8F00] to-[#FFA000] hover:from-[#FF8F00] hover:to-[#FFB300] text-[#0D0914] text-xs font-black transition-all shrink-0 cursor-pointer active:scale-95 touch-manipulation flex items-center justify-center candle-glow border border-[#FFD54F]"
+              className="min-h-[44px] py-2.5 px-5 rounded-2xl bg-rose-600 hover:bg-rose-700 text-white text-xs font-black transition-all shrink-0 cursor-pointer active:scale-95 shadow-sm"
             >
               Ir a Personalizador
             </button>
@@ -208,3 +196,5 @@ export const CrepasSection: React.FC<CrepasSectionProps> = ({ onCustomizeWithBas
     </section>
   );
 };
+
+export default CrepasSection;

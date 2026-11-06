@@ -1,4 +1,5 @@
 import { jsPDF } from 'jspdf';
+import { WHATSAPP_DISPLAY } from '../data/freseameData';
 
 interface TicketData {
   folio: string;
@@ -265,7 +266,7 @@ export const generatePdfTicket = async (data: TicketData): Promise<GeneratedTick
     doc.setFont('helvetica', 'bold');
     doc.setFontSize(7);
     doc.setTextColor(37, 211, 102);
-    doc.text('WhatsApp de Atencion: +52 55 1789 8795', pageWidth / 2, y, { align: 'center' });
+    doc.text(`WhatsApp de Atencion: ${WHATSAPP_DISPLAY}`, pageWidth / 2, y, { align: 'center' });
     y += 3.5;
 
     // Footer note
