@@ -51,8 +51,8 @@ export const STORE_LOCATION = {
 };
 
 export const SIZES: SizeConfig[] = [
-  { id: 'mediano', name: 'Mediano', label: '16 oz (Más pedido)', multiplier: 1.0, includedToppings: 3, oz: '16 oz (Favorito)' },
-  { id: 'grande', name: 'Grande', label: '24 oz (Para compartir)', multiplier: 1.35, includedToppings: 4, oz: '24 oz (Doble amor)' },
+  { id: 'chico', name: 'Chico (12 oz)', label: '12 oz (Individual favorito)', multiplier: 1.0, includedToppings: 3, oz: '12 oz' },
+  { id: 'grande', name: 'Grande (16 oz)', label: '16 oz (Para compartir o doble antojo)', multiplier: 1.27, includedToppings: 4, oz: '16 oz' },
 ];
 
 export const BASES: BaseOption[] = [

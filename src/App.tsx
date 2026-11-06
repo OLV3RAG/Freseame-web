@@ -31,39 +31,39 @@ const WHATSAPP_UNIVERSAL_URL = 'https://wa.me/525535021829?text=Hola%20Fres%C3%A
 // =======================================================
 // DATOS DEL ARMADOR / CONFIGURADOR INTERACTIVO
 // =======================================================
-export type CupSize = 'mediano' | 'grande';
+export type CupSize = 'chico' | 'grande';
 
 export interface SizeOption {
   id: CupSize;
   name: string;
   label: string;
   oz: string;
-  multiplier: number;
-  includedToppings: number;
+  basicPrice: number;
+  premiumPrice: number;
 }
 
 export const SIZES_DATA: SizeOption[] = [
-  { id: 'mediano', name: 'Mediano', label: '16 oz (Individual favorito)', oz: '16 oz', multiplier: 1.0, includedToppings: 3 },
-  { id: 'grande', name: 'Grande', label: '24 oz (Para compartir o doble antojo)', oz: '24 oz', multiplier: 1.27, includedToppings: 4 },
+  { id: 'chico', name: 'Chico (12 oz)', label: '$90 básico / $130 premium', oz: '12 oz', basicPrice: 90, premiumPrice: 130 },
+  { id: 'grande', name: 'Grande (16 oz)', label: '$130 básico / $160 premium', oz: '16 oz', basicPrice: 130, premiumPrice: 160 },
 ];
 
 export interface BaseItem {
   id: string;
   name: string;
-  price: number;
   description: string;
   tag: string;
   icon: string;
+  isSpecialAntojo?: boolean;
 }
 
 export const BASES_DATA: BaseItem[] = [
-  { id: 'fresas-crema', name: 'Fresas con crema', price: 75, description: 'Fresas frescas desinfectadas cortadas al momento.', tag: 'Estrella', icon: '🍓' },
-  { id: 'fresas-enchiladas', name: 'Fresas Enchiladas', price: 80, description: 'Fresas con chamoy, chilito y limón artesanal.', tag: 'Picosito', icon: '🌶️' },
-  { id: 'duraznos-crema', name: 'Duraznos con crema', price: 75, description: 'Gajos de durazno dulce en su punto perfecto.', tag: 'Suave', icon: '🍑' },
-  { id: 'uvas-crema', name: 'Uvas con crema', price: 70, description: 'Uvas crujientes sin semilla, ultra frescas.', tag: 'Ligero', icon: '🍇' },
-  { id: 'waffle-1pza', name: 'Waffle (1 pza)', price: 85, description: 'Waffle belga crujiente por fuera y suave por dentro.', tag: 'Plancha', icon: '🧇' },
-  { id: 'hot-cakes-3mini', name: 'Hot Cakes (3 mini pzas)', price: 85, description: 'Trío esponjoso recién dorado con mantequilla.', tag: 'Favorito', icon: '🥞' },
-  { id: 'pan-fresh-2reb', name: 'Pan Fresh (2 rebanadas)', price: 70, description: 'Rebanadas de brioche tostadas con toque de canela.', tag: 'Crujiente', icon: '🍞' },
+  { id: 'fresas-crema', name: 'Fresas con crema', description: 'Fresas frescas seleccionadas y desinfectadas cortadas al momento.', tag: 'Estrella', icon: '🍓' },
+  { id: 'uvas-crema', name: 'Uvas con crema', description: 'Uvas frescas sin semilla, dulces y crujientes con crema.', tag: 'Frescura', icon: '🍇' },
+  { id: 'duraznos-crema', name: 'Duraznos con crema', description: 'Gajos de durazno dulce en su punto perfecto de maduración.', tag: 'Suave', icon: '🍑' },
+  { id: 'combinados', name: 'Combinados (Fresas, Uvas y Duraznos)', description: 'Trilogía frutal fresca combinada con tu crema artesanal favorita.', tag: 'Mix Frutal', icon: '🥗' },
+  { id: 'fresas-enchiladas', name: 'Fresas Enchiladas (con chamoy)', description: 'Fresas con chamoy especial, chilito y limón artesanal.', tag: 'Picosito', icon: '🌶️' },
+  { id: 'waffles-freseame', name: 'Waffles Freséame', description: 'Waffle artesanal recién horneado servido con fruta y crema.', tag: 'Más Antojos ($130 / $160)', icon: '🧇', isSpecialAntojo: true },
+  { id: 'crepas-freseame', name: 'Crepas Freséame', description: 'Crepa dulce suave y doradita preparada al momento.', tag: 'Más Antojos ($130 / $160)', icon: '🥞', isSpecialAntojo: true },
 ];
 
 export interface CremaItem {
@@ -74,12 +74,13 @@ export interface CremaItem {
 }
 
 export const CREMAS_DATA: CremaItem[] = [
-  { id: 'crema-casa-queso', name: 'Crema de la Casa con Queso', description: 'Receta secreta sedosa estilo cheesecake dulce.', tag: '⭐ La Más Pedida' },
-  { id: 'crema-tradicional', name: 'Crema Tradicional', description: 'Nuestra clásica crema dulce, suave y balanceada.', tag: 'Clásica' },
-  { id: 'crema-proteina-fit', name: 'Crema de Proteína Fit', description: 'Opción ligera a base de yogur proteico.', tag: '💪 Fit' },
-  { id: 'crema-chocolate', name: 'Crema de Chocolate', description: 'Emulsión intensa con auténtico cacao oscuro.', tag: 'Choco Lover' },
-  { id: 'crema-cafe', name: 'Crema de Café', description: 'Notas suaves y aromáticas de café moka.', tag: 'Aromática' },
-  { id: 'crema-3-leches', name: 'Crema 3 Leches', description: 'Inspirada en el tradicional postre mexicano.', tag: 'Extra Dulce' },
+  { id: 'crema-tradicional', name: 'Tradicional', description: 'Nuestra clásica crema dulce, suave y balanceada.', tag: 'Clásica' },
+  { id: 'crema-casa-queso', name: 'De la casa (Queso)', description: 'Receta secreta insignia con toque cremoso estilo cheesecake dulce.', tag: '⭐ Favorita' },
+  { id: 'crema-proteina', name: 'De proteína', description: 'Elaborada con proteína de alta calidad para cuidar tu línea.', tag: '💪 Fit' },
+  { id: 'crema-vegana', name: 'Vegana', description: '100% de origen vegetal, libre de lácteos y deliciosa.', tag: '🌱 Plant-Based' },
+  { id: 'crema-chocolate', name: 'De chocolate', description: 'Intenso y delicioso sabor a chocolate semiamargo artesanal.', tag: 'Choco Lover' },
+  { id: 'crema-cafe', name: 'De café', description: 'Toque aromático gourmet con sutiles notas moka.', tag: '☕ Aromática' },
+  { id: 'crema-3-leches', name: 'De 3 leches', description: 'Cremosa mezcla tradicional mexicana inspirada en 3 leches.', tag: 'Extra Dulce' },
 ];
 
 export interface AderezoItem {
@@ -89,43 +90,55 @@ export interface AderezoItem {
 }
 
 export const ADEREZOS_DATA: AderezoItem[] = [
-  { id: 'nutella', name: 'Nutella original', icon: '🌰' },
-  { id: 'chocolate-hersheys', name: "Chocolate Hershey's", icon: '🍫' },
-  { id: 'cajeta', name: 'Cajeta Coronado', icon: '🍯' },
-  { id: 'lechera', name: 'Leche Condensada (Lechera)', icon: '🥛' },
-  { id: 'fresa', name: 'Jarabe de Fresa Artesanal', icon: '🍓' },
-  { id: 'maple', name: 'Miel de Maple pura', icon: '🍁' },
-  { id: 'chamoy-miguelito', name: 'Chamoy líquido y Miguelito', icon: '🌶️' },
+  { id: 'nutella', name: 'Nutella', icon: '🍫' },
+  { id: 'lechera', name: 'Lechera', icon: '🥛' },
+  { id: 'chocolate-hersheys', name: "Chocolate Hershey's", icon: '🤎' },
+  { id: 'cajeta', name: 'Cajeta', icon: '🍯' },
+  { id: 'chamoy-miguelito', name: 'Chamoy con miguelito', icon: '🌶️' },
 ];
 
 export interface ToppingItem {
   id: string;
   name: string;
   category: 'clasico' | 'premium' | 'enchilado';
-  price: number;
+  badgeLabel: string;
 }
 
 export const TOPPINGS_DATA: ToppingItem[] = [
-  // Clásicos (incluidos)
-  { id: 'chispas-choco', name: 'Chispas de Chocolate', category: 'clasico', price: 0 },
-  { id: 'granillo-colores', name: 'Granillo de Colores', category: 'clasico', price: 0 },
-  { id: 'mini-bombones', name: 'Mini Bombones', category: 'clasico', price: 0 },
-  { id: 'amaranto', name: 'Amaranto con miel', category: 'clasico', price: 0 },
-  { id: 'coco-rallado', name: 'Coco rallado tostado', category: 'clasico', price: 0 },
-  { id: 'galleta-maria', name: 'Galleta María molida', category: 'clasico', price: 0 },
+  // Clásicos
+  { id: 'bubulubu', name: 'Bubulubu', category: 'clasico', badgeLabel: 'Clásico' },
+  { id: 'galleta-oreo', name: 'Galleta Oreo', category: 'clasico', badgeLabel: 'Clásico' },
+  { id: 'galleta-chokis', name: 'Galleta Chokis', category: 'clasico', badgeLabel: 'Clásico' },
+  { id: 'galleta-maria', name: 'Galleta María', category: 'clasico', badgeLabel: 'Clásico' },
+  { id: 'kranky', name: 'Kranky', category: 'clasico', badgeLabel: 'Clásico' },
+  { id: 'snickers', name: 'Snickers', category: 'clasico', badgeLabel: 'Clásico' },
+  { id: 'carlos-v', name: 'Carlos V', category: 'clasico', badgeLabel: 'Clásico' },
+  { id: 'tapon', name: 'Tapón', category: 'clasico', badgeLabel: 'Clásico' },
+  { id: 'tin-larin', name: 'Tin Larín', category: 'clasico', badgeLabel: 'Clásico' },
+  { id: 'bocadin', name: 'Bocadín', category: 'clasico', badgeLabel: 'Clásico' },
+  { id: 'mazapan', name: 'Mazapán', category: 'clasico', badgeLabel: 'Clásico' },
+  { id: 'm-and-m', name: 'M&M', category: 'clasico', badgeLabel: 'Clásico' },
+
   // Premium
-  { id: 'kinder-bueno', name: 'Kinder Bueno en trozos', category: 'premium', price: 15 },
-  { id: 'ferrero', name: 'Ferrero Rocher troceado', category: 'premium', price: 18 },
-  { id: 'oreo', name: 'Galleta Oreo triturada', category: 'premium', price: 10 },
-  { id: 'nuez-pecana', name: 'Nuez pecana en trozos', category: 'premium', price: 12 },
-  { id: 'almendra-fileteada', name: 'Almendra fileteada', category: 'premium', price: 12 },
-  { id: 'mms', name: "M&M's de chocolate", category: 'premium', price: 10 },
-  { id: 'mazapan', name: 'Mazapán de cacahuate', category: 'premium', price: 10 },
+  { id: 'kit-kat', name: 'Kit Kat', category: 'premium', badgeLabel: 'Premium ⭐' },
+  { id: 'kinder-delice', name: 'Kinder Delice', category: 'premium', badgeLabel: 'Premium ⭐' },
+  { id: 'kinder-bueno', name: 'Kinder Bueno', category: 'premium', badgeLabel: 'Premium ⭐' },
+  { id: 'hersheys-pastelito', name: "Hershey's pastelito", category: 'premium', badgeLabel: 'Premium ⭐' },
+  { id: 'hersheys-cookies-creme', name: "Hershey's Cookies 'n' Creme", category: 'premium', badgeLabel: 'Premium ⭐' },
+  { id: 'hersheys-almendra', name: "Hershey's almendra", category: 'premium', badgeLabel: 'Premium ⭐' },
+  { id: 'ferrero', name: 'Ferrero', category: 'premium', badgeLabel: 'Premium ⭐' },
+  { id: 'kinder-sorpresa', name: 'Kinder Sorpresa', category: 'premium', badgeLabel: 'Premium ⭐' },
+  { id: 'freskas', name: 'Freskas', category: 'premium', badgeLabel: 'Premium ⭐' },
+  { id: 'larin', name: 'Larín', category: 'premium', badgeLabel: 'Premium ⭐' },
+  { id: 'conejo-turin', name: 'Conejo Turín', category: 'premium', badgeLabel: 'Premium ⭐' },
+
   // Enchilados
-  { id: 'skwinkles', name: 'Skwinkles Salsagheti', category: 'enchilado', price: 12 },
-  { id: 'gomitas-mango', name: 'Gomitas de mango con chile', category: 'enchilado', price: 10 },
-  { id: 'pulparindo', name: 'Pulparindo en trocitos', category: 'enchilado', price: 10 },
-  { id: 'cacahuates-japoneses', name: 'Cacahuates japoneses', category: 'enchilado', price: 8 },
+  { id: 'gomitas-chilifruta', name: 'Gomitas Chilifruta', category: 'enchilado', badgeLabel: 'Enchilado 🌶️' },
+  { id: 'pica-fresa', name: 'Pica Fresa', category: 'enchilado', badgeLabel: 'Enchilado 🌶️' },
+  { id: 'gomitas-fruta', name: 'Gomitas Fruta', category: 'enchilado', badgeLabel: 'Enchilado 🌶️' },
+  { id: 'pulparindo', name: 'Pulparindo', category: 'enchilado', badgeLabel: 'Enchilado 🌶️' },
+  { id: 'skwinkles-sandia', name: 'Skwinkles Sandía', category: 'enchilado', badgeLabel: 'Enchilado 🌶️' },
+  { id: 'mini-panditas', name: 'Mini Panditas', category: 'enchilado', badgeLabel: 'Enchilado 🌶️' },
 ];
 
 // Diapositivas de la Cartelera de Menú Digital
@@ -269,13 +282,13 @@ export default function App() {
   // =======================================================
   // ESTADO DEL ARMADOR INTERACTIVO / SIMULADOR DE PEDIDO
   // =======================================================
-  const [selectedSize, setSelectedSize] = useState<CupSize>('mediano');
+  const [selectedSize, setSelectedSize] = useState<CupSize>('chico');
   const [selectedBase, setSelectedBase] = useState<BaseItem>(BASES_DATA[0]);
   const [selectedCrema, setSelectedCrema] = useState<CremaItem>(CREMAS_DATA[0]);
   const [selectedAderezo, setSelectedAderezo] = useState<AderezoItem>(ADEREZOS_DATA[0]);
   const [selectedToppings, setSelectedToppings] = useState<ToppingItem[]>([
-    TOPPINGS_DATA[6], // Kinder Bueno
-    TOPPINGS_DATA[8], // Oreo
+    TOPPINGS_DATA[1], // Galleta Oreo
+    TOPPINGS_DATA[14], // Kinder Bueno
   ]);
   const [orderNotes, setOrderNotes] = useState<string>('');
   const [activeStepTab, setActiveStepTab] = useState<number>(1);
@@ -348,37 +361,54 @@ export default function App() {
     });
   };
 
-  // Cálculo en Vivo del Total
+  // Detección de Topping Premium
+  const hasPremiumTopping = useMemo(() => {
+    return selectedToppings.some((t) => t.category === 'premium');
+  }, [selectedToppings]);
+
+  // Cálculo en Vivo del Total según carta oficial física
   const calculatedTotal = useMemo(() => {
-    const currentSizeObj = SIZES_DATA.find((s) => s.id === selectedSize) || SIZES_DATA[0];
-    const baseCalc = Math.round(selectedBase.price * currentSizeObj.multiplier);
-    const extraToppingsTotal = selectedToppings.reduce((acc, curr) => acc + curr.price, 0);
-    return baseCalc + extraToppingsTotal;
-  }, [selectedSize, selectedBase, selectedToppings]);
+    const isSpecialAntojo = Boolean(selectedBase.isSpecialAntojo);
+    if (isSpecialAntojo) {
+      return hasPremiumTopping ? 160 : 130;
+    }
+    if (selectedSize === 'chico') {
+      return hasPremiumTopping ? 130 : 90;
+    } else {
+      return hasPremiumTopping ? 160 : 130;
+    }
+  }, [selectedSize, selectedBase, hasPremiumTopping]);
 
   // Mensaje Formateado para WhatsApp del Pedido Armado
   const whatsappOrderUrl = useMemo(() => {
-    const sizeName = selectedSize === 'mediano' ? 'Mediano (16 oz)' : 'Grande (24 oz)';
+    const isSpecialAntojo = Boolean(selectedBase.isSpecialAntojo);
+    const sizeDisplay = isSpecialAntojo ? 'Tamaño Especial (Waffle/Crepa)' : (selectedSize === 'chico' ? 'Chico (12 oz)' : 'Grande (16 oz)');
+    
     const toppingsList = selectedToppings.length > 0
-      ? selectedToppings.map((t) => (t.price > 0 ? `• ${t.name} (+$${t.price})` : `• ${t.name}`)).join('\n')
-      : '• Sin toppings adicionales';
+      ? selectedToppings.map((t) => `• ${t.name} (${t.category === 'premium' ? 'Premium ⭐' : t.category === 'enchilado' ? 'Enchilado 🌶️' : 'Clásico'})`).join('\n')
+      : '• Sin toppings seleccionados';
+
+    const tarifaTipo = hasPremiumTopping
+      ? 'Tarifa Premium ⭐ (Incluye toppings premium)'
+      : 'Tarifa Básica 🏷️ (Toppings clásicos / enchilados)';
 
     const msg = `¡Hola Freséame! 🍓 Quiero hacer el siguiente pedido personalizado:
 
-📋 *RESUMEN DE MI VASO FRESÉAME*
-• *Tamaño:* ${sizeName}
-• *Paso 1 (Base):* ${selectedBase.name} ($${selectedBase.price} MXN)
-• *Paso 2 (Crema):* ${selectedCrema.name}
-• *Paso 3 (Aderezo):* ${selectedAderezo.name}
-• *Paso 4 (Toppings):*
+📋 *RESUMEN DE MI PEDIDO FRESÉAME*
+• *Producto / Base:* ${selectedBase.name}
+• *Tamaño:* ${sizeDisplay}
+• *Crema Elegida:* ${selectedCrema.name}
+• *Aderezo / Jarabe:* ${selectedAderezo.name}
+• *Toppings:*
 ${toppingsList}
-${orderNotes ? `• *Notas:* ${orderNotes}\n` : ''}
-💰 *Total Estimado:* $${calculatedTotal} MXN
+• *Tipo de Tarifa:* ${tarifaTipo}
+${orderNotes ? `• *Notas Especiales:* ${orderNotes}\n` : ''}
+💰 *Total Oficial:* $${calculatedTotal} MXN
 
 ¿Tienen disponibilidad para pasar a recoger en sucursal? ¡Muchas gracias! ✨`;
 
     return `https://wa.me/${WHATSAPP_PHONE}?text=${encodeURIComponent(msg)}`;
-  }, [selectedSize, selectedBase, selectedCrema, selectedAderezo, selectedToppings, orderNotes, calculatedTotal]);
+  }, [selectedSize, selectedBase, selectedCrema, selectedAderezo, selectedToppings, hasPremiumTopping, orderNotes, calculatedTotal]);
 
   const createWhatsAppUrl = (customText?: string) => {
     const text = customText || 'Hola Freséame! Me gustaría hacer un pedido.';
@@ -898,7 +928,7 @@ ${orderNotes ? `• *Notas:* ${orderNotes}\n` : ''}
                       <div>
                         <div className="flex items-center gap-2">
                           <span className="font-['Outfit'] font-black text-lg text-gray-900">
-                            {size.name} ({size.oz})
+                            {size.name}
                           </span>
                           {isSelected && <span className="text-xs bg-rose-600 text-white px-2 py-0.5 rounded-full font-bold">Activo</span>}
                         </div>
@@ -911,6 +941,13 @@ ${orderNotes ? `• *Notas:* ${orderNotes}\n` : ''}
                   );
                 })}
               </div>
+
+              {selectedBase.isSpecialAntojo && (
+                <div className="mt-3 p-3 rounded-2xl bg-rose-50 border border-rose-200 text-xs text-rose-800 font-medium flex items-center gap-2">
+                  <span>🧇</span>
+                  <span>Has elegido <strong>{selectedBase.name}</strong>: cuenta con tarifa única de <strong>$130</strong> (Básico) o <strong>$160</strong> (Premium).</span>
+                </div>
+              )}
             </div>
 
             {/* Selector de Pasos en Tabs */}
@@ -962,9 +999,11 @@ ${orderNotes ? `• *Notas:* ${orderNotes}\n` : ''}
                       >
                         <span className="text-2xl shrink-0 p-2 bg-rose-50 rounded-xl">{base.icon}</span>
                         <div className="flex-1">
-                          <div className="flex items-center justify-between">
+                          <div className="flex items-center justify-between gap-1 flex-wrap">
                             <span className="font-bold text-sm text-gray-900">{base.name}</span>
-                            <span className="text-xs font-black text-rose-600">${base.price}</span>
+                            <span className="text-[10px] font-bold bg-rose-50 text-rose-700 border border-rose-200 px-2 py-0.5 rounded-full">
+                              {base.tag}
+                            </span>
                           </div>
                           <p className="text-[11px] text-gray-500 mt-0.5 leading-snug">{base.description}</p>
                         </div>
@@ -1094,16 +1133,22 @@ ${orderNotes ? `• *Notas:* ${orderNotes}\n` : ''}
                         key={topping.id}
                         type="button"
                         onClick={() => toggleTopping(topping)}
-                        className={`p-3 rounded-2xl border text-left transition-all cursor-pointer flex items-center justify-between ${
+                        className={`p-3 rounded-2xl border text-left transition-all cursor-pointer flex items-center justify-between gap-2 ${
                           isSelected
                             ? 'border-rose-600 bg-rose-50/70 ring-1 ring-rose-500/20'
                             : 'border-gray-200 hover:border-rose-200 bg-white'
                         }`}
                       >
-                        <div>
-                          <span className="font-bold text-xs text-gray-900 block">{topping.name}</span>
-                          <span className="text-[10px] text-gray-400 capitalize">
-                            {topping.category} {topping.price > 0 ? `(+$${topping.price})` : '(Incluido)'}
+                        <div className="flex-1 min-w-0">
+                          <span className="font-bold text-xs text-gray-900 block truncate">{topping.name}</span>
+                          <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full inline-block mt-0.5 ${
+                            topping.category === 'premium'
+                              ? 'bg-amber-100 text-amber-800 border border-amber-200'
+                              : topping.category === 'enchilado'
+                              ? 'bg-orange-100 text-orange-800 border border-orange-200'
+                              : 'bg-emerald-50 text-emerald-700 border border-emerald-200'
+                          }`}>
+                            {topping.badgeLabel}
                           </span>
                         </div>
                         <div className={`w-5 h-5 rounded-md border flex items-center justify-center shrink-0 ${isSelected ? 'border-rose-600 bg-rose-600 text-white' : 'border-gray-300'}`}>
@@ -1153,7 +1198,9 @@ ${orderNotes ? `• *Notas:* ${orderNotes}\n` : ''}
               <div className="space-y-3 text-xs sm:text-sm">
                 <div className="flex items-center justify-between py-1 border-b border-gray-100">
                   <span className="text-gray-500 font-medium">Tamaño:</span>
-                  <strong className="text-gray-900 capitalize">{selectedSize} ({selectedSize === 'mediano' ? '16 oz' : '24 oz'})</strong>
+                  <strong className="text-gray-900">
+                    {selectedBase.isSpecialAntojo ? 'Especial Waffles / Crepas' : (selectedSize === 'chico' ? 'Chico (12 oz)' : 'Grande (16 oz)')}
+                  </strong>
                 </div>
 
                 <div className="flex items-center justify-between py-1 border-b border-gray-100">
@@ -1171,15 +1218,28 @@ ${orderNotes ? `• *Notas:* ${orderNotes}\n` : ''}
                   <strong className="text-gray-900">{selectedAderezo.name}</strong>
                 </div>
 
-                <div className="py-1">
-                  <span className="text-gray-500 font-medium block mb-1">Toppings ({selectedToppings.length}):</span>
+                <div className="py-1 border-b border-gray-100 pb-2">
+                  <div className="flex items-center justify-between mb-1.5">
+                    <span className="text-gray-500 font-medium">Toppings ({selectedToppings.length}):</span>
+                    <span className={`text-[10px] font-black px-2 py-0.5 rounded-full ${
+                      hasPremiumTopping
+                        ? 'bg-amber-100 text-amber-800 border border-amber-200'
+                        : 'bg-emerald-50 text-emerald-700 border border-emerald-200'
+                    }`}>
+                      {hasPremiumTopping ? '⭐ Tarifa Premium' : '🏷️ Tarifa Básica'}
+                    </span>
+                  </div>
                   {selectedToppings.length === 0 ? (
-                    <span className="text-gray-400 italic text-xs">Ninguno seleccionado</span>
+                    <span className="text-gray-400 italic text-xs">Sin toppings (Tarifa básica)</span>
                   ) : (
                     <div className="flex flex-wrap gap-1">
                       {selectedToppings.map((t) => (
-                        <span key={t.id} className="text-[10px] bg-rose-50 text-rose-700 px-2 py-0.5 rounded-full font-bold">
-                          {t.name}
+                        <span key={t.id} className={`text-[10px] px-2 py-0.5 rounded-full font-bold ${
+                          t.category === 'premium'
+                            ? 'bg-amber-100 text-amber-800 border border-amber-200'
+                            : 'bg-rose-50 text-rose-700'
+                        }`}>
+                          {t.name} {t.category === 'premium' ? '⭐' : ''}
                         </span>
                       ))}
                     </div>
@@ -1187,15 +1247,20 @@ ${orderNotes ? `• *Notas:* ${orderNotes}\n` : ''}
                 </div>
               </div>
 
-              {/* Precio Total Estimado */}
-              <div className="pt-4 border-t border-rose-100 flex items-center justify-between">
+              {/* Precio Total Oficial y Tarifa */}
+              <div className="pt-2 border-t border-rose-100 flex items-center justify-between">
                 <div>
-                  <span className="text-[10px] uppercase font-bold text-gray-400 block">Total Estimado</span>
+                  <span className="text-[10px] uppercase font-bold text-gray-400 block">Total Oficial</span>
                   <span className="text-2xl sm:text-3xl font-black font-['Outfit'] text-rose-600">
                     ${calculatedTotal} <span className="text-xs text-gray-500 font-medium">MXN</span>
                   </span>
                 </div>
-                <span className="text-[11px] text-gray-400">Pago en sucursal</span>
+                <div className="text-right">
+                  <span className="text-[10px] font-bold text-gray-400 block">Tarifa Aplicada:</span>
+                  <span className={`text-xs font-black ${hasPremiumTopping ? 'text-amber-700' : 'text-emerald-700'}`}>
+                    {hasPremiumTopping ? 'Con Topping Premium' : 'Con Topping Básico'}
+                  </span>
+                </div>
               </div>
 
               {/* Botón WhatsApp de Envío */}
@@ -1213,6 +1278,7 @@ ${orderNotes ? `• *Notas:* ${orderNotes}\n` : ''}
               <button
                 type="button"
                 onClick={() => {
+                  setSelectedSize('chico');
                   setSelectedBase(BASES_DATA[0]);
                   setSelectedCrema(CREMAS_DATA[0]);
                   setSelectedAderezo(ADEREZOS_DATA[0]);

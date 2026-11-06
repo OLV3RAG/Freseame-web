@@ -175,9 +175,9 @@ export const Footer: React.FC = () => {
         {/* =======================================================
             5. COPYRIGHT INFERIOR
            ======================================================= */}
-        <div className="pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-gray-500 text-center sm:text-left font-medium">
-          <p>© 2026 Freséame. Todos los derechos reservados.</p>
-          <div className="flex items-center gap-1.5 text-gray-500">
+        <div className="pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-gray-400 text-center sm:text-left font-medium">
+          <p>© 2026 NovaArc Tech. Todos los derechos reservados.</p>
+          <div className="flex items-center gap-1.5 text-gray-400">
             <span>Hecho con</span>
             <Heart className="w-3.5 h-3.5 fill-rose-500 text-rose-500" />
             <span>para los amantes de las fresas en CDMX</span>
