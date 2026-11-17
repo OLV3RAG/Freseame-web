@@ -13,6 +13,7 @@ import {
   ChevronDown,
 } from 'lucide-react';
 import { Footer } from './components/Footer';
+import { SplashScreen } from './components/SplashScreen';
 import {
   SparkleFourPoint,
   MinimalHeart,
@@ -415,6 +416,7 @@ ${orderNotes ? `• *Notas Especiales:* ${orderNotes}\n` : ''}
 
   return (
     <div className="min-h-screen w-full bg-[#FFF7EE] text-[#4A2638] font-['Outfit'] antialiased selection:bg-[#F4B8C7] selection:text-[#4A2638] flex flex-col overflow-x-hidden">
+      <SplashScreen />
       
       {/* =======================================================
           1. NAVBAR Y LOGO DE MARCA (Con Área de Seguridad >= 10%)

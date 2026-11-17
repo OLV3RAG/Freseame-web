@@ -1,106 +1,184 @@
-import React, { useState, useEffect } from 'react';
-import logoImg from '../logo.jpg';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
+import { SparkleFourPoint, MinimalHeart } from './BrandDecorations';
 
-interface SplashScreenProps {
-  isLoading: boolean;
+const SPLASH_SESSION_KEY = 'freseame_splash_seen';
+
+export interface SplashScreenProps {
+  /** Duración de la barra de carga en ms (por defecto 1600 ms, rango 1400-1800 ms) */
+  durationMs?: number;
+  /** Callback opcional al completar el desmontaje del Splash Screen */
+  onComplete?: () => void;
 }
 
-export const SplashScreen: React.FC<SplashScreenProps> = ({ isLoading }) => {
+const hasSeenSplashInSession = (): boolean => {
+  if (typeof window === 'undefined') return true;
+  try {
+    return window.sessionStorage.getItem(SPLASH_SESSION_KEY) === '1';
+  } catch {
+    return false;
+  }
+};
+
+const markSplashSeenInSession = (): void => {
+  if (typeof window === 'undefined') return;
+  try {
+    window.sessionStorage.setItem(SPLASH_SESSION_KEY, '1');
+  } catch {
+    // Silencioso en modos privados restrictivos
+  }
+};
+
+export const SplashScreen: React.FC<SplashScreenProps> = ({
+  durationMs = 1600,
+  onComplete,
+}) => {
+  const [alreadySeen] = useState<boolean>(() => hasSeenSplashInSession());
+  const [shouldRender, setShouldRender] = useState<boolean>(() => !alreadySeen);
+  const [isExiting, setIsExiting] = useState<boolean>(false);
   const [progress, setProgress] = useState<number>(0);
   const [logoError, setLogoError] = useState<boolean>(false);
-  const [shouldRender, setShouldRender] = useState<boolean>(true);
 
-  // Smoothly fill the progress bar over 1.8 seconds
-  useEffect(() => {
-    const duration = 1800;
-    const interval = 25;
-    const step = 100 / (duration / interval);
+  const dismissTriggeredRef = useRef<boolean>(false);
+  const rafRef = useRef<number | null>(null);
+  const exitTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-    const timer = setInterval(() => {
-      setProgress((prev) => {
-        const next = prev + step;
-        if (next >= 100) {
-          clearInterval(timer);
-          return 100;
-        }
-        return next;
-      });
-    }, interval);
+  const triggerDismiss = useCallback(() => {
+    if (dismissTriggeredRef.current) return;
+    dismissTriggeredRef.current = true;
 
-    return () => clearInterval(timer);
-  }, []);
-
-  // Remove completely from DOM after fade-out transition finishes
-  useEffect(() => {
-    if (!isLoading) {
-      const exitTimer = setTimeout(() => {
-        setShouldRender(false);
-      }, 700);
-      return () => clearTimeout(exitTimer);
+    if (rafRef.current !== null) {
+      cancelAnimationFrame(rafRef.current);
+      rafRef.current = null;
     }
-  }, [isLoading]);
+
+    setProgress(100);
+    markSplashSeenInSession();
+    setIsExiting(true);
+
+    exitTimerRef.current = setTimeout(() => {
+      setShouldRender(false);
+      onComplete?.();
+    }, 700);
+  }, [onComplete]);
+
+  useEffect(() => {
+    if (alreadySeen) return;
+
+    const clampedDuration = Math.min(Math.max(durationMs, 1400), 1800);
+    const startTime = performance.now();
+
+    const tick = (now: number) => {
+      if (dismissTriggeredRef.current) return;
+      const elapsed = now - startTime;
+      const pct = Math.min((elapsed / clampedDuration) * 100, 100);
+      setProgress(pct);
+
+      if (pct < 100) {
+        rafRef.current = requestAnimationFrame(tick);
+      } else {
+        triggerDismiss();
+      }
+    };
+
+    rafRef.current = requestAnimationFrame(tick);
+
+    return () => {
+      if (rafRef.current !== null) {
+        cancelAnimationFrame(rafRef.current);
+      }
+      if (exitTimerRef.current !== null) {
+        clearTimeout(exitTimerRef.current);
+      }
+    };
+  }, [alreadySeen, durationMs, triggerDismiss]);
 
   if (!shouldRender) return null;
 
   return (
     <div
       id="freseame-splash-screen"
-      className={`fixed inset-0 z-50 flex flex-col items-center justify-center bg-white text-gray-900 select-none transition-opacity duration-700 ease-in-out ${
-        isLoading ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
+      role="dialog"
+      aria-modal="true"
+      aria-label="Bienvenida a Freséame"
+      aria-hidden={isExiting}
+      className={`fixed inset-0 z-50 flex flex-col items-center justify-center bg-[#FFF7EE] text-[#4A2638] font-['Outfit'] select-none px-6 transition-all duration-700 ease-out ${
+        isExiting
+          ? 'opacity-0 -translate-y-4 pointer-events-none'
+          : 'opacity-100 translate-y-0 pointer-events-auto'
       }`}
-      aria-hidden={!isLoading}
     >
-      {/* Dynamic Ambient Blur Halos */}
-      <div className="relative flex items-center justify-center mb-6">
-        {/* Animated Ping Aura */}
-        <div className="absolute w-36 h-36 sm:w-44 sm:h-44 bg-rose-200/50 blur-2xl rounded-full scale-125 animate-ping opacity-60 pointer-events-none" />
+      {/* Botón discreto Saltar en esquina superior derecha */}
+      <button
+        id="splash-skip-btn"
+        type="button"
+        onClick={triggerDismiss}
+        aria-label="Saltar pantalla de bienvenida"
+        className="absolute top-5 right-5 sm:top-7 sm:right-7 min-h-[40px] px-4 py-2 rounded-full bg-[#FFF7EE] hover:bg-[#F4B8C7] text-[#4A2638] text-xs font-semibold border border-[#4A2638]/25 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#B73E5B] transition-colors cursor-pointer"
+      >
+        Saltar
+      </button>
 
-        {/* Soft Glowing Gradient Circle */}
-        <div className="absolute w-48 h-48 sm:w-56 sm:h-56 bg-gradient-to-tr from-rose-200/60 via-pink-100/40 to-emerald-100/40 blur-3xl rounded-full animate-pulse pointer-events-none" />
+      {/* Composición central con flotación sutil */}
+      <div className="relative flex flex-col items-center max-w-sm w-full text-center">
+        {/* Motivos SVG minimalistas flotantes (sin amarillo) */}
+        <SparkleFourPoint className="w-6 h-6 text-[#F4B8C7] absolute -top-6 left-6 sm:left-4 animate-splash-float pointer-events-none" />
+        <MinimalHeart className="w-5 h-5 text-[#CDE5DA] absolute -top-3 right-8 sm:right-6 animate-splash-float-reverse pointer-events-none" />
+        <MinimalHeart className="w-5 h-5 text-[#F4B8C7] absolute top-28 -left-2 sm:left-0 animate-splash-float-reverse pointer-events-none" />
+        <SparkleFourPoint className="w-5 h-5 text-[#CDE5DA] absolute top-24 -right-2 sm:right-0 animate-splash-float pointer-events-none" />
 
-        {/* Central Logo Container */}
-        <div className="relative w-32 h-32 sm:w-40 sm:h-40 rounded-full shadow-xl border-4 border-rose-500 overflow-hidden bg-white flex items-center justify-center">
-          {!logoError ? (
-            <img
-              src={logoImg || './logo.jpg'}
-              alt="Freséame - Fresas con Crema"
-              width="160"
-              height="160"
-              className="w-full h-full object-cover"
-              onError={() => setLogoError(true)}
-            />
-          ) : (
-            <div className="w-full h-full bg-rose-50 flex items-center justify-center text-5xl">
-              🍓
+        {/* Emblema Circular Sticker con doble aro en Menta Suave y Rosa Fresa */}
+        <div className="relative flex items-center justify-center mb-7 animate-splash-float">
+          {/* Aro exterior en Menta Suave (#CDE5DA) */}
+          <div className="p-2.5 rounded-full border-2 border-[#CDE5DA] bg-[#FFF7EE]">
+            {/* Aro interior en Rosa Fresa (#F4B8C7) */}
+            <div className="p-2.5 rounded-full border-2 border-[#F4B8C7] bg-[#FFF7EE]">
+              {/* Contenedor Sticker con borde Ciruela, sombra sólida y área de seguridad >= 10% */}
+              <div className="w-32 h-32 sm:w-36 sm:h-36 rounded-full bg-white border-2 border-[#4A2638] shadow-[0_6px_0_#4A2638] p-4 sm:p-5 flex items-center justify-center overflow-hidden">
+                {!logoError ? (
+                  <img
+                    src="/logo.jpg"
+                    alt="Freséame"
+                    className="w-full h-full object-contain block"
+                    onError={() => setLogoError(true)}
+                  />
+                ) : (
+                  <div className="flex flex-col items-center justify-center text-center">
+                    <span className="text-3xl leading-none mb-1" aria-hidden="true">🍓</span>
+                    <span className="font-['DynaPuff'] font-bold text-base text-[#4A2638]">
+                      Freséame
+                    </span>
+                  </div>
+                )}
+              </div>
             </div>
-          )}
+          </div>
         </div>
-      </div>
 
-      {/* Typography: Title & Slogan */}
-      <div className="text-center px-4 mb-6 space-y-1.5">
-        <h1 className="font-['Outfit'] font-black text-4xl sm:text-5xl tracking-tight text-gray-900 flex items-center justify-center gap-2">
-          <span>Freséame</span>
-          <span className="text-rose-600 animate-bounce">🍓</span>
-        </h1>
-        <p className="font-['Outfit'] text-base sm:text-lg font-bold text-rose-500 tracking-wide">
-          "El límite lo pones tú"
+        {/* Eslogan oficial en DynaPuff */}
+        <h2 className="font-['DynaPuff'] font-bold text-2xl sm:text-3xl text-[#4A2638] leading-snug">
+          El límite lo pones tú
+        </h2>
+
+        {/* Barra de progreso minimalista: pista Menta Suave y relleno Frambuesa */}
+        <div
+          role="progressbar"
+          aria-valuemin={0}
+          aria-valuemax={100}
+          aria-valuenow={Math.round(progress)}
+          aria-label="Cargando Freséame"
+          className="mt-5 w-56 sm:w-64 h-2.5 bg-[#CDE5DA] rounded-full overflow-hidden border border-[#4A2638]/15"
+        >
+          <div
+            className="w-full h-full bg-[#B73E5B] rounded-full origin-left transition-transform duration-75 ease-out"
+            style={{ transform: `scaleX(${Math.min(progress, 100) / 100})` }}
+          />
+        </div>
+
+        {/* Micro-copy antojable en Outfit */}
+        <p className="mt-3 text-xs sm:text-sm font-normal text-[#4A2638]/80 tracking-wide">
+          Preparando tus fresas al momento...
         </p>
       </div>
-
-      {/* Progress Bar */}
-      <div className="w-60 sm:w-68 h-2.5 bg-gray-100 rounded-full overflow-hidden shadow-inner p-0.5 border border-rose-100">
-        <div
-          className="h-full bg-gradient-to-r from-rose-500 via-pink-500 to-rose-600 rounded-full transition-all duration-100 ease-out shadow-xs"
-          style={{ width: `${Math.min(progress, 100)}%` }}
-        />
-      </div>
-
-      {/* Progress Helper Text */}
-      <p className="mt-3 text-xs sm:text-sm text-gray-500 font-medium tracking-wide flex items-center gap-1.5">
-        <span>🍓</span>
-        <span>Preparando fresas frescas y cremas artesanales...</span>
-      </p>
     </div>
   );
 };

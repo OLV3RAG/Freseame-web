@@ -57,3 +57,37 @@ button, a, input, select, textarea {
 ::-webkit-scrollbar-thumb:hover {
   background: #B73E5B;
 }
+
+@keyframes splash-float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+@keyframes splash-float-reverse {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(5px);
+  }
+}
+
+.animate-splash-float {
+  animation: splash-float 3.2s ease-in-out infinite;
+}
+
+.animate-splash-float-reverse {
+  animation: splash-float-reverse 3.6s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-splash-float,
+  .animate-splash-float-reverse {
+    animation: none;
+  }
+}
+
