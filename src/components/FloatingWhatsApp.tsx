@@ -11,11 +11,11 @@ export const FloatingWhatsApp: React.FC<FloatingWhatsAppProps> = ({ toppingsCoun
 
   return (
     <div className="fixed bottom-6 right-6 z-50 flex items-end gap-3 select-none font-['Outfit']">
-      {/* Tooltip en Crema con borde Rosa Fresa */}
+      {/* Tooltip en Crema con estética Sticker */}
       {!tooltipDismissed && (
-        <div className="hidden sm:flex items-center gap-2 px-4 py-2.5 rounded-2xl bg-[#FFF7EE] border border-[#F4B8C7] text-xs font-bold text-[#4A2638]">
+        <div className="hidden sm:flex items-center gap-2 px-4 py-2.5 rounded-2xl bg-[#FFF7EE] border-2 border-[#4A2638] shadow-[0_3px_0_#4A2638] text-xs font-bold text-[#4A2638]">
           <span className="text-base" aria-hidden="true">🍓</span>
-          <span>¿Qué se te antoja hoy? ¡Escríbenos por WhatsApp!</span>
+          <span>Hoy se me antoja algo fresa • ¡Escríbenos!</span>
           <button
             type="button"
             onClick={() => setTooltipDismissed(true)}
@@ -27,14 +27,14 @@ export const FloatingWhatsApp: React.FC<FloatingWhatsAppProps> = ({ toppingsCoun
         </div>
       )}
 
-      {/* Botón flotante en Frambuesa */}
+      {/* Botón flotante en Frambuesa estilo Sticker */}
       <a
         id="floating-whatsapp-action-btn"
         href={`https://wa.me/${WHATSAPP_PHONE}`}
         target="_blank"
         rel="noopener noreferrer"
         aria-label="Abrir WhatsApp para pedir postres de Freséame"
-        className="w-14 h-14 rounded-full bg-[#B73E5B] hover:bg-[#9E324C] text-white flex items-center justify-center transition-all transform hover:scale-105 active:scale-95 relative cursor-pointer group"
+        className="w-14 h-14 rounded-full bg-[#B73E5B] hover:bg-[#9E324C] text-white border-2 border-[#4A2638] shadow-[0_4px_0_#4A2638] flex items-center justify-center hover:-translate-y-0.5 active:translate-y-0.5 transition-all relative cursor-pointer group"
       >
         <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#F4B8C7] opacity-40 -z-10" />
 

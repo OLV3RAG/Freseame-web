@@ -8,25 +8,27 @@ import {
   Heart,
 } from 'lucide-react';
 import { WHATSAPP_UNIVERSAL_URL, WHATSAPP_DISPLAY } from '../data/freseameData';
+import { SparkleFourPoint } from './BrandDecorations';
 
 export const Footer: React.FC = () => {
   return (
     <footer
       id="contacto"
-      className="bg-[#4A2638] border-t border-[#F4B8C7]/30 pt-14 pb-8 px-4 sm:px-6 lg:px-8 text-[#FFF7EE] font-['Outfit'] mt-auto"
+      className="bg-[#4A2638] border-t-4 border-[#F4B8C7] pt-14 pb-8 px-4 sm:px-6 lg:px-8 text-[#FFF7EE] font-['Outfit'] mt-auto relative overflow-hidden"
     >
-      <div className="max-w-7xl mx-auto">
-        
+      <div className="max-w-7xl mx-auto relative z-10">
+        <SparkleFourPoint className="hidden lg:block w-5 h-5 text-[#F4B8C7]/45 absolute -top-6 right-4 pointer-events-none" />
+
         {/* Grid responsivo de 4 columnas (1 en móvil, 2 en tablet, 4 en desktop) */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 pb-12 border-b border-[#F4B8C7]/20">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 pb-12 border-b border-[#F4B8C7]/25">
           
           {/* =======================================================
-              COLUMNA 1 (Marca e Identidad)
+              COLUMNA 1 (Marca e Identidad - Versión Contraste Claro sobre Ciruela)
              ======================================================= */}
           <div className="space-y-4">
             <div className="flex items-center gap-3.5">
-              {/* Área de seguridad >= 10% sin bordes, sombras ni degradados */}
-              <div className="p-1.5 bg-[#FFF7EE] rounded-2xl shrink-0">
+              {/* Área de seguridad >= 10% alrededor del logotipo, sin sombras ni degradados */}
+              <div className="p-2 bg-[#FFF7EE] rounded-2xl shrink-0">
                 <img
                   src="/logo.jpg"
                   alt="Freséame"
@@ -49,7 +51,7 @@ export const Footer: React.FC = () => {
             </p>
 
             <div>
-              <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[#CDE5DA] text-[#4A2638] text-xs font-semibold">
+              <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[#CDE5DA] text-[#4A2638] text-xs font-bold">
                 <Sparkles className="w-3.5 h-3.5 text-[#4A2638]" />
                 <span>Frescura y calidad garantizada</span>
               </span>
@@ -67,7 +69,7 @@ export const Footer: React.FC = () => {
 
             <div className="space-y-3">
               {/* Sucursal 1: Puerta Tlatelolco */}
-              <div className="p-3.5 rounded-2xl bg-[#3B1D2C] border border-[#F4B8C7]/25 space-y-1.5">
+              <div className="p-3.5 rounded-2xl bg-[#3B1D2C] border border-[#F4B8C7]/35 space-y-1.5">
                 <div className="flex items-center justify-between gap-2">
                   <span className="font-['DynaPuff'] font-bold text-[#FFF7EE] text-xs sm:text-sm">
                     Puerta Tlatelolco
@@ -86,7 +88,7 @@ export const Footer: React.FC = () => {
               </div>
 
               {/* Sucursal 2: Plaza Patio Clavería */}
-              <div className="p-3.5 rounded-2xl bg-[#3B1D2C] border border-[#F4B8C7]/25 space-y-1.5">
+              <div className="p-3.5 rounded-2xl bg-[#3B1D2C] border border-[#F4B8C7]/35 space-y-1.5">
                 <span className="font-['DynaPuff'] font-bold text-[#FFF7EE] text-xs sm:text-sm block">
                   Plaza Patio Clavería
                 </span>
@@ -112,7 +114,7 @@ export const Footer: React.FC = () => {
 
             <div className="space-y-3">
               {/* Pick-Up en Mostrador */}
-              <div className="p-3.5 rounded-2xl bg-[#3B1D2C] border border-[#F4B8C7]/25 space-y-1">
+              <div className="p-3.5 rounded-2xl bg-[#3B1D2C] border border-[#F4B8C7]/35 space-y-1">
                 <span className="font-bold text-[#FFF7EE] text-xs sm:text-sm flex items-center gap-1.5">
                   <span>🛍️</span> Pick-Up en Mostrador
                 </span>
@@ -122,7 +124,7 @@ export const Footer: React.FC = () => {
               </div>
 
               {/* Delivery a Domicilio */}
-              <div className="p-3.5 rounded-2xl bg-[#3B1D2C] border border-[#F4B8C7]/25 space-y-2">
+              <div className="p-3.5 rounded-2xl bg-[#3B1D2C] border border-[#F4B8C7]/35 space-y-2">
                 <span className="font-bold text-[#FFF7EE] text-xs sm:text-sm flex items-center gap-1.5">
                   <span>🛵</span> Delivery a Domicilio
                 </span>
@@ -134,7 +136,7 @@ export const Footer: React.FC = () => {
                     href="https://www.rappi.com.mx"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-[#FF441F] hover:bg-[#e03a19] text-white text-[10px] font-bold uppercase transition-colors"
+                    className="inline-flex items-center gap-1 px-2.5 py-1 rounded-xl bg-[#FF441F] hover:bg-[#e03a19] text-white text-[10px] font-bold uppercase transition-colors"
                   >
                     Rappi
                   </a>
@@ -142,7 +144,7 @@ export const Footer: React.FC = () => {
                     href="https://www.ubereats.com"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-[#5C3147] hover:bg-[#6D3B54] text-[#FFF7EE] border border-[#F4B8C7]/30 text-[10px] font-bold uppercase transition-colors"
+                    className="inline-flex items-center gap-1 px-2.5 py-1 rounded-xl bg-[#5C3147] hover:bg-[#6D3B54] text-[#FFF7EE] border border-[#F4B8C7]/30 text-[10px] font-bold uppercase transition-colors"
                   >
                     <span className="text-[#CDE5DA] font-bold">●</span> Uber Eats
                   </a>
@@ -161,7 +163,7 @@ export const Footer: React.FC = () => {
             </h4>
 
             <p className="text-xs sm:text-sm text-[#FFF7EE]/90 leading-relaxed font-normal">
-              ¿Qué se te antoja hoy? Escríbenos por dudas, eventos especiales o consulta de ingredientes:
+              Cerca de ti para matar el antojo al momento. Escríbenos por dudas, eventos especiales o consulta de ingredientes:
             </p>
 
             <a
@@ -169,7 +171,7 @@ export const Footer: React.FC = () => {
               href={WHATSAPP_UNIVERSAL_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="w-full min-h-[46px] py-3 px-4 rounded-2xl bg-[#B73E5B] hover:bg-[#9E324C] text-white font-bold text-xs sm:text-sm flex items-center justify-center gap-2 transition-all active:scale-95 cursor-pointer text-center"
+              className="w-full min-h-[46px] py-3 px-4 rounded-2xl bg-[#B73E5B] hover:bg-[#9E324C] text-white font-bold text-xs sm:text-sm border border-[#FFF7EE]/30 flex items-center justify-center gap-2 transition-all active:scale-95 cursor-pointer text-center"
             >
               <MessageCircle className="w-4 h-4 text-white shrink-0" />
               <span>WhatsApp: {WHATSAPP_DISPLAY}</span>

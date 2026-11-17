@@ -13,6 +13,11 @@ import {
   ChevronDown,
 } from 'lucide-react';
 import { Footer } from './components/Footer';
+import {
+  SparkleFourPoint,
+  MinimalHeart,
+  DoubleArcDecor,
+} from './components/BrandDecorations';
 
 // =======================================================
 // CONSTANTES OFICIALES DE MARCA, CONTACTO Y DELIVERY
@@ -414,17 +419,17 @@ ${orderNotes ? `• *Notas Especiales:* ${orderNotes}\n` : ''}
       {/* =======================================================
           1. NAVBAR Y LOGO DE MARCA (Con Área de Seguridad >= 10%)
          ======================================================= */}
-      <header className="sticky top-0 z-40 w-full bg-[#FFF7EE]/95 backdrop-blur-md border-b border-[#F4B8C7]/60 transition-all">
+      <header className="sticky top-0 z-40 w-full bg-[#FFF7EE]/95 backdrop-blur-md border-b-2 border-[#4A2638]/15 transition-all">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
           
-          {/* Logo oficial limpio: espacio libre >= 10% alrededor, sin sombras ni degradados */}
+          {/* Logo oficial limpio: espacio libre >= 10% alrededor, sin sombras artificiales ni degradados */}
           <a
             href="#inicio"
             onClick={(e) => {
               e.preventDefault();
               scrollToSection('inicio');
             }}
-            className="flex items-center gap-3 cursor-pointer active:scale-95 transition-transform py-1"
+            className="flex items-center gap-3 cursor-pointer active:scale-95 transition-transform p-1.5"
           >
             <div className="p-1.5 rounded-2xl bg-[#FFF7EE] shrink-0">
               <img
@@ -462,7 +467,7 @@ ${orderNotes ? `• *Notas Especiales:* ${orderNotes}\n` : ''}
             <button
               type="button"
               onClick={() => scrollToSection('armar-pedido')}
-              className="px-4 py-1.5 rounded-full text-sm font-bold bg-[#F4B8C7] text-[#4A2638] hover:bg-[#F4B8C7]/85 transition-colors cursor-pointer flex items-center gap-1.5"
+              className="px-4 py-1.5 rounded-full text-sm font-bold bg-[#F4B8C7] text-[#4A2638] border border-[#4A2638]/20 hover:bg-[#F4B8C7]/85 transition-colors cursor-pointer flex items-center gap-1.5"
             >
               <Sparkles className="w-3.5 h-3.5 text-[#4A2638]" />
               <span>Armar Pedido</span>
@@ -489,14 +494,14 @@ ${orderNotes ? `• *Notas Especiales:* ${orderNotes}\n` : ''}
               Delivery
             </button>
 
-            <div className="h-5 w-px bg-[#F4B8C7] mx-1.5" />
+            <div className="h-5 w-px bg-[#4A2638]/15 mx-1.5" />
 
             {/* Acceso Rápido a Delivery */}
             <div className="relative" ref={dropdownRef}>
               <button
                 type="button"
                 onClick={() => setDeliveryDropdownOpen((prev) => !prev)}
-                className="px-3.5 py-2 rounded-full text-xs font-semibold bg-[#CDE5DA] hover:bg-[#CDE5DA]/80 text-[#4A2638] transition-colors flex items-center gap-1.5 cursor-pointer"
+                className="px-3.5 py-2 rounded-full text-xs font-semibold bg-[#CDE5DA] border border-[#4A2638]/15 hover:bg-[#CDE5DA]/85 text-[#4A2638] transition-colors flex items-center gap-1.5 cursor-pointer"
               >
                 <Bike className="w-3.5 h-3.5 text-[#4A2638]" />
                 <span>Delivery</span>
@@ -504,8 +509,8 @@ ${orderNotes ? `• *Notas Especiales:* ${orderNotes}\n` : ''}
               </button>
 
               {deliveryDropdownOpen && (
-                <div className="absolute right-0 mt-2 w-56 bg-[#FFF7EE] rounded-2xl shadow-lg border-2 border-[#F4B8C7] p-2 z-50">
-                  <span className="text-[10px] font-bold uppercase tracking-wider text-[#4A2638]/70 px-2.5 py-1 block">
+                <div className="absolute right-0 mt-2 w-56 bg-[#FFF7EE] rounded-3xl border-2 border-[#4A2638] shadow-[0_4px_0_#4A2638] p-2.5 z-50">
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-[#4A2638]/75 px-2.5 py-1 block">
                     Pide a domicilio en:
                   </span>
                   <a
@@ -513,7 +518,7 @@ ${orderNotes ? `• *Notas Especiales:* ${orderNotes}\n` : ''}
                     target="_blank"
                     rel="noopener noreferrer"
                     onClick={() => setDeliveryDropdownOpen(false)}
-                    className="flex items-center gap-2 p-2.5 rounded-xl hover:bg-[#F4B8C7]/35 font-bold text-xs text-[#4A2638]"
+                    className="flex items-center gap-2 p-2.5 rounded-2xl hover:bg-[#F4B8C7]/45 font-bold text-xs text-[#4A2638]"
                   >
                     <span className="w-2 h-2 rounded-full bg-[#4A2638]" />
                     <span>Uber Eats</span>
@@ -523,7 +528,7 @@ ${orderNotes ? `• *Notas Especiales:* ${orderNotes}\n` : ''}
                     target="_blank"
                     rel="noopener noreferrer"
                     onClick={() => setDeliveryDropdownOpen(false)}
-                    className="flex items-center gap-2 p-2.5 rounded-xl hover:bg-[#F4B8C7]/35 font-bold text-xs text-[#B73E5B]"
+                    className="flex items-center gap-2 p-2.5 rounded-2xl hover:bg-[#F4B8C7]/45 font-bold text-xs text-[#B73E5B]"
                   >
                     <span className="w-2 h-2 rounded-full bg-[#B73E5B]" />
                     <span>Rappi</span>
@@ -532,13 +537,13 @@ ${orderNotes ? `• *Notas Especiales:* ${orderNotes}\n` : ''}
               )}
             </div>
 
-            {/* Botón CTA Header WhatsApp */}
+            {/* Botón CTA Header WhatsApp estilo Sticker */}
             <a
               id="navbar-cta-whatsapp"
               href={WHATSAPP_UNIVERSAL_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="min-h-[40px] px-4 py-2 rounded-full bg-[#B73E5B] hover:bg-[#9E324C] text-white text-xs lg:text-sm font-bold transition-all flex items-center gap-1.5 active:scale-95 cursor-pointer"
+              className="min-h-[40px] px-4 py-2 rounded-full bg-[#B73E5B] hover:bg-[#9E324C] text-white text-xs lg:text-sm font-bold border-2 border-[#4A2638] shadow-[0_3px_0_#4A2638] hover:-translate-y-0.5 active:translate-y-0.5 active:shadow-[0_1px_0_#4A2638] transition-all flex items-center gap-1.5 cursor-pointer"
             >
               <MessageCircle className="w-4 h-4 text-white" />
               <span>Pedir por WhatsApp</span>
@@ -552,7 +557,7 @@ ${orderNotes ? `• *Notas Especiales:* ${orderNotes}\n` : ''}
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Pedir por WhatsApp"
-              className="p-2.5 rounded-full bg-[#B73E5B] text-white"
+              className="p-2.5 rounded-full bg-[#B73E5B] text-white border-2 border-[#4A2638] shadow-[0_2px_0_#4A2638]"
             >
               <MessageCircle className="w-4 h-4 text-white" />
             </a>
@@ -561,7 +566,7 @@ ${orderNotes ? `• *Notas Especiales:* ${orderNotes}\n` : ''}
               type="button"
               onClick={() => setMobileMenuOpen((prev) => !prev)}
               aria-label="Abrir menú"
-              className="p-2.5 rounded-xl border border-[#F4B8C7] text-[#4A2638] hover:bg-[#F4B8C7]/30 transition-colors"
+              className="p-2.5 rounded-2xl border-2 border-[#4A2638]/25 text-[#4A2638] bg-[#FFF7EE] hover:bg-[#F4B8C7]/35 transition-colors"
             >
               <div className="w-5 h-4 flex flex-col justify-between">
                 <span className={`h-0.5 w-full bg-[#4A2638] rounded-full transition-transform ${mobileMenuOpen ? 'rotate-45 translate-y-1.5' : ''}`} />
@@ -575,25 +580,25 @@ ${orderNotes ? `• *Notas Especiales:* ${orderNotes}\n` : ''}
 
         {/* Menú Móvil Desplegable */}
         {mobileMenuOpen && (
-          <div className="md:hidden border-t border-[#F4B8C7] bg-[#FFF7EE] px-4 py-4 space-y-2 shadow-lg">
+          <div className="md:hidden border-t-2 border-[#4A2638]/15 bg-[#FFF7EE] px-4 py-4 space-y-2">
             <button
               type="button"
               onClick={() => scrollToSection('inicio')}
-              className="w-full text-left py-2.5 px-3 rounded-xl text-sm font-semibold text-[#4A2638] hover:bg-[#F4B8C7]/35"
+              className="w-full text-left py-2.5 px-3.5 rounded-2xl text-sm font-semibold text-[#4A2638] hover:bg-[#F4B8C7]/35"
             >
               Inicio
             </button>
             <button
               type="button"
               onClick={() => scrollToSection('menu-digital')}
-              className="w-full text-left py-2.5 px-3 rounded-xl text-sm font-semibold text-[#4A2638] hover:bg-[#F4B8C7]/35"
+              className="w-full text-left py-2.5 px-3.5 rounded-2xl text-sm font-semibold text-[#4A2638] hover:bg-[#F4B8C7]/35"
             >
               Menú Digital
             </button>
             <button
               type="button"
               onClick={() => scrollToSection('armar-pedido')}
-              className="w-full text-left py-2.5 px-3 rounded-xl text-sm font-bold text-[#4A2638] bg-[#F4B8C7] flex items-center justify-between"
+              className="w-full text-left py-2.5 px-3.5 rounded-2xl text-sm font-bold text-[#4A2638] bg-[#F4B8C7] border border-[#4A2638]/20 flex items-center justify-between"
             >
               <span>Armar Pedido (Simulador)</span>
               <Sparkles className="w-4 h-4 text-[#4A2638]" />
@@ -601,31 +606,31 @@ ${orderNotes ? `• *Notas Especiales:* ${orderNotes}\n` : ''}
             <button
               type="button"
               onClick={() => scrollToSection('promociones')}
-              className="w-full text-left py-2.5 px-3 rounded-xl text-sm font-semibold text-[#4A2638] hover:bg-[#F4B8C7]/35"
+              className="w-full text-left py-2.5 px-3.5 rounded-2xl text-sm font-semibold text-[#4A2638] hover:bg-[#F4B8C7]/35"
             >
               Promociones de la Semana
             </button>
             <button
               type="button"
               onClick={() => scrollToSection('sucursales')}
-              className="w-full text-left py-2.5 px-3 rounded-xl text-sm font-semibold text-[#4A2638] hover:bg-[#F4B8C7]/35"
+              className="w-full text-left py-2.5 px-3.5 rounded-2xl text-sm font-semibold text-[#4A2638] hover:bg-[#F4B8C7]/35"
             >
               Sucursales (Tlatelolco y Clavería)
             </button>
             <button
               type="button"
               onClick={() => scrollToSection('delivery')}
-              className="w-full text-left py-2.5 px-3 rounded-xl text-sm font-semibold text-[#4A2638] hover:bg-[#F4B8C7]/35"
+              className="w-full text-left py-2.5 px-3.5 rounded-2xl text-sm font-semibold text-[#4A2638] hover:bg-[#F4B8C7]/35"
             >
               Delivery Oficial
             </button>
 
-            <div className="pt-2 border-t border-[#F4B8C7]/50">
+            <div className="pt-2 border-t border-[#4A2638]/15">
               <a
                 href={WHATSAPP_UNIVERSAL_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full min-h-[44px] py-2.5 px-4 rounded-xl bg-[#B73E5B] hover:bg-[#9E324C] text-white font-bold text-sm flex items-center justify-center gap-2"
+                className="w-full min-h-[44px] py-2.5 px-4 rounded-2xl bg-[#B73E5B] hover:bg-[#9E324C] text-white font-bold text-sm border-2 border-[#4A2638] shadow-[0_3px_0_#4A2638] flex items-center justify-center gap-2"
               >
                 <MessageCircle className="w-4 h-4 text-white" />
                 <span>Pedir por WhatsApp ({WHATSAPP_DISPLAY})</span>
@@ -636,20 +641,29 @@ ${orderNotes ? `• *Notas Especiales:* ${orderNotes}\n` : ''}
       </header>
 
       {/* =======================================================
-          2. HERO SECTION
+          2. HERO SECTION (Estética Emblema Circular & Sticker)
          ======================================================= */}
       <section
         id="inicio"
-        className="relative pt-10 sm:pt-16 pb-12 sm:pb-16 px-4 sm:px-6 lg:px-8 text-center overflow-hidden bg-[#FFF7EE]"
+        className="relative pt-10 sm:pt-16 pb-14 sm:pb-20 px-4 sm:px-6 lg:px-8 text-center overflow-hidden bg-[#FFF7EE]"
       >
-        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[340px] sm:w-[620px] h-[300px] sm:h-[380px] bg-gradient-to-tr from-[#F4B8C7]/35 via-[#FFF7EE] to-[#CDE5DA]/35 rounded-full blur-3xl pointer-events-none -z-10" />
+        {/* Motivos decorativos SVG minimalistas (sin amarillo) */}
+        <div className="max-w-5xl mx-auto relative">
+          <SparkleFourPoint className="hidden sm:block w-7 h-7 text-[#F4B8C7] absolute top-2 left-6 pointer-events-none" />
+          <MinimalHeart className="hidden sm:block w-6 h-6 text-[#F4B8C7] absolute top-12 right-10 pointer-events-none" />
+          <SparkleFourPoint className="hidden sm:block w-5 h-5 text-[#CDE5DA] absolute bottom-16 left-12 pointer-events-none" />
+          <SparkleFourPoint className="hidden sm:block w-6 h-6 text-[#CDE5DA] absolute bottom-20 right-6 pointer-events-none" />
+        </div>
 
-        <div className="max-w-4xl mx-auto flex flex-col items-center">
-          
-          {/* Badge superior en Menta Suave con texto Ciruela */}
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#CDE5DA] text-[#4A2638] text-xs sm:text-sm font-semibold tracking-wide mb-5">
-            <span className="text-base">🍓</span>
-            <span>¿Qué se te antoja hoy? • Fruta fresca del día</span>
+        <div className="max-w-4xl mx-auto relative z-10 flex flex-col items-center">
+          {/* Doble arco sutil inspirado en el emblema circular */}
+          <DoubleArcDecor className="w-28 h-12 text-[#F4B8C7] mb-2" />
+
+          {/* Badge superior en Menta Suave con borde Ciruela */}
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#CDE5DA] border border-[#4A2638]/20 text-[#4A2638] text-xs sm:text-sm font-semibold tracking-wide mb-5">
+            <SparkleFourPoint className="w-3.5 h-3.5 text-[#B73E5B]" />
+            <span>Hoy se me antoja algo fresa</span>
+            <MinimalHeart className="w-3.5 h-3.5 text-[#4A2638]" />
           </div>
 
           {/* Título principal en DynaPuff */}
@@ -660,17 +674,18 @@ ${orderNotes ? `• *Notas Especiales:* ${orderNotes}\n` : ''}
             </span>
           </h1>
 
-          {/* Subtítulo con slogan y tono verbal cercano */}
+          {/* Subtítulo con voz de marca oficial */}
           <p className="mt-4 text-base sm:text-lg text-[#4A2638]/85 max-w-2xl leading-relaxed font-normal">
-            <strong className="font-bold text-[#4A2638]">«El límite lo pones tú»</strong>. ¿Una cucharadita? Eso dijiste hace tres. Arma tu combinación con fruta fresquecita al momento, 7 cremas artesanales y tus toppings favoritos.
+            <strong className="font-bold text-[#4A2638]">Cada vaso se arma a tu gusto. El límite lo pones tú.</strong>{' '}
+            Fruta fresca del día, 7 cremas artesanales de receta secreta y tus toppings favoritos preparados al momento.
           </p>
 
-          {/* Botones principales */}
-          <div className="mt-8 flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3.5 w-full sm:w-auto">
+          {/* Botones principales estilo Sticker con sombra sólida Ciruela */}
+          <div className="mt-8 flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-4 w-full sm:w-auto">
             <button
               type="button"
               onClick={() => scrollToSection('armar-pedido')}
-              className="min-h-[48px] px-8 py-3.5 rounded-2xl bg-[#B73E5B] hover:bg-[#9E324C] text-white font-bold text-sm sm:text-base transition-all flex items-center justify-center gap-2 active:scale-95 cursor-pointer"
+              className="min-h-[50px] px-8 py-3.5 rounded-3xl bg-[#B73E5B] hover:bg-[#9E324C] text-white font-bold text-sm sm:text-base border-2 border-[#4A2638] shadow-[0_4px_0_#4A2638] hover:-translate-y-0.5 active:translate-y-0.5 active:shadow-[0_2px_0_#4A2638] transition-all flex items-center justify-center gap-2 cursor-pointer"
             >
               <Sparkles className="w-5 h-5 text-white" />
               <span>Armar Mi Vaso en Vivo</span>
@@ -681,31 +696,31 @@ ${orderNotes ? `• *Notas Especiales:* ${orderNotes}\n` : ''}
               href={WHATSAPP_UNIVERSAL_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="min-h-[48px] px-7 py-3.5 rounded-2xl bg-[#F4B8C7] hover:bg-[#F4B8C7]/85 text-[#4A2638] font-bold text-sm sm:text-base transition-all flex items-center justify-center gap-2 active:scale-95 cursor-pointer"
+              className="min-h-[50px] px-7 py-3.5 rounded-3xl bg-[#F4B8C7] hover:bg-[#F4B8C7]/90 text-[#4A2638] font-bold text-sm sm:text-base border-2 border-[#4A2638] shadow-[0_4px_0_#4A2638] hover:-translate-y-0.5 active:translate-y-0.5 active:shadow-[0_2px_0_#4A2638] transition-all flex items-center justify-center gap-2 cursor-pointer"
             >
               <MessageCircle className="w-5 h-5 text-[#4A2638]" />
               <span>Pedir por WhatsApp</span>
             </a>
           </div>
 
-          {/* Badges de confianza con identidad verbal */}
-          <div className="mt-10 pt-6 border-t border-[#F4B8C7]/60 grid grid-cols-3 gap-2 sm:gap-6 text-center w-full max-w-2xl">
-            <div className="flex flex-col items-center">
-              <span className="text-xl sm:text-2xl mb-1">🍓</span>
+          {/* Tarjetas emblema de confianza */}
+          <div className="mt-11 grid grid-cols-1 sm:grid-cols-3 gap-3.5 w-full max-w-2xl">
+            <div className="rounded-3xl bg-[#F4B8C7]/35 border border-[#4A2638]/15 px-4 py-3.5 flex flex-col items-center">
+              <span className="text-xl sm:text-2xl mb-1" aria-hidden="true">🍓</span>
               <span className="text-xs sm:text-sm font-bold text-[#4A2638]">Fruta 100% Fresca</span>
-              <span className="text-[11px] text-[#4A2638]/75 hidden sm:block">Cortada y lista para ti</span>
+              <span className="text-[11px] text-[#4A2638]/80 mt-0.5 font-normal">Lavada y cortada al momento</span>
             </div>
 
-            <div className="flex flex-col items-center border-x border-[#F4B8C7]/60 px-2">
-              <span className="text-xl sm:text-2xl mb-1">🥛</span>
+            <div className="rounded-3xl bg-[#CDE5DA]/55 border border-[#4A2638]/15 px-4 py-3.5 flex flex-col items-center">
+              <span className="text-xl sm:text-2xl mb-1" aria-hidden="true">🥛</span>
               <span className="text-xs sm:text-sm font-bold text-[#4A2638]">7 Cremas Artesanales</span>
-              <span className="text-[11px] text-[#4A2638]/75 hidden sm:block">¿Una cucharadita? Eso dijiste hace tres</span>
+              <span className="text-[11px] text-[#4A2638]/80 mt-0.5 font-normal">Receta secreta de la casa</span>
             </div>
 
-            <div className="flex flex-col items-center">
-              <span className="text-xl sm:text-2xl mb-1">🍫</span>
+            <div className="rounded-3xl bg-[#F4B8C7]/35 border border-[#4A2638]/15 px-4 py-3.5 flex flex-col items-center">
+              <span className="text-xl sm:text-2xl mb-1" aria-hidden="true">🍫</span>
               <span className="text-xs sm:text-sm font-bold text-[#4A2638]">El crujidito de la oblea</span>
-              <span className="text-[11px] text-[#4A2638]/75 hidden sm:block">Clásicos, premium y picositos</span>
+              <span className="text-[11px] text-[#4A2638]/80 mt-0.5 font-normal">Clásicos, premium y picositos</span>
             </div>
           </div>
 
@@ -715,12 +730,16 @@ ${orderNotes ? `• *Notas Especiales:* ${orderNotes}\n` : ''}
       {/* =======================================================
           3. PROMOCIONES DE LA SEMANA
          ======================================================= */}
-      <section id="promociones" className="py-12 sm:py-16 px-4 sm:px-6 lg:px-8 bg-[#F4B8C7]/25 border-y border-[#F4B8C7]/60 scroll-mt-20">
-        <div className="max-w-6xl mx-auto">
+      <section id="promociones" className="py-12 sm:py-16 px-4 sm:px-6 lg:px-8 bg-[#F4B8C7]/35 border-y-2 border-[#4A2638]/15 scroll-mt-20 relative overflow-hidden">
+        <div className="max-w-6xl mx-auto relative z-10">
           
-          <div className="text-center max-w-2xl mx-auto mb-10 sm:mb-12">
-            <span className="text-xs font-semibold text-[#4A2638] uppercase tracking-widest bg-[#CDE5DA] px-4 py-1.5 rounded-full inline-block mb-3">
-              ¿Qué se te antoja hoy? • Ahorra con Freséame
+          <div className="text-center max-w-2xl mx-auto mb-10 sm:mb-12 relative">
+            <SparkleFourPoint className="hidden sm:block w-5 h-5 text-[#FFF7EE] absolute -top-2 left-10" />
+            <MinimalHeart className="hidden sm:block w-5 h-5 text-[#B73E5B]/50 absolute top-2 right-10" />
+
+            <span className="text-xs font-semibold text-[#4A2638] uppercase tracking-widest bg-[#CDE5DA] border border-[#4A2638]/15 px-4 py-1.5 rounded-full inline-flex items-center gap-1.5 mb-3">
+              <SparkleFourPoint className="w-3 h-3 text-[#4A2638]" />
+              <span>Ahorra con Freséame</span>
             </span>
             <h2 className="text-2xl sm:text-4xl font-bold font-['DynaPuff'] text-[#4A2638]">
               Promociones de la Semana
@@ -730,34 +749,35 @@ ${orderNotes ? `• *Notas Especiales:* ${orderNotes}\n` : ''}
             </p>
           </div>
 
-          {/* Grid de 3 tarjetas de promociones */}
+          {/* Grid de 3 tarjetas estilo Sticker */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
             {WEEKLY_PROMOS.map((promo) => (
               <div
                 key={promo.id}
-                className="bg-[#FFF7EE] rounded-3xl border-2 border-[#F4B8C7] hover:border-[#B73E5B]/60 transition-all flex flex-col overflow-hidden group"
+                className="bg-[#FFF7EE] rounded-3xl border-2 border-[#4A2638] shadow-[0_4px_0_#4A2638] hover:-translate-y-0.5 transition-all flex flex-col overflow-hidden group p-3"
               >
-                <div className="relative aspect-[4/3] bg-[#F4B8C7]/20 overflow-hidden flex items-center justify-center p-2">
+                {/* Placa fotográfica lisa en Blanco con borde Rosa Fresa */}
+                <div className="relative aspect-[4/3] bg-white rounded-2xl border-2 border-[#F4B8C7] overflow-hidden flex items-center justify-center p-2">
                   <img
                     src={promo.image}
                     alt={promo.title}
                     loading="lazy"
                     className="w-full h-full object-contain group-hover:scale-102 transition-transform duration-300"
                   />
-                  <span className="absolute top-3 left-3 px-3 py-1 rounded-full bg-[#B73E5B] text-white text-xs font-bold">
+                  <span className="absolute top-2.5 left-2.5 px-3 py-1 rounded-full bg-[#B73E5B] text-white text-xs font-bold font-['DynaPuff'] border border-[#4A2638]">
                     {promo.day}
                   </span>
-                  <span className="absolute top-3 right-3 px-2.5 py-0.5 rounded-full bg-[#CDE5DA] text-[#4A2638] text-[11px] font-semibold">
+                  <span className="absolute top-2.5 right-2.5 px-2.5 py-0.5 rounded-full bg-[#CDE5DA] text-[#4A2638] border border-[#4A2638]/20 text-[11px] font-bold">
                     {promo.badge}
                   </span>
                 </div>
 
-                <div className="p-5 sm:p-6 flex-1 flex flex-col justify-between space-y-4">
+                <div className="p-3 sm:p-4 flex-1 flex flex-col justify-between space-y-4">
                   <div className="space-y-2">
                     <h3 className="font-['DynaPuff'] font-bold text-lg text-[#4A2638] leading-snug">
                       {promo.title}
                     </h3>
-                    <p className="text-xs sm:text-sm text-[#4A2638]/80 leading-relaxed font-normal">
+                    <p className="text-xs sm:text-sm text-[#4A2638]/85 leading-relaxed font-normal">
                       {promo.description}
                     </p>
                   </div>
@@ -766,7 +786,7 @@ ${orderNotes ? `• *Notas Especiales:* ${orderNotes}\n` : ''}
                     href={createWhatsAppUrl(promo.whatsappMessage)}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="w-full min-h-[44px] py-2.5 px-4 rounded-xl bg-[#B73E5B] hover:bg-[#9E324C] text-white font-bold text-xs sm:text-sm flex items-center justify-center gap-2 transition-all active:scale-95 cursor-pointer mt-auto"
+                    className="w-full min-h-[44px] py-2.5 px-4 rounded-2xl bg-[#B73E5B] hover:bg-[#9E324C] text-white font-bold text-xs sm:text-sm border-2 border-[#4A2638] shadow-[0_3px_0_#4A2638] active:translate-y-0.5 active:shadow-[0_1px_0_#4A2638] flex items-center justify-center gap-2 transition-all cursor-pointer mt-auto"
                   >
                     <MessageCircle className="w-4 h-4 text-white shrink-0" />
                     <span>Aprovechar Promo por WhatsApp</span>
@@ -789,31 +809,34 @@ ${orderNotes ? `• *Notas Especiales:* ${orderNotes}\n` : ''}
         onMouseLeave={() => setIsHovered(false)}
         className="w-full max-w-5xl mx-auto px-4 sm:px-6 py-12 sm:py-16 scroll-mt-20 focus:outline-none"
       >
-        <div className="text-center mb-6 sm:mb-8">
-          <span className="text-xs font-semibold text-[#4A2638] uppercase tracking-widest bg-[#CDE5DA] px-4 py-1.5 rounded-full inline-block mb-3">
+        <div className="text-center mb-6 sm:mb-8 relative">
+          <SparkleFourPoint className="hidden sm:block w-5 h-5 text-[#F4B8C7] absolute top-1 left-12" />
+          <SparkleFourPoint className="hidden sm:block w-4 h-4 text-[#CDE5DA] absolute top-4 right-14" />
+
+          <span className="text-xs font-semibold text-[#4A2638] uppercase tracking-widest bg-[#CDE5DA] border border-[#4A2638]/15 px-4 py-1.5 rounded-full inline-block mb-3">
             Cartelera Digital Oficial
           </span>
           <h2 className="text-2xl sm:text-4xl font-bold font-['DynaPuff'] text-[#4A2638]">
             Nuestro Menú en Imágenes
           </h2>
-          <p className="text-xs sm:text-sm text-[#4A2638]/80 max-w-md mx-auto mt-2 font-normal">
-            Explora nuestras 4 láminas oficiales y ve planeando tu próximo antojo: bases, toppings, waffles y crepas.
+          <p className="text-xs sm:text-sm text-[#4A2638]/85 max-w-lg mx-auto mt-2 font-normal">
+            El crujidito de la oblea, lo cremosito de la casa... ¿Por dónde va tu primera cucharada?
           </p>
         </div>
 
-        {/* Contenedor crema con borde Rosa Fresa */}
-        <div className="relative overflow-hidden rounded-3xl bg-[#FFF7EE] border-2 border-[#F4B8C7] p-3 sm:p-5">
+        {/* Marco estilo Sticker con placa interior blanca/crema y borde Rosa Fresa */}
+        <div className="relative overflow-hidden rounded-3xl bg-[#FFF7EE] border-2 border-[#4A2638] shadow-[0_4px_0_#4A2638] p-3 sm:p-5">
           
-          <div className="absolute top-4 sm:top-6 left-4 sm:left-7 z-20 flex items-center gap-2">
-            <div className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-semibold bg-[#CDE5DA] text-[#4A2638]">
+          <div className="absolute top-5 sm:top-7 left-5 sm:left-8 z-20 flex items-center gap-2">
+            <div className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-semibold bg-[#CDE5DA] border border-[#4A2638]/20 text-[#4A2638]">
               <Sparkles className="w-3.5 h-3.5 text-[#4A2638]" />
               <span className="font-bold">{MENU_SLIDES[currentSlide].title}</span>
               <span className="text-[#4A2638]/40">|</span>
-              <span className="text-[#4A2638]/80">{currentSlide + 1} de {MENU_SLIDES.length}</span>
+              <span className="text-[#4A2638] font-semibold">{currentSlide + 1} de {MENU_SLIDES.length}</span>
             </div>
           </div>
 
-          <div className="relative w-full aspect-[4/3] sm:aspect-[16/10] md:aspect-[16/9] max-h-[640px] flex items-center justify-center bg-[#F4B8C7]/15 rounded-2xl select-none overflow-hidden">
+          <div className="relative w-full aspect-[4/3] sm:aspect-[16/10] md:aspect-[16/9] max-h-[640px] flex items-center justify-center bg-white border-2 border-[#F4B8C7] rounded-2xl select-none overflow-hidden">
             {MENU_SLIDES.map((slide, index) => {
               const isActive = index === currentSlide;
               return (
@@ -839,7 +862,7 @@ ${orderNotes ? `• *Notas Especiales:* ${orderNotes}\n` : ''}
             type="button"
             onClick={handlePrevSlide}
             aria-label="Lámina anterior"
-            className="absolute left-4 sm:left-8 top-1/2 -translate-y-1/2 z-20 p-2.5 sm:p-3 rounded-full bg-[#FFF7EE] hover:bg-[#F4B8C7] border border-[#F4B8C7] text-[#4A2638] transition-all active:scale-95 cursor-pointer"
+            className="absolute left-5 sm:left-8 top-1/2 -translate-y-1/2 z-20 p-2.5 sm:p-3 rounded-full bg-[#FFF7EE] hover:bg-[#F4B8C7] border-2 border-[#4A2638] text-[#4A2638] shadow-[0_2px_0_#4A2638] transition-all active:translate-y-0.5 cursor-pointer"
           >
             <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6" />
           </button>
@@ -848,13 +871,13 @@ ${orderNotes ? `• *Notas Especiales:* ${orderNotes}\n` : ''}
             type="button"
             onClick={handleNextSlide}
             aria-label="Lámina siguiente"
-            className="absolute right-4 sm:right-8 top-1/2 -translate-y-1/2 z-20 p-2.5 sm:p-3 rounded-full bg-[#FFF7EE] hover:bg-[#F4B8C7] border border-[#F4B8C7] text-[#4A2638] transition-all active:scale-95 cursor-pointer"
+            className="absolute right-5 sm:right-8 top-1/2 -translate-y-1/2 z-20 p-2.5 sm:p-3 rounded-full bg-[#FFF7EE] hover:bg-[#F4B8C7] border-2 border-[#4A2638] text-[#4A2638] shadow-[0_2px_0_#4A2638] transition-all active:translate-y-0.5 cursor-pointer"
           >
             <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6" />
           </button>
 
-          <div className="absolute bottom-4 sm:bottom-7 left-1/2 -translate-x-1/2 z-20">
-            <div className="flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#FFF7EE]/95 border border-[#F4B8C7]">
+          <div className="absolute bottom-5 sm:bottom-7 left-1/2 -translate-x-1/2 z-20">
+            <div className="flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#FFF7EE] border border-[#4A2638]/25">
               {MENU_SLIDES.map((slide, idx) => {
                 const isActive = idx === currentSlide;
                 return (
@@ -881,8 +904,11 @@ ${orderNotes ? `• *Notas Especiales:* ${orderNotes}\n` : ''}
       <section id="armar-pedido" className="py-12 sm:py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto scroll-mt-20">
         
         {/* Header del Armador */}
-        <div className="text-center max-w-2xl mx-auto mb-10">
-          <span className="text-xs font-semibold text-[#4A2638] uppercase tracking-widest bg-[#CDE5DA] px-4 py-1.5 rounded-full inline-flex items-center gap-1.5 mb-3">
+        <div className="text-center max-w-2xl mx-auto mb-10 relative">
+          <SparkleFourPoint className="hidden sm:block w-5 h-5 text-[#F4B8C7] absolute top-1 left-4" />
+          <MinimalHeart className="hidden sm:block w-5 h-5 text-[#CDE5DA] absolute top-3 right-4" />
+
+          <span className="text-xs font-semibold text-[#4A2638] uppercase tracking-widest bg-[#CDE5DA] border border-[#4A2638]/15 px-4 py-1.5 rounded-full inline-flex items-center gap-1.5 mb-3">
             <Sparkles className="w-3.5 h-3.5 text-[#4A2638]" />
             <span>El límite lo pones tú • Paso a Paso</span>
           </span>
@@ -890,7 +916,7 @@ ${orderNotes ? `• *Notas Especiales:* ${orderNotes}\n` : ''}
             Arma tu Vaso en 4 Sencillos Pasos
           </h2>
           <p className="mt-2 text-xs sm:text-sm text-[#4A2638]/85 font-normal">
-            ¿Qué se te antoja hoy? Elige tu tamaño, tu base favorita, la crema artesanal, el aderezo y tus toppings. Checa tu total en vivo y mándalo directo a WhatsApp.
+            ¿Qué le ponemos al tuyo? Elige tu base, tu crema y tus toppings favoritos.
           </p>
         </div>
 
@@ -901,11 +927,11 @@ ${orderNotes ? `• *Notas Especiales:* ${orderNotes}\n` : ''}
           <div className="lg:col-span-8 space-y-6">
             
             {/* Selector de Tamaño de Vaso */}
-            <div className="bg-[#FFF7EE] rounded-3xl border-2 border-[#F4B8C7] p-5 sm:p-6">
+            <div className="bg-[#FFF7EE] rounded-3xl border-2 border-[#4A2638]/20 p-5 sm:p-6">
               <span className="text-xs font-bold uppercase tracking-wider text-[#B73E5B] block mb-3">
                 Paso 0 • Elige el Tamaño
               </span>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                 {SIZES_DATA.map((size) => {
                   const isSelected = selectedSize === size.id;
                   return (
@@ -913,9 +939,9 @@ ${orderNotes ? `• *Notas Especiales:* ${orderNotes}\n` : ''}
                       key={size.id}
                       type="button"
                       onClick={() => setSelectedSize(size.id)}
-                      className={`p-4 rounded-2xl border-2 text-left transition-all cursor-pointer flex items-center justify-between ${
+                      className={`p-4 rounded-3xl border-2 text-left transition-all cursor-pointer flex items-center justify-between ${
                         isSelected
-                          ? 'border-[#B73E5B] bg-[#F4B8C7] text-[#4A2638]'
+                          ? 'border-[#4A2638] bg-[#F4B8C7] text-[#4A2638] shadow-[0_4px_0_#4A2638]'
                           : 'border-[#F4B8C7] hover:bg-[#F4B8C7]/30 bg-[#FFF7EE] text-[#4A2638]'
                       }`}
                     >
@@ -932,7 +958,7 @@ ${orderNotes ? `• *Notas Especiales:* ${orderNotes}\n` : ''}
                         </div>
                         <p className="text-xs text-[#4A2638]/85 mt-1 font-semibold">{size.label}</p>
                       </div>
-                      <div className={`w-6 h-6 rounded-full border-2 flex items-center justify-center shrink-0 ${isSelected ? 'border-[#B73E5B] bg-[#B73E5B] text-white' : 'border-[#4A2638]/30'}`}>
+                      <div className={`w-6 h-6 rounded-full border-2 flex items-center justify-center shrink-0 ${isSelected ? 'border-[#4A2638] bg-[#B73E5B] text-white' : 'border-[#4A2638]/30'}`}>
                         {isSelected && <Check className="w-4 h-4" />}
                       </div>
                     </button>
@@ -941,7 +967,7 @@ ${orderNotes ? `• *Notas Especiales:* ${orderNotes}\n` : ''}
               </div>
 
               {selectedBase.isSpecialAntojo && (
-                <div className="mt-3 p-3.5 rounded-2xl bg-[#CDE5DA] text-xs text-[#4A2638] font-semibold flex items-center gap-2">
+                <div className="mt-3 p-3.5 rounded-2xl bg-[#CDE5DA] border border-[#4A2638]/15 text-xs text-[#4A2638] font-semibold flex items-center gap-2">
                   <span>🧇</span>
                   <span>Has elegido <strong className="font-bold">{selectedBase.name}</strong>: cuenta con tarifa única de <strong className="font-bold">$130</strong> (Básico) o <strong className="font-bold">$160</strong> (Premium).</span>
                 </div>
@@ -949,7 +975,7 @@ ${orderNotes ? `• *Notas Especiales:* ${orderNotes}\n` : ''}
             </div>
 
             {/* Selector de Pasos en Tabs */}
-            <div className="flex items-center gap-2 overflow-x-auto pb-2 border-b border-[#F4B8C7]">
+            <div className="flex items-center gap-2 overflow-x-auto pb-2 border-b border-[#4A2638]/15">
               {[
                 { step: 1, name: '1. Base' },
                 { step: 2, name: '2. Crema' },
@@ -960,10 +986,10 @@ ${orderNotes ? `• *Notas Especiales:* ${orderNotes}\n` : ''}
                   key={tab.step}
                   type="button"
                   onClick={() => setActiveStepTab(tab.step)}
-                  className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-bold whitespace-nowrap transition-all cursor-pointer ${
+                  className={`px-4 py-2 rounded-2xl text-xs sm:text-sm font-bold whitespace-nowrap transition-all cursor-pointer ${
                     activeStepTab === tab.step
-                      ? 'bg-[#B73E5B] text-white'
-                      : 'bg-[#FFF7EE] text-[#4A2638] hover:bg-[#F4B8C7]/40 border border-[#F4B8C7]'
+                      ? 'bg-[#B73E5B] text-white border-2 border-[#4A2638] shadow-[0_3px_0_#4A2638]'
+                      : 'bg-[#FFF7EE] text-[#4A2638] hover:bg-[#F4B8C7]/40 border-2 border-[#F4B8C7]'
                   }`}
                 >
                   {tab.name}
@@ -973,7 +999,7 @@ ${orderNotes ? `• *Notas Especiales:* ${orderNotes}\n` : ''}
 
             {/* TAB 1: Base */}
             {activeStepTab === 1 && (
-              <div className="bg-[#FFF7EE] rounded-3xl border-2 border-[#F4B8C7] p-5 sm:p-6 space-y-4">
+              <div className="bg-[#FFF7EE] rounded-3xl border-2 border-[#4A2638]/20 p-5 sm:p-6 space-y-4">
                 <div className="flex items-center justify-between gap-2 flex-wrap">
                   <h3 className="font-['DynaPuff'] font-bold text-lg text-[#4A2638]">
                     Paso 1 • Selecciona tu Base
@@ -981,7 +1007,7 @@ ${orderNotes ? `• *Notas Especiales:* ${orderNotes}\n` : ''}
                   <span className="text-xs text-[#B73E5B] font-bold">Base seleccionada: {selectedBase.name}</span>
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                   {BASES_DATA.map((base) => {
                     const isSelected = selectedBase.id === base.id;
                     return (
@@ -989,13 +1015,13 @@ ${orderNotes ? `• *Notas Especiales:* ${orderNotes}\n` : ''}
                         key={base.id}
                         type="button"
                         onClick={() => setSelectedBase(base)}
-                        className={`p-3.5 rounded-2xl border-2 text-left transition-all cursor-pointer flex items-start gap-3 ${
+                        className={`p-3.5 rounded-3xl border-2 text-left transition-all cursor-pointer flex items-start gap-3 ${
                           isSelected
-                            ? 'border-[#B73E5B] bg-[#F4B8C7] text-[#4A2638]'
+                            ? 'border-[#4A2638] bg-[#F4B8C7] text-[#4A2638] shadow-[0_3px_0_#4A2638]'
                             : 'border-[#F4B8C7] hover:bg-[#F4B8C7]/25 bg-[#FFF7EE] text-[#4A2638]'
                         }`}
                       >
-                        <span className="text-2xl shrink-0 p-2 bg-[#FFF7EE] rounded-xl">{base.icon}</span>
+                        <span className="text-2xl shrink-0 p-2 bg-[#FFF7EE] border border-[#4A2638]/15 rounded-2xl">{base.icon}</span>
                         <div className="flex-1">
                           <div className="flex items-center justify-between gap-1 flex-wrap">
                             <span className="font-bold text-sm text-[#4A2638]">{base.name}</span>
@@ -1014,7 +1040,7 @@ ${orderNotes ? `• *Notas Especiales:* ${orderNotes}\n` : ''}
 
             {/* TAB 2: Crema */}
             {activeStepTab === 2 && (
-              <div className="bg-[#FFF7EE] rounded-3xl border-2 border-[#F4B8C7] p-5 sm:p-6 space-y-4">
+              <div className="bg-[#FFF7EE] rounded-3xl border-2 border-[#4A2638]/20 p-5 sm:p-6 space-y-4">
                 <div className="flex items-center justify-between gap-2 flex-wrap">
                   <h3 className="font-['DynaPuff'] font-bold text-lg text-[#4A2638]">
                     Paso 2 • Elige tu Crema Artesanal
@@ -1022,7 +1048,7 @@ ${orderNotes ? `• *Notas Especiales:* ${orderNotes}\n` : ''}
                   <span className="text-xs text-[#B73E5B] font-bold">{selectedCrema.name}</span>
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                   {CREMAS_DATA.map((crema) => {
                     const isSelected = selectedCrema.id === crema.id;
                     return (
@@ -1030,9 +1056,9 @@ ${orderNotes ? `• *Notas Especiales:* ${orderNotes}\n` : ''}
                         key={crema.id}
                         type="button"
                         onClick={() => setSelectedCrema(crema)}
-                        className={`p-4 rounded-2xl border-2 text-left transition-all cursor-pointer ${
+                        className={`p-4 rounded-3xl border-2 text-left transition-all cursor-pointer ${
                           isSelected
-                            ? 'border-[#B73E5B] bg-[#F4B8C7] text-[#4A2638]'
+                            ? 'border-[#4A2638] bg-[#F4B8C7] text-[#4A2638] shadow-[0_3px_0_#4A2638]'
                             : 'border-[#F4B8C7] hover:bg-[#F4B8C7]/25 bg-[#FFF7EE] text-[#4A2638]'
                         }`}
                       >
@@ -1052,7 +1078,7 @@ ${orderNotes ? `• *Notas Especiales:* ${orderNotes}\n` : ''}
 
             {/* TAB 3: Aderezos */}
             {activeStepTab === 3 && (
-              <div className="bg-[#FFF7EE] rounded-3xl border-2 border-[#F4B8C7] p-5 sm:p-6 space-y-4">
+              <div className="bg-[#FFF7EE] rounded-3xl border-2 border-[#4A2638]/20 p-5 sm:p-6 space-y-4">
                 <div className="flex items-center justify-between gap-2 flex-wrap">
                   <h3 className="font-['DynaPuff'] font-bold text-lg text-[#4A2638]">
                     Paso 3 • Selecciona tu Aderezo o Jarabe
@@ -1060,7 +1086,7 @@ ${orderNotes ? `• *Notas Especiales:* ${orderNotes}\n` : ''}
                   <span className="text-xs text-[#B73E5B] font-bold">{selectedAderezo.name}</span>
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   {ADEREZOS_DATA.map((aderezo) => {
                     const isSelected = selectedAderezo.id === aderezo.id;
                     return (
@@ -1068,9 +1094,9 @@ ${orderNotes ? `• *Notas Especiales:* ${orderNotes}\n` : ''}
                         key={aderezo.id}
                         type="button"
                         onClick={() => setSelectedAderezo(aderezo)}
-                        className={`p-3.5 rounded-2xl border-2 text-left transition-all cursor-pointer flex items-center justify-between ${
+                        className={`p-3.5 rounded-3xl border-2 text-left transition-all cursor-pointer flex items-center justify-between ${
                           isSelected
-                            ? 'border-[#B73E5B] bg-[#F4B8C7] text-[#4A2638]'
+                            ? 'border-[#4A2638] bg-[#F4B8C7] text-[#4A2638] shadow-[0_3px_0_#4A2638]'
                             : 'border-[#F4B8C7] hover:bg-[#F4B8C7]/25 bg-[#FFF7EE] text-[#4A2638]'
                         }`}
                       >
@@ -1078,7 +1104,7 @@ ${orderNotes ? `• *Notas Especiales:* ${orderNotes}\n` : ''}
                           <span className="text-xl">{aderezo.icon}</span>
                           <span className="font-bold text-xs sm:text-sm text-[#4A2638]">{aderezo.name}</span>
                         </div>
-                        <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center shrink-0 ${isSelected ? 'border-[#B73E5B] bg-[#B73E5B] text-white' : 'border-[#4A2638]/30'}`}>
+                        <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center shrink-0 ${isSelected ? 'border-[#4A2638] bg-[#B73E5B] text-white' : 'border-[#4A2638]/30'}`}>
                           {isSelected && <Check className="w-3 h-3" />}
                         </div>
                       </button>
@@ -1090,7 +1116,7 @@ ${orderNotes ? `• *Notas Especiales:* ${orderNotes}\n` : ''}
 
             {/* TAB 4: Toppings */}
             {activeStepTab === 4 && (
-              <div className="bg-[#FFF7EE] rounded-3xl border-2 border-[#F4B8C7] p-5 sm:p-6 space-y-4">
+              <div className="bg-[#FFF7EE] rounded-3xl border-2 border-[#4A2638]/20 p-5 sm:p-6 space-y-4">
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                   <h3 className="font-['DynaPuff'] font-bold text-lg text-[#4A2638]">
                     Paso 4 • Elige tus Toppings Favoritos
@@ -1114,8 +1140,8 @@ ${orderNotes ? `• *Notas Especiales:* ${orderNotes}\n` : ''}
                       onClick={() => setToppingsFilter(cat.id as 'all' | 'clasico' | 'premium' | 'enchilado')}
                       className={`px-3.5 py-1 rounded-full text-xs font-semibold transition-colors cursor-pointer ${
                         toppingsFilter === cat.id
-                          ? 'bg-[#B73E5B] text-white font-bold'
-                          : 'bg-[#CDE5DA] text-[#4A2638] hover:bg-[#F4B8C7]'
+                          ? 'bg-[#B73E5B] text-white font-bold border border-[#4A2638]'
+                          : 'bg-[#CDE5DA] text-[#4A2638] hover:bg-[#F4B8C7] border border-[#4A2638]/15'
                       }`}
                     >
                       {cat.label}
@@ -1123,7 +1149,7 @@ ${orderNotes ? `• *Notas Especiales:* ${orderNotes}\n` : ''}
                   ))}
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 max-h-[360px] overflow-y-auto pr-1">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 max-h-[360px] overflow-y-auto pr-1">
                   {TOPPINGS_DATA.filter((t) => toppingsFilter === 'all' || t.category === toppingsFilter).map((topping) => {
                     const isSelected = selectedToppings.some((t) => t.id === topping.id);
                     return (
@@ -1133,7 +1159,7 @@ ${orderNotes ? `• *Notas Especiales:* ${orderNotes}\n` : ''}
                         onClick={() => toggleTopping(topping)}
                         className={`p-3 rounded-2xl border-2 text-left transition-all cursor-pointer flex items-center justify-between gap-2 ${
                           isSelected
-                            ? 'border-[#B73E5B] bg-[#F4B8C7] text-[#4A2638]'
+                            ? 'border-[#4A2638] bg-[#F4B8C7] text-[#4A2638] shadow-[0_2px_0_#4A2638]'
                             : 'border-[#F4B8C7] hover:bg-[#F4B8C7]/25 bg-[#FFF7EE] text-[#4A2638]'
                         }`}
                       >
@@ -1143,13 +1169,13 @@ ${orderNotes ? `• *Notas Especiales:* ${orderNotes}\n` : ''}
                             topping.category === 'premium'
                               ? 'bg-[#FFF7EE] text-[#4A2638] border border-[#B73E5B]/40'
                               : topping.category === 'enchilado'
-                              ? 'bg-[#F4B8C7]/60 text-[#4A2638]'
+                              ? 'bg-[#F4B8C7]/70 text-[#4A2638]'
                               : 'bg-[#CDE5DA] text-[#4A2638]'
                           }`}>
                             {topping.badgeLabel}
                           </span>
                         </div>
-                        <div className={`w-5 h-5 rounded-md border-2 flex items-center justify-center shrink-0 ${isSelected ? 'border-[#B73E5B] bg-[#B73E5B] text-white' : 'border-[#4A2638]/30'}`}>
+                        <div className={`w-5 h-5 rounded-md border-2 flex items-center justify-center shrink-0 ${isSelected ? 'border-[#4A2638] bg-[#B73E5B] text-white' : 'border-[#4A2638]/30'}`}>
                           {isSelected && <Check className="w-3.5 h-3.5" />}
                         </div>
                       </button>
@@ -1160,7 +1186,7 @@ ${orderNotes ? `• *Notas Especiales:* ${orderNotes}\n` : ''}
             )}
 
             {/* Notas opcionales */}
-            <div className="bg-[#FFF7EE] rounded-3xl border-2 border-[#F4B8C7] p-4 sm:p-5">
+            <div className="bg-[#FFF7EE] rounded-3xl border-2 border-[#4A2638]/20 p-4 sm:p-5">
               <label htmlFor="order-notes" className="text-xs font-bold text-[#4A2638] block mb-1.5">
                 ¿Algún detallito extra para tu antojo? (Opcional):
               </label>
@@ -1170,71 +1196,74 @@ ${orderNotes ? `• *Notas Especiales:* ${orderNotes}\n` : ''}
                 placeholder="Ej. Poca crema, topping por separado, bien frío..."
                 value={orderNotes}
                 onChange={(e) => setOrderNotes(e.target.value)}
-                className="w-full px-3.5 py-2.5 rounded-xl bg-[#FFF7EE] border border-[#F4B8C7] focus:outline-none focus:border-[#B73E5B] text-xs sm:text-sm text-[#4A2638] placeholder:text-[#4A2638]/50 font-normal"
+                className="w-full px-3.5 py-2.5 rounded-2xl bg-[#FFF7EE] border-2 border-[#F4B8C7] focus:outline-none focus:border-[#4A2638] text-xs sm:text-sm text-[#4A2638] placeholder:text-[#4A2638]/50 font-normal"
               />
             </div>
 
           </div>
 
-          {/* Columna Derecha: Tarjeta Simulador / Resumen en Vivo (4 cols) */}
+          {/* Columna Derecha: Tarjeta Simulador / Resumen en Vivo estilo Sticker (4 cols) */}
           <div className="lg:col-span-4 sticky top-24">
-            <div className="bg-[#F4B8C7]/35 rounded-3xl border-2 border-[#F4B8C7] p-6 space-y-5">
+            <div className="bg-[#F4B8C7] rounded-3xl border-2 border-[#4A2638] shadow-[0_5px_0_#4A2638] p-6 space-y-5">
               
-              <div className="border-b border-[#F4B8C7] pb-3 flex items-center justify-between">
+              <div className="border-b-2 border-[#4A2638]/15 pb-3.5 flex items-start justify-between gap-2">
                 <div>
-                  <span className="text-[10px] font-bold uppercase tracking-wider text-[#B73E5B] block">
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-[#4A2638] bg-[#CDE5DA] px-2.5 py-0.5 rounded-full inline-block mb-1.5">
                     Simulador en Vivo
                   </span>
-                  <h3 className="font-['DynaPuff'] font-bold text-xl text-[#4A2638] mt-0.5">
+                  <h3 className="font-['DynaPuff'] font-bold text-xl text-[#4A2638] leading-tight">
                     Tu Vaso Freséame
                   </h3>
+                  <p className="text-xs text-[#4A2638]/85 mt-1 font-normal leading-snug">
+                    ¿Una cucharadita? Eso dijiste hace tres. Así va quedando tu creación:
+                  </p>
                 </div>
-                <span className="text-2xl">🍓</span>
+                <span className="text-2xl shrink-0">🍓</span>
               </div>
 
-              {/* Desglose de Selección */}
-              <div className="space-y-3 text-xs sm:text-sm">
-                <div className="flex items-center justify-between py-1 border-b border-[#F4B8C7]/60">
+              {/* Desglose de Selección sobre placa Crema limpia */}
+              <div className="bg-[#FFF7EE] rounded-2xl border border-[#4A2638]/15 p-4 space-y-3 text-xs sm:text-sm">
+                <div className="flex items-center justify-between py-1 border-b border-[#F4B8C7]/70">
                   <span className="text-[#4A2638]/75 font-normal">Tamaño:</span>
                   <strong className="text-[#4A2638] font-bold">
                     {selectedBase.isSpecialAntojo ? 'Especial Waffles / Crepas' : (selectedSize === 'chico' ? 'Chico (12 oz)' : 'Grande (16 oz)')}
                   </strong>
                 </div>
 
-                <div className="flex items-center justify-between py-1 border-b border-[#F4B8C7]/60">
+                <div className="flex items-center justify-between py-1 border-b border-[#F4B8C7]/70">
                   <span className="text-[#4A2638]/75 font-normal">Base:</span>
                   <strong className="text-[#4A2638] font-bold text-right">{selectedBase.name}</strong>
                 </div>
 
-                <div className="flex items-center justify-between py-1 border-b border-[#F4B8C7]/60">
+                <div className="flex items-center justify-between py-1 border-b border-[#F4B8C7]/70">
                   <span className="text-[#4A2638]/75 font-normal">Crema:</span>
                   <strong className="text-[#4A2638] font-bold text-right">{selectedCrema.name}</strong>
                 </div>
 
-                <div className="flex items-center justify-between py-1 border-b border-[#F4B8C7]/60">
+                <div className="flex items-center justify-between py-1 border-b border-[#F4B8C7]/70">
                   <span className="text-[#4A2638]/75 font-normal">Aderezo:</span>
                   <strong className="text-[#4A2638] font-bold text-right">{selectedAderezo.name}</strong>
                 </div>
 
-                <div className="py-1 border-b border-[#F4B8C7]/60 pb-2.5">
+                <div className="py-1 pb-1">
                   <div className="flex items-center justify-between mb-2">
                     <span className="text-[#4A2638]/75 font-normal">Toppings ({selectedToppings.length}):</span>
                     <span className={`text-[10px] font-bold px-2.5 py-0.5 rounded-full ${
                       hasPremiumTopping
-                        ? 'bg-[#F4B8C7] text-[#4A2638] border border-[#B73E5B]/40'
+                        ? 'bg-[#F4B8C7] text-[#4A2638] border border-[#4A2638]/20'
                         : 'bg-[#CDE5DA] text-[#4A2638]'
                     }`}>
                       {hasPremiumTopping ? '⭐ Tarifa Premium' : '🏷️ Tarifa Básica'}
                     </span>
                   </div>
                   {selectedToppings.length === 0 ? (
-                    <span className="text-[#4A2638]/60 italic text-xs font-normal">Sin toppings (Tarifa básica)</span>
+                    <span className="text-[#4A2638]/65 italic text-xs font-normal">Sin toppings (Tarifa básica)</span>
                   ) : (
                     <div className="flex flex-wrap gap-1.5">
                       {selectedToppings.map((t) => (
                         <span key={t.id} className={`text-[10px] px-2.5 py-0.5 rounded-full font-semibold ${
                           t.category === 'premium'
-                            ? 'bg-[#F4B8C7] text-[#4A2638] border border-[#B73E5B]/30'
+                            ? 'bg-[#F4B8C7] text-[#4A2638] border border-[#4A2638]/20'
                             : 'bg-[#CDE5DA] text-[#4A2638]'
                         }`}>
                           {t.name} {t.category === 'premium' ? '⭐' : ''}
@@ -1246,29 +1275,29 @@ ${orderNotes ? `• *Notas Especiales:* ${orderNotes}\n` : ''}
               </div>
 
               {/* Precio Total Oficial y Tarifa (DynaPuff en precios destacados) */}
-              <div className="pt-2 border-t border-[#F4B8C7] flex items-center justify-between">
+              <div className="pt-1 flex items-center justify-between">
                 <div>
-                  <span className="text-[10px] uppercase font-bold text-[#4A2638]/75 block">Total Oficial</span>
+                  <span className="text-[10px] uppercase font-bold text-[#4A2638]/80 block">Total Oficial</span>
                   <span className="text-2xl sm:text-3xl font-bold font-['DynaPuff'] text-[#4A2638]">
                     ${calculatedTotal}{' '}
-                    <span className="text-xs font-['Outfit'] text-[#4A2638]/80 font-semibold">MXN</span>
+                    <span className="text-xs font-['Outfit'] text-[#4A2638]/85 font-semibold">MXN</span>
                   </span>
                 </div>
                 <div className="text-right">
-                  <span className="text-[10px] font-semibold text-[#4A2638]/75 block">Tarifa Aplicada:</span>
+                  <span className="text-[10px] font-semibold text-[#4A2638]/80 block">Tarifa Aplicada:</span>
                   <span className="text-xs font-bold text-[#4A2638]">
                     {hasPremiumTopping ? 'Con Topping Premium' : 'Con Topping Básico'}
                   </span>
                 </div>
               </div>
 
-              {/* Botón WhatsApp de Envío (Frambuesa CTA primario) */}
+              {/* Botón WhatsApp de Envío (Frambuesa CTA primario estilo Sticker) */}
               <a
                 id="btn-enviar-pedido-whatsapp"
                 href={whatsappOrderUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full min-h-[48px] py-3.5 px-4 rounded-2xl bg-[#B73E5B] hover:bg-[#9E324C] text-white font-bold text-sm flex items-center justify-center gap-2 transition-all active:scale-95 cursor-pointer text-center"
+                className="w-full min-h-[48px] py-3.5 px-4 rounded-2xl bg-[#B73E5B] hover:bg-[#9E324C] text-white font-bold text-sm border-2 border-[#4A2638] shadow-[0_3px_0_#4A2638] active:translate-y-0.5 active:shadow-[0_1px_0_#4A2638] flex items-center justify-center gap-2 transition-all cursor-pointer text-center"
               >
                 <MessageCircle className="w-5 h-5 text-white shrink-0" />
                 <span>Enviar Pedido Armado por WhatsApp</span>
@@ -1284,7 +1313,7 @@ ${orderNotes ? `• *Notas Especiales:* ${orderNotes}\n` : ''}
                   setSelectedToppings([]);
                   setOrderNotes('');
                 }}
-                className="w-full text-center text-xs text-[#4A2638]/70 hover:text-[#4A2638] font-semibold transition-colors flex items-center justify-center gap-1 cursor-pointer"
+                className="w-full text-center text-xs text-[#4A2638]/85 hover:text-[#4A2638] font-semibold transition-colors flex items-center justify-center gap-1 cursor-pointer"
               >
                 <RotateCcw className="w-3.5 h-3.5" />
                 <span>Reiniciar selección a ceros</span>
@@ -1301,8 +1330,11 @@ ${orderNotes ? `• *Notas Especiales:* ${orderNotes}\n` : ''}
           6. SECCIÓN DE SUCURSALES (GRID DE 2 SUCURSALES)
          ======================================================= */}
       <section id="sucursales" className="py-12 sm:py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto scroll-mt-20">
-        <div className="text-center max-w-2xl mx-auto mb-10 sm:mb-12">
-          <span className="text-xs font-semibold text-[#4A2638] uppercase tracking-widest bg-[#CDE5DA] px-4 py-1.5 rounded-full inline-flex items-center gap-1.5 mb-3">
+        <div className="text-center max-w-2xl mx-auto mb-10 sm:mb-12 relative">
+          <SparkleFourPoint className="hidden sm:block w-5 h-5 text-[#F4B8C7] absolute top-0 left-10" />
+          <MinimalHeart className="hidden sm:block w-5 h-5 text-[#CDE5DA] absolute top-4 right-10" />
+
+          <span className="text-xs font-semibold text-[#4A2638] uppercase tracking-widest bg-[#CDE5DA] border border-[#4A2638]/15 px-4 py-1.5 rounded-full inline-flex items-center gap-1.5 mb-3">
             <Sparkles className="w-3.5 h-3.5 text-[#4A2638]" />
             <span>Nuestras Ubicaciones Físicas</span>
           </span>
@@ -1310,7 +1342,7 @@ ${orderNotes ? `• *Notas Especiales:* ${orderNotes}\n` : ''}
             Sucursales Oficiales Freséame
           </h2>
           <p className="mt-2 text-xs sm:text-sm text-[#4A2638]/85 font-normal">
-            Lánzate por tu antojo a nuestras dos ubicaciones en Ciudad de México y disfruta tus fresas recién preparadas.
+            Cerca de ti para matar el antojo al momento.
           </p>
         </div>
 
@@ -1319,10 +1351,10 @@ ${orderNotes ? `• *Notas Especiales:* ${orderNotes}\n` : ''}
           {OFFICIAL_BRANCHES.map((branch) => (
             <div
               key={branch.id}
-              className={`rounded-3xl border-2 p-6 sm:p-8 flex flex-col justify-between transition-all duration-300 relative overflow-hidden ${
+              className={`rounded-3xl border-2 border-[#4A2638] shadow-[0_4px_0_#4A2638] p-6 sm:p-8 flex flex-col justify-between transition-all duration-300 relative overflow-hidden ${
                 branch.isNew
-                  ? 'bg-[#F4B8C7]/25 border-[#B73E5B]/50'
-                  : 'bg-[#FFF7EE] border-[#F4B8C7]'
+                  ? 'bg-[#F4B8C7]/35'
+                  : 'bg-[#FFF7EE]'
               }`}
             >
               <div className="space-y-5 relative z-10">
@@ -1330,26 +1362,26 @@ ${orderNotes ? `• *Notas Especiales:* ${orderNotes}\n` : ''}
                 <div className="flex items-center justify-between gap-2 flex-wrap">
                   <div className="flex items-center gap-2 flex-wrap">
                     {branch.isNew && (
-                      <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#B73E5B] text-white text-xs font-bold uppercase tracking-wider">
+                      <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#B73E5B] text-white text-xs font-bold uppercase tracking-wider border border-[#4A2638]">
                         <Sparkles className="w-3.5 h-3.5" />
                         <span>{branch.badgeText}</span>
                       </span>
                     )}
 
-                    <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#CDE5DA] text-[#4A2638] text-xs font-bold uppercase tracking-wider">
+                    <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#CDE5DA] border border-[#4A2638]/20 text-[#4A2638] text-xs font-bold uppercase tracking-wider">
                       <span className="w-2 h-2 rounded-full bg-[#4A2638]" />
                       <span>{branch.openStatus}</span>
                     </span>
                   </div>
 
-                  <span className="text-[11px] text-[#4A2638]/70 font-semibold tracking-wide">
+                  <span className="text-[11px] text-[#4A2638]/75 font-semibold tracking-wide">
                     CDMX
                   </span>
                 </div>
 
                 {/* Título (DynaPuff) y Pin de ubicación */}
                 <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 rounded-2xl bg-[#F4B8C7] text-[#4A2638] flex items-center justify-center shrink-0">
+                  <div className="w-12 h-12 rounded-2xl bg-[#F4B8C7] border border-[#4A2638]/20 text-[#4A2638] flex items-center justify-center shrink-0">
                     <MapPin className="w-6 h-6 text-[#4A2638]" />
                   </div>
 
@@ -1364,7 +1396,7 @@ ${orderNotes ? `• *Notas Especiales:* ${orderNotes}\n` : ''}
                 </div>
 
                 {/* Referencia destacada en tono Rosa Fresa con texto Ciruela */}
-                <div className="rounded-2xl bg-[#F4B8C7]/45 border border-[#F4B8C7] p-3.5">
+                <div className="rounded-2xl bg-[#F4B8C7]/45 border border-[#4A2638]/15 p-3.5">
                   <span className="text-[11px] font-bold uppercase tracking-wider text-[#4A2638] block mb-0.5">
                     📍 Ubicación exacta en la plaza:
                   </span>
@@ -1374,7 +1406,7 @@ ${orderNotes ? `• *Notas Especiales:* ${orderNotes}\n` : ''}
                 </div>
 
                 {/* Horario y WhatsApp */}
-                <div className="pt-2 border-t border-[#F4B8C7]/60 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs sm:text-sm text-[#4A2638]">
+                <div className="pt-2 border-t border-[#4A2638]/15 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs sm:text-sm text-[#4A2638]">
                   <div className="flex items-center gap-2">
                     <Clock className="w-4 h-4 text-[#B73E5B] shrink-0" />
                     <span>
@@ -1394,14 +1426,14 @@ ${orderNotes ? `• *Notas Especiales:* ${orderNotes}\n` : ''}
                 </div>
               </div>
 
-              {/* Botón inferior Frambuesa a lo ancho: Google Maps */}
-              <div className="pt-5 mt-4 border-t border-[#F4B8C7]/60 relative z-10">
+              {/* Botón inferior Frambuesa a lo ancho estilo Sticker */}
+              <div className="pt-5 mt-4 border-t border-[#4A2638]/15 relative z-10">
                 <a
                   id={`maps-btn-${branch.id}`}
                   href={branch.mapsUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-full min-h-[48px] py-3.5 px-6 rounded-2xl bg-[#B73E5B] hover:bg-[#9E324C] text-white font-bold text-sm flex items-center justify-center gap-2 transition-all active:scale-95 cursor-pointer"
+                  className="w-full min-h-[48px] py-3.5 px-6 rounded-2xl bg-[#B73E5B] hover:bg-[#9E324C] text-white font-bold text-sm border-2 border-[#4A2638] shadow-[0_3px_0_#4A2638] active:translate-y-0.5 active:shadow-[0_1px_0_#4A2638] flex items-center justify-center gap-2 transition-all cursor-pointer"
                 >
                   <span>📍 Cómo llegar en Google Maps</span>
                   <ExternalLink className="w-4 h-4 shrink-0" />
@@ -1416,8 +1448,11 @@ ${orderNotes ? `• *Notas Especiales:* ${orderNotes}\n` : ''}
           7. DELIVERY HUBS & FOOTER
          ======================================================= */}
       <section id="delivery" className="py-12 sm:py-16 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto scroll-mt-20">
-        <div className="rounded-3xl bg-[#F4B8C7]/30 border-2 border-[#F4B8C7] p-6 sm:p-10 text-center">
-          <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[#CDE5DA] text-[#4A2638] text-xs font-semibold uppercase tracking-wider mb-3">
+        <div className="rounded-3xl bg-[#F4B8C7]/35 border-2 border-[#4A2638] shadow-[0_4px_0_#4A2638] p-6 sm:p-10 text-center relative overflow-hidden">
+          <SparkleFourPoint className="hidden sm:block w-5 h-5 text-[#FFF7EE] absolute top-6 left-8" />
+          <MinimalHeart className="hidden sm:block w-5 h-5 text-[#B73E5B]/45 absolute top-6 right-8" />
+
+          <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[#CDE5DA] border border-[#4A2638]/15 text-[#4A2638] text-xs font-semibold uppercase tracking-wider mb-3">
             <Bike className="w-3.5 h-3.5 text-[#4A2638]" />
             Canales Oficiales
           </span>
@@ -1435,9 +1470,9 @@ ${orderNotes ? `• *Notas Especiales:* ${orderNotes}\n` : ''}
               href="https://www.rappi.com.mx"
               target="_blank"
               rel="noopener noreferrer"
-              className="p-6 sm:p-7 rounded-3xl bg-[#FF441F] hover:bg-[#e03a19] text-white hover:scale-[1.02] transition-transform duration-300 active:scale-95 flex flex-col items-center justify-center text-center cursor-pointer group"
+              className="p-6 sm:p-7 rounded-3xl bg-[#FF441F] hover:bg-[#e03a19] text-white border-2 border-[#4A2638] shadow-[0_4px_0_#4A2638] hover:-translate-y-0.5 active:translate-y-0.5 active:shadow-[0_2px_0_#4A2638] transition-all duration-200 flex flex-col items-center justify-center text-center cursor-pointer group"
             >
-              <div className="w-full h-14 bg-white rounded-2xl flex items-center justify-center p-2 mb-3">
+              <div className="w-full h-14 bg-white rounded-2xl flex items-center justify-center p-2 mb-3 border border-[#4A2638]/15">
                 <img 
                   src="/rappi-logo.png" 
                   alt="Rappi" 
@@ -1455,7 +1490,7 @@ ${orderNotes ? `• *Notas Especiales:* ${orderNotes}\n` : ''}
               href="https://www.ubereats.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="p-6 sm:p-7 rounded-3xl bg-[#4A2638] hover:bg-[#3A1D2B] text-[#FFF7EE] border border-[#4A2638] hover:scale-[1.02] transition-transform duration-300 active:scale-95 flex flex-col items-center justify-center text-center cursor-pointer group"
+              className="p-6 sm:p-7 rounded-3xl bg-[#4A2638] hover:bg-[#3A1D2B] text-[#FFF7EE] border-2 border-[#4A2638] shadow-[0_4px_0_#F4B8C7] hover:-translate-y-0.5 active:translate-y-0.5 transition-all duration-200 flex flex-col items-center justify-center text-center cursor-pointer group"
             >
               <div className="w-full h-14 bg-white rounded-2xl flex items-center justify-center p-2 mb-3">
                 <img 
@@ -1484,7 +1519,7 @@ ${orderNotes ? `• *Notas Especiales:* ${orderNotes}\n` : ''}
         target="_blank"
         rel="noopener noreferrer"
         aria-label="Pedir por WhatsApp a Freséame"
-        className="fixed bottom-6 right-6 z-50 w-14 h-14 rounded-full bg-[#B73E5B] hover:bg-[#9E324C] text-white flex items-center justify-center shadow-lg hover:scale-110 active:scale-95 transition-all duration-300 cursor-pointer group"
+        className="fixed bottom-6 right-6 z-50 w-14 h-14 rounded-full bg-[#B73E5B] hover:bg-[#9E324C] text-white border-2 border-[#4A2638] shadow-[0_4px_0_#4A2638] flex items-center justify-center hover:-translate-y-0.5 active:translate-y-0.5 transition-all duration-200 cursor-pointer group"
       >
         <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#F4B8C7] opacity-40 group-hover:opacity-60 -z-10" />
         <MessageCircle className="w-7 h-7 text-white" />
