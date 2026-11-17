@@ -53,7 +53,7 @@ export const MenuCarousel: React.FC<MenuCarouselProps> = ({
   const [isHovered, setIsHovered] = useState<boolean>(false);
   const [imageErrors, setImageErrors] = useState<Record<number, boolean>>({});
 
-  const AUTOPLAY_INTERVAL = 6000; // 6 segundos
+  const AUTOPLAY_INTERVAL = 6000;
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   const resetTimer = useCallback(() => {
@@ -113,43 +113,42 @@ export const MenuCarousel: React.FC<MenuCarouselProps> = ({
       onMouseLeave={() => setIsHovered(false)}
       aria-roledescription="carousel"
       aria-label="Menú Digital Freséame"
-      className={`relative w-full max-w-5xl mx-auto px-4 sm:px-6 my-10 sm:my-14 focus:outline-none ${className}`}
+      className={`relative w-full max-w-5xl mx-auto px-4 sm:px-6 my-10 sm:my-14 focus:outline-none font-['Outfit'] ${className}`}
     >
-      {/* Header de la sección de Menú */}
+      {/* Header de la sección */}
       <div className="text-center mb-6">
-        <span className="text-xs font-bold text-rose-600 uppercase tracking-widest bg-rose-50 px-3 py-1 rounded-full border border-rose-100">
+        <span className="text-xs font-semibold text-[#4A2638] uppercase tracking-widest bg-[#CDE5DA] px-4 py-1.5 rounded-full border border-[#4A2638]/15 inline-block">
           Cartelera Digital Oficial
         </span>
-        <h2 className="text-2xl sm:text-3xl font-black font-['Outfit'] text-gray-900 mt-2">
+        <h2 className="text-2xl sm:text-3xl font-bold font-['DynaPuff'] text-[#4A2638] mt-3">
           Nuestro Menú en Imágenes
         </h2>
-        <p className="text-sm text-gray-500 max-w-md mx-auto mt-1">
-          Desliza para conocer nuestras bases, toppings y especialidades recién preparadas.
+        <p className="text-sm text-[#4A2638]/80 max-w-md mx-auto mt-1.5 font-normal">
+          Desliza para conocer nuestras bases, toppings y el crujidito de la oblea recién preparado.
         </p>
       </div>
 
-      {/* Contenedor blanco con borde sutil border-rose-100 y sombra suave */}
-      <div className="relative overflow-hidden rounded-3xl bg-white border border-rose-100 shadow-xl shadow-rose-950/5 p-2 sm:p-4">
-        
-        {/* Barra superior interior con badge y botón de auto-play */}
+      {/* Contenedor en Crema con borde Rosa Fresa */}
+      <div className="relative overflow-hidden rounded-3xl bg-[#FFF7EE] border border-[#F4B8C7] p-2 sm:p-4">
+        {/* Barra superior interior */}
         <div className="absolute top-4 sm:top-6 left-4 sm:left-6 z-20 flex items-center gap-2">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-white/90 border border-rose-100 text-rose-700 backdrop-blur-md shadow-xs">
-            <Sparkles className="w-3.5 h-3.5 text-rose-500" />
+          <div className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-semibold bg-[#F4B8C7] border border-[#4A2638]/15 text-[#4A2638]">
+            <Sparkles className="w-3.5 h-3.5 text-[#4A2638]" />
             <span className="font-bold">{MENU_SLIDES[currentIndex].title}</span>
-            <span className="text-gray-300 font-normal">|</span>
-            <span className="text-gray-500 font-medium">
+            <span className="text-[#4A2638]/40 font-normal">|</span>
+            <span className="text-[#4A2638] font-semibold">
               {currentIndex + 1} de {MENU_SLIDES.length}
             </span>
           </div>
         </div>
 
-        {/* Botón sutil de reproducción / pausa */}
+        {/* Botón reproducción / pausa */}
         <div className="absolute top-4 sm:top-6 right-4 sm:right-6 z-20">
           <button
             onClick={() => setIsAutoPlaying((prev) => !prev)}
             aria-label={isAutoPlaying ? 'Pausar rotación' : 'Iniciar rotación'}
             title={isAutoPlaying ? 'Pausar rotación (6s)' : 'Reanudar rotación'}
-            className="p-2 rounded-full bg-white/90 hover:bg-white border border-rose-100 text-gray-600 hover:text-rose-600 backdrop-blur-md transition-all shadow-xs"
+            className="p-2 rounded-full bg-[#FFF7EE] hover:bg-[#F4B8C7] border border-[#F4B8C7] text-[#4A2638] transition-all cursor-pointer"
           >
             {isAutoPlaying && !isHovered ? (
               <Pause className="w-3.5 h-3.5" />
@@ -159,8 +158,8 @@ export const MenuCarousel: React.FC<MenuCarouselProps> = ({
           </button>
         </div>
 
-        {/* Visor de Imágenes con transición suave de opacidad */}
-        <div className="relative w-full aspect-[4/3] sm:aspect-[16/10] md:aspect-[16/9] max-h-[640px] flex items-center justify-center bg-rose-50/20 rounded-2xl select-none overflow-hidden">
+        {/* Visor de Imágenes */}
+        <div className="relative w-full aspect-[4/3] sm:aspect-[16/10] md:aspect-[16/9] max-h-[640px] flex items-center justify-center bg-[#F4B8C7]/20 rounded-2xl select-none overflow-hidden">
           {MENU_SLIDES.map((slide, index) => {
             const isActive = index === currentIndex;
             const hasError = imageErrors[index];
@@ -189,21 +188,21 @@ export const MenuCarousel: React.FC<MenuCarouselProps> = ({
                       }
                     }}
                     id={`menu-img-${index}`}
-                    className="w-full h-full object-contain drop-shadow-sm transition-transform duration-500 rounded-xl"
+                    className="w-full h-full object-contain transition-transform duration-500 rounded-xl"
                   />
                 ) : (
-                  <div className="w-full h-full max-w-2xl mx-auto rounded-2xl border border-rose-100 bg-white flex flex-col items-center justify-center p-6 text-center shadow-xs">
-                    <div className="w-16 h-16 rounded-full bg-rose-50 border border-rose-200 flex items-center justify-center text-rose-600 mb-4 shadow-xs">
+                  <div className="w-full h-full max-w-2xl mx-auto rounded-2xl border border-[#F4B8C7] bg-[#FFF7EE] flex flex-col items-center justify-center p-6 text-center">
+                    <div className="w-16 h-16 rounded-full bg-[#F4B8C7] flex items-center justify-center text-[#4A2638] mb-4">
                       <Sparkles className="w-8 h-8" />
                     </div>
-                    <span className="text-xs uppercase tracking-widest text-rose-600 font-bold mb-1">
+                    <span className="text-xs uppercase tracking-widest text-[#B73E5B] font-bold mb-1">
                       Lámina {index + 1}
                     </span>
-                    <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-2">
+                    <h3 className="text-xl sm:text-2xl font-bold font-['DynaPuff'] text-[#4A2638] mb-2">
                       {slide.title}
                     </h3>
-                    <p className="text-xs text-gray-500 max-w-sm">
-                      Visualizando archivo: <code className="text-rose-600 font-mono">{slide.image}</code>
+                    <p className="text-xs text-[#4A2638]/75 max-w-sm">
+                      Visualizando archivo: <code className="text-[#B73E5B] font-mono">{slide.image}</code>
                     </p>
                   </div>
                 )}
@@ -212,11 +211,11 @@ export const MenuCarousel: React.FC<MenuCarouselProps> = ({
           })}
         </div>
 
-        {/* Flechas de Navegación con efecto cristal e icono lucide-react */}
+        {/* Flechas */}
         <button
           onClick={handlePrev}
           aria-label="Lámina anterior"
-          className="absolute left-4 sm:left-7 top-1/2 -translate-y-1/2 z-20 p-2.5 sm:p-3.5 rounded-full bg-white/90 hover:bg-white border border-rose-100 text-gray-700 hover:text-rose-600 backdrop-blur-md transition-all duration-200 shadow-md active:scale-95 cursor-pointer"
+          className="absolute left-4 sm:left-7 top-1/2 -translate-y-1/2 z-20 p-2.5 sm:p-3.5 rounded-full bg-[#FFF7EE] hover:bg-[#F4B8C7] border border-[#F4B8C7] text-[#4A2638] transition-all duration-200 active:scale-95 cursor-pointer"
         >
           <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6" />
         </button>
@@ -224,14 +223,14 @@ export const MenuCarousel: React.FC<MenuCarouselProps> = ({
         <button
           onClick={handleNext}
           aria-label="Lámina siguiente"
-          className="absolute right-4 sm:right-7 top-1/2 -translate-y-1/2 z-20 p-2.5 sm:p-3.5 rounded-full bg-white/90 hover:bg-white border border-rose-100 text-gray-700 hover:text-rose-600 backdrop-blur-md transition-all duration-200 shadow-md active:scale-95 cursor-pointer"
+          className="absolute right-4 sm:right-7 top-1/2 -translate-y-1/2 z-20 p-2.5 sm:p-3.5 rounded-full bg-[#FFF7EE] hover:bg-[#F4B8C7] border border-[#F4B8C7] text-[#4A2638] transition-all duration-200 active:scale-95 cursor-pointer"
         >
           <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6" />
         </button>
 
-        {/* Barra inferior de indicadores (Dots) en tono rose-500 */}
+        {/* Indicadores (Dots) */}
         <div className="absolute bottom-4 sm:bottom-7 left-1/2 -translate-x-1/2 z-20">
-          <div className="flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/90 border border-rose-100 backdrop-blur-md shadow-md">
+          <div className="flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#FFF7EE] border border-[#F4B8C7]">
             {MENU_SLIDES.map((slide, idx) => {
               const isActive = idx === currentIndex;
               return (
@@ -241,15 +240,14 @@ export const MenuCarousel: React.FC<MenuCarouselProps> = ({
                   aria-label={`Ir a ${slide.title}`}
                   className={`h-2.5 rounded-full transition-all duration-300 focus:outline-none cursor-pointer ${
                     isActive
-                      ? 'w-7 sm:w-8 bg-rose-600 shadow-xs'
-                      : 'w-2.5 bg-rose-200 hover:bg-rose-300'
+                      ? 'w-7 sm:w-8 bg-[#B73E5B]'
+                      : 'w-2.5 bg-[#F4B8C7] hover:bg-[#B73E5B]/60'
                   }`}
                 />
               );
             })}
           </div>
         </div>
-
       </div>
     </section>
   );

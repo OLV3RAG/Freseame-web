@@ -1,12 +1,13 @@
 @import "tailwindcss";
 
 @theme {
-  --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
-  --font-display: 'Outfit', 'Plus Jakarta Sans', system-ui, sans-serif;
-  --color-crema: #FFF8F2;
-  --color-fresa: #E11D48;
-  --color-fresa-light: #FB7185;
-  --color-fresa-dark: #BE123C;
+  --font-sans: 'Outfit', system-ui, -apple-system, sans-serif;
+  --font-display: 'DynaPuff', 'Outfit', cursive, system-ui, sans-serif;
+  --color-crema: #FFF7EE;
+  --color-rosa-fresa: #F4B8C7;
+  --color-menta: #CDE5DA;
+  --color-ciruela: #4A2638;
+  --color-frambuesa: #B73E5B;
 }
 
 /* Custom scrollbar and smooth transitions */
@@ -18,8 +19,9 @@ html, body {
   overflow-x: hidden;
   width: 100%;
   min-height: 100dvh;
-  background-color: #FFFFFF;
-  color: #111827;
+  background-color: #FFF7EE;
+  color: #4A2638;
+  font-family: 'Outfit', system-ui, -apple-system, sans-serif;
 }
 
 /* Hide native scrollbar for app-like horizontal scrolls */
@@ -43,29 +45,15 @@ button, a, input, select, textarea {
 }
 
 ::-webkit-scrollbar-track {
-  background: #FAFAFA;
+  background: #FFF7EE;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #FDA4AF;
+  background: #F4B8C7;
   border-radius: 9999px;
-  border: 2px solid #FAFAFA;
+  border: 2px solid #FFF7EE;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #E11D48;
-}
-
-/* Subtle glow for WhatsApp button */
-@keyframes emerald-soft-glow {
-  0%, 100% {
-    box-shadow: 0 4px 14px rgba(37, 211, 102, 0.35);
-  }
-  50% {
-    box-shadow: 0 6px 20px rgba(37, 211, 102, 0.55);
-  }
-}
-
-.emerald-glow {
-  animation: emerald-soft-glow 3s ease-in-out infinite;
+  background: #B73E5B;
 }

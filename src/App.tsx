@@ -6,18 +6,11 @@ import {
   Sparkles,
   Clock,
   MapPin,
-  CheckCircle2,
-  Heart,
   ExternalLink,
   Bike,
   Check,
   RotateCcw,
-  Plus,
-  ShoppingBag,
   ChevronDown,
-  X,
-  Layers,
-  Sparkle,
 } from 'lucide-react';
 import { Footer } from './components/Footer';
 
@@ -154,7 +147,7 @@ const MENU_SLIDES: MenuSlide[] = [
     id: 1,
     image: '/menu/Freseame1.png',
     title: 'Arma tu Vaso: Bases, Cremas y Precios',
-    subtitle: 'Nuestros tamaños Chico/Mediano/Grande y bases frescas',
+    subtitle: 'Nuestros tamaños Chico/Grande y bases frescas',
   },
   {
     id: 2,
@@ -192,7 +185,7 @@ const WEEKLY_PROMOS: PromoItem[] = [
     id: 'lunes',
     day: 'Lunes',
     title: '2x1 en Waffles Básicos',
-    description: 'Comienza tu semana compartiendo: llévate 2 waffles básicos al precio de 1.',
+    description: 'Arranca tu semana compartiendo: llévate 2 waffles básicos al precio de 1 y disfruta el crujidito de la oblea.',
     image: '/menu/PromoLunes.png',
     badge: '¡Lunes 2x1!',
     whatsappMessage: 'Hola Freséame! Quiero aprovechar la promoción de Lunes: 2x1 en Waffles Básicos 🍓🧇',
@@ -201,7 +194,7 @@ const WEEKLY_PROMOS: PromoItem[] = [
     id: 'martes',
     day: 'Martes',
     title: 'Tu 2do Vaso a Mitad de Precio (Chico Clásico)',
-    description: 'Aplica en tu segundo vaso tamaño chico clásico. ¡El dúo perfecto para tu antojo!',
+    description: 'Aplica en tu segundo vaso tamaño chico clásico. ¡El dúo perfecto para consentirte hoy!',
     image: '/menu/PromoMartes.png',
     badge: '50% en 2do Vaso',
     whatsappMessage: 'Hola Freséame! Quiero aprovechar la promoción de Martes: 2do vaso a mitad de precio (Chico Clásico) 🍓',
@@ -210,7 +203,7 @@ const WEEKLY_PROMOS: PromoItem[] = [
     id: 'miercoles',
     day: 'Miércoles',
     title: 'Tu 2do Vaso a Mitad de Precio (Chico Premium)',
-    description: 'Disfruta toppings premium con 50% de descuento en tu segundo vaso tamaño chico.',
+    description: 'Date gusto con toppings premium y aprovecha 50% de descuento en tu segundo vaso tamaño chico.',
     image: '/menu/PromoMiercoles.png',
     badge: '50% Chico Premium',
     whatsappMessage: 'Hola Freséame! Quiero aprovechar la promoción de Miércoles: 2do vaso a mitad de precio (Chico Premium) 🍓',
@@ -416,33 +409,35 @@ ${orderNotes ? `• *Notas Especiales:* ${orderNotes}\n` : ''}
   };
 
   return (
-    <div className="min-h-screen w-full bg-[#FFFDF7] text-gray-900 font-sans antialiased selection:bg-rose-100 selection:text-rose-700 flex flex-col overflow-x-hidden">
+    <div className="min-h-screen w-full bg-[#FFF7EE] text-[#4A2638] font-['Outfit'] antialiased selection:bg-[#F4B8C7] selection:text-[#4A2638] flex flex-col overflow-x-hidden">
       
       {/* =======================================================
-          1. NAVBAR Y LOGO DE MARCA
+          1. NAVBAR Y LOGO DE MARCA (Con Área de Seguridad >= 10%)
          ======================================================= */}
-      <header className="sticky top-0 z-40 w-full bg-white/95 backdrop-blur-md border-b border-rose-100 shadow-xs transition-all">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-18 sm:h-20 flex items-center justify-between">
+      <header className="sticky top-0 z-40 w-full bg-[#FFF7EE]/95 backdrop-blur-md border-b border-[#F4B8C7]/60 transition-all">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
           
-          {/* Logo oficial: Isotipo + Nombre "Freséame" + Slogan */}
+          {/* Logo oficial limpio: espacio libre >= 10% alrededor, sin sombras ni degradados */}
           <a
             href="#inicio"
             onClick={(e) => {
               e.preventDefault();
               scrollToSection('inicio');
             }}
-            className="flex items-center gap-2.5 sm:gap-3 group cursor-pointer active:scale-95 transition-transform"
+            className="flex items-center gap-3 cursor-pointer active:scale-95 transition-transform py-1"
           >
-            <img
-              src="/logo.jpg"
-              alt="Freséame"
-              className="h-11 sm:h-12 w-auto object-contain rounded-2xl drop-shadow-sm"
-            />
+            <div className="p-1.5 rounded-2xl bg-[#FFF7EE] shrink-0">
+              <img
+                src="/logo.jpg"
+                alt="Freséame"
+                className="h-10 sm:h-11 w-auto object-contain rounded-xl block"
+              />
+            </div>
             <div className="flex flex-col text-left">
-              <span className="font-['Outfit'] font-black text-2xl sm:text-3xl tracking-tight bg-gradient-to-r from-rose-600 via-pink-600 to-rose-500 bg-clip-text text-transparent drop-shadow-xs leading-none">
+              <span className="font-['DynaPuff'] font-bold text-2xl sm:text-3xl text-[#4A2638] leading-none">
                 Freséame
               </span>
-              <span className="text-[9px] uppercase tracking-widest font-extrabold text-gray-500 mt-1">
+              <span className="text-[10px] uppercase tracking-widest font-semibold text-[#B73E5B] mt-1">
                 EL LÍMITE LO PONES TÚ
               </span>
             </div>
@@ -453,84 +448,84 @@ ${orderNotes ? `• *Notas Especiales:* ${orderNotes}\n` : ''}
             <button
               type="button"
               onClick={() => scrollToSection('inicio')}
-              className="px-3 py-2 rounded-full text-sm font-semibold text-gray-700 hover:text-rose-600 hover:bg-rose-50/80 transition-all cursor-pointer"
+              className="px-3 py-2 rounded-full text-sm font-semibold text-[#4A2638] hover:bg-[#F4B8C7]/45 transition-colors cursor-pointer"
             >
               Inicio
             </button>
             <button
               type="button"
               onClick={() => scrollToSection('menu-digital')}
-              className="px-3 py-2 rounded-full text-sm font-semibold text-gray-700 hover:text-rose-600 hover:bg-rose-50/80 transition-all cursor-pointer"
+              className="px-3 py-2 rounded-full text-sm font-semibold text-[#4A2638] hover:bg-[#F4B8C7]/45 transition-colors cursor-pointer"
             >
               Menú Digital
             </button>
             <button
               type="button"
               onClick={() => scrollToSection('armar-pedido')}
-              className="px-3.5 py-1.5 rounded-full text-sm font-bold bg-rose-50 text-rose-600 border border-rose-200 hover:bg-rose-100 transition-all cursor-pointer flex items-center gap-1.5"
+              className="px-4 py-1.5 rounded-full text-sm font-bold bg-[#F4B8C7] text-[#4A2638] hover:bg-[#F4B8C7]/85 transition-colors cursor-pointer flex items-center gap-1.5"
             >
-              <Sparkles className="w-3.5 h-3.5 text-rose-500" />
+              <Sparkles className="w-3.5 h-3.5 text-[#4A2638]" />
               <span>Armar Pedido</span>
             </button>
             <button
               type="button"
               onClick={() => scrollToSection('promociones')}
-              className="px-3 py-2 rounded-full text-sm font-semibold text-gray-700 hover:text-rose-600 hover:bg-rose-50/80 transition-all cursor-pointer"
+              className="px-3 py-2 rounded-full text-sm font-semibold text-[#4A2638] hover:bg-[#F4B8C7]/45 transition-colors cursor-pointer"
             >
               Promos
             </button>
             <button
               type="button"
               onClick={() => scrollToSection('sucursales')}
-              className="px-3 py-2 rounded-full text-sm font-semibold text-gray-700 hover:text-rose-600 hover:bg-rose-50/80 transition-all cursor-pointer"
+              className="px-3 py-2 rounded-full text-sm font-semibold text-[#4A2638] hover:bg-[#F4B8C7]/45 transition-colors cursor-pointer"
             >
               Sucursales
             </button>
             <button
               type="button"
               onClick={() => scrollToSection('delivery')}
-              className="px-3 py-2 rounded-full text-sm font-semibold text-gray-700 hover:text-rose-600 hover:bg-rose-50/80 transition-all cursor-pointer"
+              className="px-3 py-2 rounded-full text-sm font-semibold text-[#4A2638] hover:bg-[#F4B8C7]/45 transition-colors cursor-pointer"
             >
               Delivery
             </button>
 
-            <div className="h-5 w-px bg-gray-200 mx-1.5" />
+            <div className="h-5 w-px bg-[#F4B8C7] mx-1.5" />
 
             {/* Acceso Rápido a Delivery */}
             <div className="relative" ref={dropdownRef}>
               <button
                 type="button"
                 onClick={() => setDeliveryDropdownOpen((prev) => !prev)}
-                className="px-3.5 py-2 rounded-full text-xs font-bold bg-stone-100 hover:bg-stone-200 text-stone-800 transition-all flex items-center gap-1.5 cursor-pointer"
+                className="px-3.5 py-2 rounded-full text-xs font-semibold bg-[#CDE5DA] hover:bg-[#CDE5DA]/80 text-[#4A2638] transition-colors flex items-center gap-1.5 cursor-pointer"
               >
-                <Bike className="w-3.5 h-3.5" />
+                <Bike className="w-3.5 h-3.5 text-[#4A2638]" />
                 <span>Delivery</span>
-                <ChevronDown className="w-3 h-3 text-stone-500" />
+                <ChevronDown className="w-3 h-3 text-[#4A2638]" />
               </button>
 
               {deliveryDropdownOpen && (
-                <div className="absolute right-0 mt-2 w-56 bg-white rounded-2xl shadow-xl border border-rose-100 p-2 z-50 animate-in fade-in zoom-in-95 duration-150">
-                  <span className="text-[10px] font-black uppercase tracking-wider text-gray-400 px-2 py-1 block">
+                <div className="absolute right-0 mt-2 w-56 bg-[#FFF7EE] rounded-2xl shadow-lg border-2 border-[#F4B8C7] p-2 z-50">
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-[#4A2638]/70 px-2.5 py-1 block">
                     Pide a domicilio en:
                   </span>
                   <a
-                    href="https://www.ubereats.com/search?q=Freseame"
+                    href="https://www.ubereats.com"
                     target="_blank"
                     rel="noopener noreferrer"
                     onClick={() => setDeliveryDropdownOpen(false)}
-                    className="flex items-center gap-2 p-2 rounded-xl hover:bg-stone-50 font-bold text-xs text-gray-800"
+                    className="flex items-center gap-2 p-2.5 rounded-xl hover:bg-[#F4B8C7]/35 font-bold text-xs text-[#4A2638]"
                   >
-                    <span className="w-2 h-2 rounded-full bg-[#06C167]" />
+                    <span className="w-2 h-2 rounded-full bg-[#4A2638]" />
                     <span>Uber Eats</span>
                   </a>
                   <a
-                    href="https://www.rappi.com.mx/restaurantes/search?query=Freseame"
+                    href="https://www.rappi.com.mx"
                     target="_blank"
                     rel="noopener noreferrer"
                     onClick={() => setDeliveryDropdownOpen(false)}
-                    className="flex items-center gap-2 p-2 rounded-xl hover:bg-orange-50 font-bold text-xs text-[#FF441F]"
+                    className="flex items-center gap-2 p-2.5 rounded-xl hover:bg-[#F4B8C7]/35 font-bold text-xs text-[#B73E5B]"
                   >
-                    <span className="w-2 h-2 rounded-full bg-[#FF441F]" />
+                    <span className="w-2 h-2 rounded-full bg-[#B73E5B]" />
                     <span>Rappi</span>
                   </a>
                 </div>
@@ -543,9 +538,9 @@ ${orderNotes ? `• *Notas Especiales:* ${orderNotes}\n` : ''}
               href={WHATSAPP_UNIVERSAL_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="min-h-[40px] px-4 py-2 rounded-full bg-gradient-to-r from-emerald-500 to-green-600 hover:from-emerald-600 hover:to-green-700 text-white text-xs lg:text-sm font-bold shadow-md shadow-emerald-500/20 hover:shadow-emerald-500/30 transition-all flex items-center gap-1.5 active:scale-95 cursor-pointer"
+              className="min-h-[40px] px-4 py-2 rounded-full bg-[#B73E5B] hover:bg-[#9E324C] text-white text-xs lg:text-sm font-bold transition-all flex items-center gap-1.5 active:scale-95 cursor-pointer"
             >
-              <MessageCircle className="w-4 h-4 fill-white" />
+              <MessageCircle className="w-4 h-4 text-white" />
               <span>Pedir por WhatsApp</span>
             </a>
           </nav>
@@ -557,21 +552,21 @@ ${orderNotes ? `• *Notas Especiales:* ${orderNotes}\n` : ''}
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Pedir por WhatsApp"
-              className="p-2.5 rounded-full bg-emerald-500 text-white shadow-xs"
+              className="p-2.5 rounded-full bg-[#B73E5B] text-white"
             >
-              <MessageCircle className="w-4 h-4 fill-white" />
+              <MessageCircle className="w-4 h-4 text-white" />
             </a>
 
             <button
               type="button"
               onClick={() => setMobileMenuOpen((prev) => !prev)}
               aria-label="Abrir menú"
-              className="p-2.5 rounded-xl border border-rose-100 text-gray-700 hover:bg-rose-50 transition-colors"
+              className="p-2.5 rounded-xl border border-[#F4B8C7] text-[#4A2638] hover:bg-[#F4B8C7]/30 transition-colors"
             >
               <div className="w-5 h-4 flex flex-col justify-between">
-                <span className={`h-0.5 w-full bg-gray-800 rounded-full transition-transform ${mobileMenuOpen ? 'rotate-45 translate-y-1.5' : ''}`} />
-                <span className={`h-0.5 w-full bg-gray-800 rounded-full transition-opacity ${mobileMenuOpen ? 'opacity-0' : ''}`} />
-                <span className={`h-0.5 w-full bg-gray-800 rounded-full transition-transform ${mobileMenuOpen ? '-rotate-45 -translate-y-2' : ''}`} />
+                <span className={`h-0.5 w-full bg-[#4A2638] rounded-full transition-transform ${mobileMenuOpen ? 'rotate-45 translate-y-1.5' : ''}`} />
+                <span className={`h-0.5 w-full bg-[#4A2638] rounded-full transition-opacity ${mobileMenuOpen ? 'opacity-0' : ''}`} />
+                <span className={`h-0.5 w-full bg-[#4A2638] rounded-full transition-transform ${mobileMenuOpen ? '-rotate-45 -translate-y-2' : ''}`} />
               </div>
             </button>
           </div>
@@ -580,59 +575,59 @@ ${orderNotes ? `• *Notas Especiales:* ${orderNotes}\n` : ''}
 
         {/* Menú Móvil Desplegable */}
         {mobileMenuOpen && (
-          <div className="md:hidden border-t border-rose-100 bg-white px-4 py-4 space-y-2 shadow-lg animate-in slide-in-from-top duration-200">
+          <div className="md:hidden border-t border-[#F4B8C7] bg-[#FFF7EE] px-4 py-4 space-y-2 shadow-lg">
             <button
               type="button"
               onClick={() => scrollToSection('inicio')}
-              className="w-full text-left py-2.5 px-3 rounded-xl text-sm font-bold text-gray-800 hover:bg-rose-50"
+              className="w-full text-left py-2.5 px-3 rounded-xl text-sm font-semibold text-[#4A2638] hover:bg-[#F4B8C7]/35"
             >
               Inicio
             </button>
             <button
               type="button"
               onClick={() => scrollToSection('menu-digital')}
-              className="w-full text-left py-2.5 px-3 rounded-xl text-sm font-bold text-gray-800 hover:bg-rose-50"
+              className="w-full text-left py-2.5 px-3 rounded-xl text-sm font-semibold text-[#4A2638] hover:bg-[#F4B8C7]/35"
             >
               Menú Digital
             </button>
             <button
               type="button"
               onClick={() => scrollToSection('armar-pedido')}
-              className="w-full text-left py-2.5 px-3 rounded-xl text-sm font-bold text-rose-600 bg-rose-50 flex items-center justify-between"
+              className="w-full text-left py-2.5 px-3 rounded-xl text-sm font-bold text-[#4A2638] bg-[#F4B8C7] flex items-center justify-between"
             >
               <span>Armar Pedido (Simulador)</span>
-              <Sparkles className="w-4 h-4 text-rose-500" />
+              <Sparkles className="w-4 h-4 text-[#4A2638]" />
             </button>
             <button
               type="button"
               onClick={() => scrollToSection('promociones')}
-              className="w-full text-left py-2.5 px-3 rounded-xl text-sm font-bold text-gray-800 hover:bg-rose-50"
+              className="w-full text-left py-2.5 px-3 rounded-xl text-sm font-semibold text-[#4A2638] hover:bg-[#F4B8C7]/35"
             >
               Promociones de la Semana
             </button>
             <button
               type="button"
               onClick={() => scrollToSection('sucursales')}
-              className="w-full text-left py-2.5 px-3 rounded-xl text-sm font-bold text-gray-800 hover:bg-rose-50"
+              className="w-full text-left py-2.5 px-3 rounded-xl text-sm font-semibold text-[#4A2638] hover:bg-[#F4B8C7]/35"
             >
               Sucursales (Tlatelolco y Clavería)
             </button>
             <button
               type="button"
               onClick={() => scrollToSection('delivery')}
-              className="w-full text-left py-2.5 px-3 rounded-xl text-sm font-bold text-gray-800 hover:bg-rose-50"
+              className="w-full text-left py-2.5 px-3 rounded-xl text-sm font-semibold text-[#4A2638] hover:bg-[#F4B8C7]/35"
             >
               Delivery Oficial
             </button>
 
-            <div className="pt-2 border-t border-gray-100">
+            <div className="pt-2 border-t border-[#F4B8C7]/50">
               <a
                 href={WHATSAPP_UNIVERSAL_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full min-h-[44px] py-2.5 px-4 rounded-xl bg-gradient-to-r from-emerald-500 to-green-600 text-white font-bold text-sm flex items-center justify-center gap-2 shadow-xs"
+                className="w-full min-h-[44px] py-2.5 px-4 rounded-xl bg-[#B73E5B] hover:bg-[#9E324C] text-white font-bold text-sm flex items-center justify-center gap-2"
               >
-                <MessageCircle className="w-4 h-4 fill-white" />
+                <MessageCircle className="w-4 h-4 text-white" />
                 <span>Pedir por WhatsApp ({WHATSAPP_DISPLAY})</span>
               </a>
             </div>
@@ -645,38 +640,37 @@ ${orderNotes ? `• *Notas Especiales:* ${orderNotes}\n` : ''}
          ======================================================= */}
       <section
         id="inicio"
-        className="relative pt-10 sm:pt-16 pb-12 sm:pb-18 px-4 sm:px-6 lg:px-8 text-center overflow-hidden bg-gradient-to-b from-rose-50/70 via-[#FFFDF7] to-white"
+        className="relative pt-10 sm:pt-16 pb-12 sm:pb-16 px-4 sm:px-6 lg:px-8 text-center overflow-hidden bg-[#FFF7EE]"
       >
-        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[340px] sm:w-[600px] h-[300px] sm:h-[400px] bg-gradient-to-tr from-rose-200/40 via-pink-100/30 to-emerald-100/20 rounded-full blur-3xl pointer-events-none -z-10" />
+        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[340px] sm:w-[620px] h-[300px] sm:h-[380px] bg-gradient-to-tr from-[#F4B8C7]/35 via-[#FFF7EE] to-[#CDE5DA]/35 rounded-full blur-3xl pointer-events-none -z-10" />
 
         <div className="max-w-4xl mx-auto flex flex-col items-center">
           
-          {/* Badge superior */}
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white border border-rose-200 shadow-xs text-rose-700 text-xs sm:text-sm font-bold tracking-wide mb-4">
+          {/* Badge superior en Menta Suave con texto Ciruela */}
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#CDE5DA] text-[#4A2638] text-xs sm:text-sm font-semibold tracking-wide mb-5">
             <span className="text-base">🍓</span>
-            <span>Fruta fresca seleccionada todos los días</span>
-            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+            <span>¿Qué se te antoja hoy? • Fruta fresca del día</span>
           </div>
 
-          {/* Título principal */}
-          <h1 className="font-['Outfit'] font-black text-3xl sm:text-5xl md:text-6xl text-gray-900 tracking-tight leading-[1.15] max-w-3xl">
+          {/* Título principal en DynaPuff */}
+          <h1 className="font-['DynaPuff'] font-bold text-3xl sm:text-5xl md:text-6xl text-[#4A2638] leading-[1.15] max-w-3xl">
             Fresas con crema{' '}
-            <span className="bg-gradient-to-r from-rose-600 via-pink-600 to-rose-500 bg-clip-text text-transparent">
+            <span className="text-[#B73E5B]">
               exactamente a tu gusto
             </span>
           </h1>
 
-          {/* Subtítulo con slogan */}
-          <p className="mt-3 sm:mt-4 text-base sm:text-lg text-gray-600 max-w-2xl leading-relaxed">
-            <span className="font-bold text-gray-900">"El límite lo pones tú"</span>. Fruta 100% fresca desinfectada al momento, 7 cremas de receta secreta y barra libre con tus toppings favoritos.
+          {/* Subtítulo con slogan y tono verbal cercano */}
+          <p className="mt-4 text-base sm:text-lg text-[#4A2638]/85 max-w-2xl leading-relaxed font-normal">
+            <strong className="font-bold text-[#4A2638]">«El límite lo pones tú»</strong>. ¿Una cucharadita? Eso dijiste hace tres. Arma tu combinación con fruta fresquecita al momento, 7 cremas artesanales y tus toppings favoritos.
           </p>
 
           {/* Botones principales */}
-          <div className="mt-7 flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3.5 w-full sm:w-auto">
+          <div className="mt-8 flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3.5 w-full sm:w-auto">
             <button
               type="button"
               onClick={() => scrollToSection('armar-pedido')}
-              className="min-h-[48px] px-8 py-3.5 rounded-2xl bg-gradient-to-r from-rose-600 via-pink-600 to-rose-500 hover:from-rose-700 hover:to-pink-700 text-white font-black text-sm sm:text-base shadow-md shadow-rose-600/20 hover:shadow-lg transition-all flex items-center justify-center gap-2 active:scale-95 cursor-pointer"
+              className="min-h-[48px] px-8 py-3.5 rounded-2xl bg-[#B73E5B] hover:bg-[#9E324C] text-white font-bold text-sm sm:text-base transition-all flex items-center justify-center gap-2 active:scale-95 cursor-pointer"
             >
               <Sparkles className="w-5 h-5 text-white" />
               <span>Armar Mi Vaso en Vivo</span>
@@ -687,31 +681,31 @@ ${orderNotes ? `• *Notas Especiales:* ${orderNotes}\n` : ''}
               href={WHATSAPP_UNIVERSAL_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="min-h-[48px] px-7 py-3.5 rounded-2xl bg-white hover:bg-emerald-50 text-emerald-700 font-bold text-sm sm:text-base border border-emerald-200 shadow-xs transition-all flex items-center justify-center gap-2 active:scale-95 cursor-pointer"
+              className="min-h-[48px] px-7 py-3.5 rounded-2xl bg-[#F4B8C7] hover:bg-[#F4B8C7]/85 text-[#4A2638] font-bold text-sm sm:text-base transition-all flex items-center justify-center gap-2 active:scale-95 cursor-pointer"
             >
-              <MessageCircle className="w-5 h-5 fill-emerald-600 text-emerald-600" />
+              <MessageCircle className="w-5 h-5 text-[#4A2638]" />
               <span>Pedir por WhatsApp</span>
             </a>
           </div>
 
-          {/* Badges de confianza */}
-          <div className="mt-10 pt-6 border-t border-rose-100/90 grid grid-cols-3 gap-2 sm:gap-6 text-center w-full max-w-2xl">
+          {/* Badges de confianza con identidad verbal */}
+          <div className="mt-10 pt-6 border-t border-[#F4B8C7]/60 grid grid-cols-3 gap-2 sm:gap-6 text-center w-full max-w-2xl">
             <div className="flex flex-col items-center">
               <span className="text-xl sm:text-2xl mb-1">🍓</span>
-              <span className="text-xs sm:text-sm font-bold text-gray-900">Fruta 100% Fresca</span>
-              <span className="text-[11px] text-gray-500 hidden sm:block">Lavada y desinfectada</span>
+              <span className="text-xs sm:text-sm font-bold text-[#4A2638]">Fruta 100% Fresca</span>
+              <span className="text-[11px] text-[#4A2638]/75 hidden sm:block">Cortada y lista para ti</span>
             </div>
 
-            <div className="flex flex-col items-center border-x border-rose-100 px-2">
+            <div className="flex flex-col items-center border-x border-[#F4B8C7]/60 px-2">
               <span className="text-xl sm:text-2xl mb-1">🥛</span>
-              <span className="text-xs sm:text-sm font-bold text-gray-900">7 Cremas Artesanales</span>
-              <span className="text-[11px] text-gray-500 hidden sm:block">Receta secreta de la casa</span>
+              <span className="text-xs sm:text-sm font-bold text-[#4A2638]">7 Cremas Artesanales</span>
+              <span className="text-[11px] text-[#4A2638]/75 hidden sm:block">¿Una cucharadita? Eso dijiste hace tres</span>
             </div>
 
             <div className="flex flex-col items-center">
               <span className="text-xl sm:text-2xl mb-1">🍫</span>
-              <span className="text-xs sm:text-sm font-bold text-gray-900">Toppings Ilimitados</span>
-              <span className="text-[11px] text-gray-500 hidden sm:block">Clásicos, premium y picositos</span>
+              <span className="text-xs sm:text-sm font-bold text-[#4A2638]">El crujidito de la oblea</span>
+              <span className="text-[11px] text-[#4A2638]/75 hidden sm:block">Clásicos, premium y picositos</span>
             </div>
           </div>
 
@@ -721,18 +715,18 @@ ${orderNotes ? `• *Notas Especiales:* ${orderNotes}\n` : ''}
       {/* =======================================================
           3. PROMOCIONES DE LA SEMANA
          ======================================================= */}
-      <section id="promociones" className="py-12 sm:py-16 px-4 sm:px-6 lg:px-8 bg-white/70 border-y border-rose-100/70 scroll-mt-20">
+      <section id="promociones" className="py-12 sm:py-16 px-4 sm:px-6 lg:px-8 bg-[#F4B8C7]/25 border-y border-[#F4B8C7]/60 scroll-mt-20">
         <div className="max-w-6xl mx-auto">
           
           <div className="text-center max-w-2xl mx-auto mb-10 sm:mb-12">
-            <span className="text-xs font-bold text-rose-600 uppercase tracking-widest bg-rose-50 px-3.5 py-1.5 rounded-full border border-rose-100 inline-block mb-2">
-              Ahorra con Freséame
+            <span className="text-xs font-semibold text-[#4A2638] uppercase tracking-widest bg-[#CDE5DA] px-4 py-1.5 rounded-full inline-block mb-3">
+              ¿Qué se te antoja hoy? • Ahorra con Freséame
             </span>
-            <h2 className="text-2xl sm:text-4xl font-black font-['Outfit'] text-gray-900 tracking-tight">
+            <h2 className="text-2xl sm:text-4xl font-bold font-['DynaPuff'] text-[#4A2638]">
               Promociones de la Semana
             </h2>
-            <p className="mt-2 text-xs sm:text-sm text-gray-600">
-              Aprovecha nuestras ofertas exclusivas en sucursales Patio Clavería y Puerta Tlatelolco o pidiendo por WhatsApp.
+            <p className="mt-2 text-xs sm:text-sm text-[#4A2638]/85 font-normal">
+              Aprovecha nuestras ofertas en sucursales Patio Clavería y Puerta Tlatelolco, o pídelas directo por WhatsApp.
             </p>
           </div>
 
@@ -741,29 +735,29 @@ ${orderNotes ? `• *Notas Especiales:* ${orderNotes}\n` : ''}
             {WEEKLY_PROMOS.map((promo) => (
               <div
                 key={promo.id}
-                className="bg-white rounded-3xl border border-rose-100 shadow-md shadow-rose-950/5 hover:shadow-xl hover:border-rose-200 transition-all flex flex-col overflow-hidden group"
+                className="bg-[#FFF7EE] rounded-3xl border-2 border-[#F4B8C7] hover:border-[#B73E5B]/60 transition-all flex flex-col overflow-hidden group"
               >
-                <div className="relative aspect-[4/3] bg-rose-50/40 overflow-hidden flex items-center justify-center p-2">
+                <div className="relative aspect-[4/3] bg-[#F4B8C7]/20 overflow-hidden flex items-center justify-center p-2">
                   <img
                     src={promo.image}
                     alt={promo.title}
                     loading="lazy"
                     className="w-full h-full object-contain group-hover:scale-102 transition-transform duration-300"
                   />
-                  <span className="absolute top-3 left-3 px-3 py-1 rounded-full bg-rose-600 text-white text-xs font-black shadow-sm">
+                  <span className="absolute top-3 left-3 px-3 py-1 rounded-full bg-[#B73E5B] text-white text-xs font-bold">
                     {promo.day}
                   </span>
-                  <span className="absolute top-3 right-3 px-2.5 py-0.5 rounded-full bg-white/95 text-rose-700 text-[11px] font-bold border border-rose-100 shadow-xs">
+                  <span className="absolute top-3 right-3 px-2.5 py-0.5 rounded-full bg-[#CDE5DA] text-[#4A2638] text-[11px] font-semibold">
                     {promo.badge}
                   </span>
                 </div>
 
                 <div className="p-5 sm:p-6 flex-1 flex flex-col justify-between space-y-4">
                   <div className="space-y-2">
-                    <h3 className="font-['Outfit'] font-black text-lg text-gray-900 leading-snug">
+                    <h3 className="font-['DynaPuff'] font-bold text-lg text-[#4A2638] leading-snug">
                       {promo.title}
                     </h3>
-                    <p className="text-xs sm:text-sm text-gray-600 leading-relaxed">
+                    <p className="text-xs sm:text-sm text-[#4A2638]/80 leading-relaxed font-normal">
                       {promo.description}
                     </p>
                   </div>
@@ -772,9 +766,9 @@ ${orderNotes ? `• *Notas Especiales:* ${orderNotes}\n` : ''}
                     href={createWhatsAppUrl(promo.whatsappMessage)}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="w-full min-h-[44px] py-2.5 px-4 rounded-xl bg-gradient-to-r from-emerald-500 to-green-600 hover:from-emerald-600 hover:to-green-700 text-white font-bold text-xs sm:text-sm flex items-center justify-center gap-2 shadow-xs transition-all active:scale-95 cursor-pointer mt-auto"
+                    className="w-full min-h-[44px] py-2.5 px-4 rounded-xl bg-[#B73E5B] hover:bg-[#9E324C] text-white font-bold text-xs sm:text-sm flex items-center justify-center gap-2 transition-all active:scale-95 cursor-pointer mt-auto"
                   >
-                    <MessageCircle className="w-4 h-4 fill-white shrink-0" />
+                    <MessageCircle className="w-4 h-4 text-white shrink-0" />
                     <span>Aprovechar Promo por WhatsApp</span>
                   </a>
                 </div>
@@ -796,30 +790,30 @@ ${orderNotes ? `• *Notas Especiales:* ${orderNotes}\n` : ''}
         className="w-full max-w-5xl mx-auto px-4 sm:px-6 py-12 sm:py-16 scroll-mt-20 focus:outline-none"
       >
         <div className="text-center mb-6 sm:mb-8">
-          <span className="text-xs font-bold text-rose-600 uppercase tracking-widest bg-rose-50 px-3.5 py-1.5 rounded-full border border-rose-100 inline-block mb-2">
+          <span className="text-xs font-semibold text-[#4A2638] uppercase tracking-widest bg-[#CDE5DA] px-4 py-1.5 rounded-full inline-block mb-3">
             Cartelera Digital Oficial
           </span>
-          <h2 className="text-2xl sm:text-4xl font-black font-['Outfit'] text-gray-900 tracking-tight">
+          <h2 className="text-2xl sm:text-4xl font-bold font-['DynaPuff'] text-[#4A2638]">
             Nuestro Menú en Imágenes
           </h2>
-          <p className="text-xs sm:text-sm text-gray-500 max-w-md mx-auto mt-1">
-            Explora las 4 láminas oficiales de nuestro menú tradicional: bases, toppings, waffles y crepas.
+          <p className="text-xs sm:text-sm text-[#4A2638]/80 max-w-md mx-auto mt-2 font-normal">
+            Explora nuestras 4 láminas oficiales y ve planeando tu próximo antojo: bases, toppings, waffles y crepas.
           </p>
         </div>
 
-        {/* Contenedor blanco con borde border-rose-100 y sombra suave */}
-        <div className="relative overflow-hidden rounded-3xl bg-white border border-rose-100 shadow-xl shadow-rose-950/5 p-3 sm:p-5">
+        {/* Contenedor crema con borde Rosa Fresa */}
+        <div className="relative overflow-hidden rounded-3xl bg-[#FFF7EE] border-2 border-[#F4B8C7] p-3 sm:p-5">
           
           <div className="absolute top-4 sm:top-6 left-4 sm:left-7 z-20 flex items-center gap-2">
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-white/90 border border-rose-100 text-rose-700 backdrop-blur-md shadow-xs">
-              <Sparkles className="w-3.5 h-3.5 text-rose-500" />
+            <div className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-semibold bg-[#CDE5DA] text-[#4A2638]">
+              <Sparkles className="w-3.5 h-3.5 text-[#4A2638]" />
               <span className="font-bold">{MENU_SLIDES[currentSlide].title}</span>
-              <span className="text-gray-300">|</span>
-              <span className="text-gray-500">{currentSlide + 1} de {MENU_SLIDES.length}</span>
+              <span className="text-[#4A2638]/40">|</span>
+              <span className="text-[#4A2638]/80">{currentSlide + 1} de {MENU_SLIDES.length}</span>
             </div>
           </div>
 
-          <div className="relative w-full aspect-[4/3] sm:aspect-[16/10] md:aspect-[16/9] max-h-[640px] flex items-center justify-center bg-rose-50/20 rounded-2xl select-none overflow-hidden">
+          <div className="relative w-full aspect-[4/3] sm:aspect-[16/10] md:aspect-[16/9] max-h-[640px] flex items-center justify-center bg-[#F4B8C7]/15 rounded-2xl select-none overflow-hidden">
             {MENU_SLIDES.map((slide, index) => {
               const isActive = index === currentSlide;
               return (
@@ -834,7 +828,7 @@ ${orderNotes ? `• *Notas Especiales:* ${orderNotes}\n` : ''}
                     src={slide.image}
                     alt={slide.title}
                     loading={index === 0 ? 'eager' : 'lazy'}
-                    className="w-full h-full object-contain drop-shadow-sm rounded-xl"
+                    className="w-full h-full object-contain rounded-xl"
                   />
                 </div>
               );
@@ -845,7 +839,7 @@ ${orderNotes ? `• *Notas Especiales:* ${orderNotes}\n` : ''}
             type="button"
             onClick={handlePrevSlide}
             aria-label="Lámina anterior"
-            className="absolute left-4 sm:left-8 top-1/2 -translate-y-1/2 z-20 p-2.5 sm:p-3 rounded-full bg-white/90 hover:bg-white border border-rose-100 text-gray-700 hover:text-rose-600 backdrop-blur-md transition-all shadow-md active:scale-95 cursor-pointer"
+            className="absolute left-4 sm:left-8 top-1/2 -translate-y-1/2 z-20 p-2.5 sm:p-3 rounded-full bg-[#FFF7EE] hover:bg-[#F4B8C7] border border-[#F4B8C7] text-[#4A2638] transition-all active:scale-95 cursor-pointer"
           >
             <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6" />
           </button>
@@ -854,13 +848,13 @@ ${orderNotes ? `• *Notas Especiales:* ${orderNotes}\n` : ''}
             type="button"
             onClick={handleNextSlide}
             aria-label="Lámina siguiente"
-            className="absolute right-4 sm:right-8 top-1/2 -translate-y-1/2 z-20 p-2.5 sm:p-3 rounded-full bg-white/90 hover:bg-white border border-rose-100 text-gray-700 hover:text-rose-600 backdrop-blur-md transition-all shadow-md active:scale-95 cursor-pointer"
+            className="absolute right-4 sm:right-8 top-1/2 -translate-y-1/2 z-20 p-2.5 sm:p-3 rounded-full bg-[#FFF7EE] hover:bg-[#F4B8C7] border border-[#F4B8C7] text-[#4A2638] transition-all active:scale-95 cursor-pointer"
           >
             <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6" />
           </button>
 
           <div className="absolute bottom-4 sm:bottom-7 left-1/2 -translate-x-1/2 z-20">
-            <div className="flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/90 border border-rose-100 backdrop-blur-md shadow-md">
+            <div className="flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#FFF7EE]/95 border border-[#F4B8C7]">
               {MENU_SLIDES.map((slide, idx) => {
                 const isActive = idx === currentSlide;
                 return (
@@ -870,7 +864,7 @@ ${orderNotes ? `• *Notas Especiales:* ${orderNotes}\n` : ''}
                     onClick={() => handleGoToSlide(idx)}
                     aria-label={`Ir a ${slide.title}`}
                     className={`h-2.5 rounded-full transition-all duration-300 focus:outline-none cursor-pointer ${
-                      isActive ? 'w-7 sm:w-8 bg-rose-600 shadow-xs' : 'w-2.5 bg-rose-200 hover:bg-rose-300'
+                      isActive ? 'w-7 sm:w-8 bg-[#B73E5B]' : 'w-2.5 bg-[#F4B8C7] hover:bg-[#B73E5B]/60'
                     }`}
                   />
                 );
@@ -884,19 +878,19 @@ ${orderNotes ? `• *Notas Especiales:* ${orderNotes}\n` : ''}
       {/* =======================================================
           5. ARMADOR INTERACTIVO / SIMULADOR DE PEDIDO (4 PASOS)
          ======================================================= */}
-      <section id="armar-pedido" className="py-12 sm:py-18 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto scroll-mt-20">
+      <section id="armar-pedido" className="py-12 sm:py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto scroll-mt-20">
         
         {/* Header del Armador */}
         <div className="text-center max-w-2xl mx-auto mb-10">
-          <span className="text-xs font-bold text-rose-600 uppercase tracking-widest bg-rose-50 px-3.5 py-1.5 rounded-full border border-rose-100 inline-flex items-center gap-1.5 mb-2 shadow-2xs">
-            <Sparkles className="w-3.5 h-3.5 text-rose-500" />
-            <span>Configurador en Tiempo Real</span>
+          <span className="text-xs font-semibold text-[#4A2638] uppercase tracking-widest bg-[#CDE5DA] px-4 py-1.5 rounded-full inline-flex items-center gap-1.5 mb-3">
+            <Sparkles className="w-3.5 h-3.5 text-[#4A2638]" />
+            <span>El límite lo pones tú • Paso a Paso</span>
           </span>
-          <h2 className="text-2xl sm:text-4xl font-black font-['Outfit'] text-gray-900 tracking-tight">
+          <h2 className="text-2xl sm:text-4xl font-bold font-['DynaPuff'] text-[#4A2638]">
             Arma tu Vaso en 4 Sencillos Pasos
           </h2>
-          <p className="mt-2 text-xs sm:text-sm text-gray-600">
-            Elige tu tamaño, tu base favorita, la crema artesanal, el aderezo y tus toppings. Mira el resumen en vivo y mándalo directo a WhatsApp.
+          <p className="mt-2 text-xs sm:text-sm text-[#4A2638]/85 font-normal">
+            ¿Qué se te antoja hoy? Elige tu tamaño, tu base favorita, la crema artesanal, el aderezo y tus toppings. Checa tu total en vivo y mándalo directo a WhatsApp.
           </p>
         </div>
 
@@ -907,8 +901,8 @@ ${orderNotes ? `• *Notas Especiales:* ${orderNotes}\n` : ''}
           <div className="lg:col-span-8 space-y-6">
             
             {/* Selector de Tamaño de Vaso */}
-            <div className="bg-white rounded-3xl border border-rose-100 p-5 sm:p-6 shadow-sm">
-              <span className="text-xs font-black uppercase tracking-wider text-rose-600 block mb-2">
+            <div className="bg-[#FFF7EE] rounded-3xl border-2 border-[#F4B8C7] p-5 sm:p-6">
+              <span className="text-xs font-bold uppercase tracking-wider text-[#B73E5B] block mb-3">
                 Paso 0 • Elige el Tamaño
               </span>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -919,22 +913,26 @@ ${orderNotes ? `• *Notas Especiales:* ${orderNotes}\n` : ''}
                       key={size.id}
                       type="button"
                       onClick={() => setSelectedSize(size.id)}
-                      className={`p-4 rounded-2xl border text-left transition-all cursor-pointer flex items-center justify-between ${
+                      className={`p-4 rounded-2xl border-2 text-left transition-all cursor-pointer flex items-center justify-between ${
                         isSelected
-                          ? 'border-rose-600 bg-rose-50/60 ring-2 ring-rose-500/20 shadow-xs'
-                          : 'border-gray-200 hover:border-rose-200 bg-white'
+                          ? 'border-[#B73E5B] bg-[#F4B8C7] text-[#4A2638]'
+                          : 'border-[#F4B8C7] hover:bg-[#F4B8C7]/30 bg-[#FFF7EE] text-[#4A2638]'
                       }`}
                     >
                       <div>
                         <div className="flex items-center gap-2">
-                          <span className="font-['Outfit'] font-black text-lg text-gray-900">
+                          <span className="font-['DynaPuff'] font-bold text-lg text-[#4A2638]">
                             {size.name}
                           </span>
-                          {isSelected && <span className="text-xs bg-rose-600 text-white px-2 py-0.5 rounded-full font-bold">Activo</span>}
+                          {isSelected && (
+                            <span className="text-xs bg-[#B73E5B] text-white px-2.5 py-0.5 rounded-full font-bold">
+                              Activo
+                            </span>
+                          )}
                         </div>
-                        <p className="text-xs text-gray-500 mt-0.5">{size.label}</p>
+                        <p className="text-xs text-[#4A2638]/85 mt-1 font-semibold">{size.label}</p>
                       </div>
-                      <div className={`w-6 h-6 rounded-full border flex items-center justify-center shrink-0 ${isSelected ? 'border-rose-600 bg-rose-600 text-white' : 'border-gray-300'}`}>
+                      <div className={`w-6 h-6 rounded-full border-2 flex items-center justify-center shrink-0 ${isSelected ? 'border-[#B73E5B] bg-[#B73E5B] text-white' : 'border-[#4A2638]/30'}`}>
                         {isSelected && <Check className="w-4 h-4" />}
                       </div>
                     </button>
@@ -943,15 +941,15 @@ ${orderNotes ? `• *Notas Especiales:* ${orderNotes}\n` : ''}
               </div>
 
               {selectedBase.isSpecialAntojo && (
-                <div className="mt-3 p-3 rounded-2xl bg-rose-50 border border-rose-200 text-xs text-rose-800 font-medium flex items-center gap-2">
+                <div className="mt-3 p-3.5 rounded-2xl bg-[#CDE5DA] text-xs text-[#4A2638] font-semibold flex items-center gap-2">
                   <span>🧇</span>
-                  <span>Has elegido <strong>{selectedBase.name}</strong>: cuenta con tarifa única de <strong>$130</strong> (Básico) o <strong>$160</strong> (Premium).</span>
+                  <span>Has elegido <strong className="font-bold">{selectedBase.name}</strong>: cuenta con tarifa única de <strong className="font-bold">$130</strong> (Básico) o <strong className="font-bold">$160</strong> (Premium).</span>
                 </div>
               )}
             </div>
 
             {/* Selector de Pasos en Tabs */}
-            <div className="flex items-center gap-2 overflow-x-auto pb-1 border-b border-rose-100">
+            <div className="flex items-center gap-2 overflow-x-auto pb-2 border-b border-[#F4B8C7]">
               {[
                 { step: 1, name: '1. Base' },
                 { step: 2, name: '2. Crema' },
@@ -964,8 +962,8 @@ ${orderNotes ? `• *Notas Especiales:* ${orderNotes}\n` : ''}
                   onClick={() => setActiveStepTab(tab.step)}
                   className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-bold whitespace-nowrap transition-all cursor-pointer ${
                     activeStepTab === tab.step
-                      ? 'bg-rose-600 text-white shadow-xs'
-                      : 'bg-white text-gray-600 hover:bg-rose-50 border border-gray-200'
+                      ? 'bg-[#B73E5B] text-white'
+                      : 'bg-[#FFF7EE] text-[#4A2638] hover:bg-[#F4B8C7]/40 border border-[#F4B8C7]'
                   }`}
                 >
                   {tab.name}
@@ -975,12 +973,12 @@ ${orderNotes ? `• *Notas Especiales:* ${orderNotes}\n` : ''}
 
             {/* TAB 1: Base */}
             {activeStepTab === 1 && (
-              <div className="bg-white rounded-3xl border border-rose-100 p-5 sm:p-6 shadow-sm space-y-4 animate-in fade-in duration-200">
-                <div className="flex items-center justify-between">
-                  <h3 className="font-['Outfit'] font-black text-lg text-gray-900">
+              <div className="bg-[#FFF7EE] rounded-3xl border-2 border-[#F4B8C7] p-5 sm:p-6 space-y-4">
+                <div className="flex items-center justify-between gap-2 flex-wrap">
+                  <h3 className="font-['DynaPuff'] font-bold text-lg text-[#4A2638]">
                     Paso 1 • Selecciona tu Base
                   </h3>
-                  <span className="text-xs text-rose-600 font-bold">Base seleccionada: {selectedBase.name}</span>
+                  <span className="text-xs text-[#B73E5B] font-bold">Base seleccionada: {selectedBase.name}</span>
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -991,21 +989,21 @@ ${orderNotes ? `• *Notas Especiales:* ${orderNotes}\n` : ''}
                         key={base.id}
                         type="button"
                         onClick={() => setSelectedBase(base)}
-                        className={`p-3.5 rounded-2xl border text-left transition-all cursor-pointer flex items-start gap-3 ${
+                        className={`p-3.5 rounded-2xl border-2 text-left transition-all cursor-pointer flex items-start gap-3 ${
                           isSelected
-                            ? 'border-rose-600 bg-rose-50/70 ring-2 ring-rose-500/20 shadow-xs'
-                            : 'border-gray-200 hover:border-rose-200 bg-white'
+                            ? 'border-[#B73E5B] bg-[#F4B8C7] text-[#4A2638]'
+                            : 'border-[#F4B8C7] hover:bg-[#F4B8C7]/25 bg-[#FFF7EE] text-[#4A2638]'
                         }`}
                       >
-                        <span className="text-2xl shrink-0 p-2 bg-rose-50 rounded-xl">{base.icon}</span>
+                        <span className="text-2xl shrink-0 p-2 bg-[#FFF7EE] rounded-xl">{base.icon}</span>
                         <div className="flex-1">
                           <div className="flex items-center justify-between gap-1 flex-wrap">
-                            <span className="font-bold text-sm text-gray-900">{base.name}</span>
-                            <span className="text-[10px] font-bold bg-rose-50 text-rose-700 border border-rose-200 px-2 py-0.5 rounded-full">
+                            <span className="font-bold text-sm text-[#4A2638]">{base.name}</span>
+                            <span className="text-[10px] font-semibold bg-[#CDE5DA] text-[#4A2638] px-2.5 py-0.5 rounded-full">
                               {base.tag}
                             </span>
                           </div>
-                          <p className="text-[11px] text-gray-500 mt-0.5 leading-snug">{base.description}</p>
+                          <p className="text-[11px] text-[#4A2638]/80 mt-1 leading-snug font-normal">{base.description}</p>
                         </div>
                       </button>
                     );
@@ -1016,12 +1014,12 @@ ${orderNotes ? `• *Notas Especiales:* ${orderNotes}\n` : ''}
 
             {/* TAB 2: Crema */}
             {activeStepTab === 2 && (
-              <div className="bg-white rounded-3xl border border-rose-100 p-5 sm:p-6 shadow-sm space-y-4 animate-in fade-in duration-200">
-                <div className="flex items-center justify-between">
-                  <h3 className="font-['Outfit'] font-black text-lg text-gray-900">
+              <div className="bg-[#FFF7EE] rounded-3xl border-2 border-[#F4B8C7] p-5 sm:p-6 space-y-4">
+                <div className="flex items-center justify-between gap-2 flex-wrap">
+                  <h3 className="font-['DynaPuff'] font-bold text-lg text-[#4A2638]">
                     Paso 2 • Elige tu Crema Artesanal
                   </h3>
-                  <span className="text-xs text-rose-600 font-bold">{selectedCrema.name}</span>
+                  <span className="text-xs text-[#B73E5B] font-bold">{selectedCrema.name}</span>
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -1032,19 +1030,19 @@ ${orderNotes ? `• *Notas Especiales:* ${orderNotes}\n` : ''}
                         key={crema.id}
                         type="button"
                         onClick={() => setSelectedCrema(crema)}
-                        className={`p-4 rounded-2xl border text-left transition-all cursor-pointer ${
+                        className={`p-4 rounded-2xl border-2 text-left transition-all cursor-pointer ${
                           isSelected
-                            ? 'border-rose-600 bg-rose-50/70 ring-2 ring-rose-500/20 shadow-xs'
-                            : 'border-gray-200 hover:border-rose-200 bg-white'
+                            ? 'border-[#B73E5B] bg-[#F4B8C7] text-[#4A2638]'
+                            : 'border-[#F4B8C7] hover:bg-[#F4B8C7]/25 bg-[#FFF7EE] text-[#4A2638]'
                         }`}
                       >
-                        <div className="flex items-center justify-between mb-1">
-                          <span className="font-bold text-sm text-gray-900">{crema.name}</span>
-                          <span className="text-[10px] bg-rose-100 text-rose-700 px-2 py-0.5 rounded-full font-bold">
+                        <div className="flex items-center justify-between mb-1.5 gap-2">
+                          <span className="font-bold text-sm text-[#4A2638]">{crema.name}</span>
+                          <span className="text-[10px] bg-[#CDE5DA] text-[#4A2638] px-2.5 py-0.5 rounded-full font-semibold">
                             {crema.tag}
                           </span>
                         </div>
-                        <p className="text-xs text-gray-500 leading-snug">{crema.description}</p>
+                        <p className="text-xs text-[#4A2638]/80 leading-snug font-normal">{crema.description}</p>
                       </button>
                     );
                   })}
@@ -1054,12 +1052,12 @@ ${orderNotes ? `• *Notas Especiales:* ${orderNotes}\n` : ''}
 
             {/* TAB 3: Aderezos */}
             {activeStepTab === 3 && (
-              <div className="bg-white rounded-3xl border border-rose-100 p-5 sm:p-6 shadow-sm space-y-4 animate-in fade-in duration-200">
-                <div className="flex items-center justify-between">
-                  <h3 className="font-['Outfit'] font-black text-lg text-gray-900">
+              <div className="bg-[#FFF7EE] rounded-3xl border-2 border-[#F4B8C7] p-5 sm:p-6 space-y-4">
+                <div className="flex items-center justify-between gap-2 flex-wrap">
+                  <h3 className="font-['DynaPuff'] font-bold text-lg text-[#4A2638]">
                     Paso 3 • Selecciona tu Aderezo o Jarabe
                   </h3>
-                  <span className="text-xs text-rose-600 font-bold">{selectedAderezo.name}</span>
+                  <span className="text-xs text-[#B73E5B] font-bold">{selectedAderezo.name}</span>
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
@@ -1070,17 +1068,17 @@ ${orderNotes ? `• *Notas Especiales:* ${orderNotes}\n` : ''}
                         key={aderezo.id}
                         type="button"
                         onClick={() => setSelectedAderezo(aderezo)}
-                        className={`p-3 rounded-2xl border text-left transition-all cursor-pointer flex items-center justify-between ${
+                        className={`p-3.5 rounded-2xl border-2 text-left transition-all cursor-pointer flex items-center justify-between ${
                           isSelected
-                            ? 'border-rose-600 bg-rose-50/70 ring-2 ring-rose-500/20 shadow-xs'
-                            : 'border-gray-200 hover:border-rose-200 bg-white'
+                            ? 'border-[#B73E5B] bg-[#F4B8C7] text-[#4A2638]'
+                            : 'border-[#F4B8C7] hover:bg-[#F4B8C7]/25 bg-[#FFF7EE] text-[#4A2638]'
                         }`}
                       >
                         <div className="flex items-center gap-2.5">
                           <span className="text-xl">{aderezo.icon}</span>
-                          <span className="font-bold text-xs sm:text-sm text-gray-900">{aderezo.name}</span>
+                          <span className="font-bold text-xs sm:text-sm text-[#4A2638]">{aderezo.name}</span>
                         </div>
-                        <div className={`w-5 h-5 rounded-full border flex items-center justify-center shrink-0 ${isSelected ? 'border-rose-600 bg-rose-600 text-white' : 'border-gray-300'}`}>
+                        <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center shrink-0 ${isSelected ? 'border-[#B73E5B] bg-[#B73E5B] text-white' : 'border-[#4A2638]/30'}`}>
                           {isSelected && <Check className="w-3 h-3" />}
                         </div>
                       </button>
@@ -1092,18 +1090,18 @@ ${orderNotes ? `• *Notas Especiales:* ${orderNotes}\n` : ''}
 
             {/* TAB 4: Toppings */}
             {activeStepTab === 4 && (
-              <div className="bg-white rounded-3xl border border-rose-100 p-5 sm:p-6 shadow-sm space-y-4 animate-in fade-in duration-200">
+              <div className="bg-[#FFF7EE] rounded-3xl border-2 border-[#F4B8C7] p-5 sm:p-6 space-y-4">
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-                  <h3 className="font-['Outfit'] font-black text-lg text-gray-900">
+                  <h3 className="font-['DynaPuff'] font-bold text-lg text-[#4A2638]">
                     Paso 4 • Elige tus Toppings Favoritos
                   </h3>
-                  <span className="text-xs font-bold text-rose-600">
+                  <span className="text-xs font-bold text-[#B73E5B]">
                     {selectedToppings.length} seleccionados
                   </span>
                 </div>
 
                 {/* Filtro por categoría */}
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-2 flex-wrap">
                   {[
                     { id: 'all', label: 'Todos' },
                     { id: 'clasico', label: 'Clásicos' },
@@ -1113,11 +1111,11 @@ ${orderNotes ? `• *Notas Especiales:* ${orderNotes}\n` : ''}
                     <button
                       key={cat.id}
                       type="button"
-                      onClick={() => setToppingsFilter(cat.id as any)}
-                      className={`px-3 py-1 rounded-full text-xs font-bold transition-colors cursor-pointer ${
+                      onClick={() => setToppingsFilter(cat.id as 'all' | 'clasico' | 'premium' | 'enchilado')}
+                      className={`px-3.5 py-1 rounded-full text-xs font-semibold transition-colors cursor-pointer ${
                         toppingsFilter === cat.id
-                          ? 'bg-rose-600 text-white'
-                          : 'bg-rose-50 text-rose-700 hover:bg-rose-100'
+                          ? 'bg-[#B73E5B] text-white font-bold'
+                          : 'bg-[#CDE5DA] text-[#4A2638] hover:bg-[#F4B8C7]'
                       }`}
                     >
                       {cat.label}
@@ -1133,25 +1131,25 @@ ${orderNotes ? `• *Notas Especiales:* ${orderNotes}\n` : ''}
                         key={topping.id}
                         type="button"
                         onClick={() => toggleTopping(topping)}
-                        className={`p-3 rounded-2xl border text-left transition-all cursor-pointer flex items-center justify-between gap-2 ${
+                        className={`p-3 rounded-2xl border-2 text-left transition-all cursor-pointer flex items-center justify-between gap-2 ${
                           isSelected
-                            ? 'border-rose-600 bg-rose-50/70 ring-1 ring-rose-500/20'
-                            : 'border-gray-200 hover:border-rose-200 bg-white'
+                            ? 'border-[#B73E5B] bg-[#F4B8C7] text-[#4A2638]'
+                            : 'border-[#F4B8C7] hover:bg-[#F4B8C7]/25 bg-[#FFF7EE] text-[#4A2638]'
                         }`}
                       >
                         <div className="flex-1 min-w-0">
-                          <span className="font-bold text-xs text-gray-900 block truncate">{topping.name}</span>
-                          <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full inline-block mt-0.5 ${
+                          <span className="font-bold text-xs text-[#4A2638] block truncate">{topping.name}</span>
+                          <span className={`text-[10px] font-semibold px-2 py-0.5 rounded-full inline-block mt-1 ${
                             topping.category === 'premium'
-                              ? 'bg-amber-100 text-amber-800 border border-amber-200'
+                              ? 'bg-[#FFF7EE] text-[#4A2638] border border-[#B73E5B]/40'
                               : topping.category === 'enchilado'
-                              ? 'bg-orange-100 text-orange-800 border border-orange-200'
-                              : 'bg-emerald-50 text-emerald-700 border border-emerald-200'
+                              ? 'bg-[#F4B8C7]/60 text-[#4A2638]'
+                              : 'bg-[#CDE5DA] text-[#4A2638]'
                           }`}>
                             {topping.badgeLabel}
                           </span>
                         </div>
-                        <div className={`w-5 h-5 rounded-md border flex items-center justify-center shrink-0 ${isSelected ? 'border-rose-600 bg-rose-600 text-white' : 'border-gray-300'}`}>
+                        <div className={`w-5 h-5 rounded-md border-2 flex items-center justify-center shrink-0 ${isSelected ? 'border-[#B73E5B] bg-[#B73E5B] text-white' : 'border-[#4A2638]/30'}`}>
                           {isSelected && <Check className="w-3.5 h-3.5" />}
                         </div>
                       </button>
@@ -1162,17 +1160,17 @@ ${orderNotes ? `• *Notas Especiales:* ${orderNotes}\n` : ''}
             )}
 
             {/* Notas opcionales */}
-            <div className="bg-white rounded-3xl border border-rose-100 p-4 sm:p-5 shadow-xs">
-              <label htmlFor="order-notes" className="text-xs font-bold text-gray-700 block mb-1">
-                ¿Alguna indicación especial? (Opcional):
+            <div className="bg-[#FFF7EE] rounded-3xl border-2 border-[#F4B8C7] p-4 sm:p-5">
+              <label htmlFor="order-notes" className="text-xs font-bold text-[#4A2638] block mb-1.5">
+                ¿Algún detallito extra para tu antojo? (Opcional):
               </label>
               <input
                 id="order-notes"
                 type="text"
-                placeholder="Ej. Poca crema, topping por separado, sin azúcar extra..."
+                placeholder="Ej. Poca crema, topping por separado, bien frío..."
                 value={orderNotes}
                 onChange={(e) => setOrderNotes(e.target.value)}
-                className="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 focus:outline-none focus:border-rose-500 text-xs sm:text-sm text-gray-800"
+                className="w-full px-3.5 py-2.5 rounded-xl bg-[#FFF7EE] border border-[#F4B8C7] focus:outline-none focus:border-[#B73E5B] text-xs sm:text-sm text-[#4A2638] placeholder:text-[#4A2638]/50 font-normal"
               />
             </div>
 
@@ -1180,14 +1178,14 @@ ${orderNotes ? `• *Notas Especiales:* ${orderNotes}\n` : ''}
 
           {/* Columna Derecha: Tarjeta Simulador / Resumen en Vivo (4 cols) */}
           <div className="lg:col-span-4 sticky top-24">
-            <div className="bg-white rounded-3xl border-2 border-rose-200 shadow-xl shadow-rose-950/5 p-6 space-y-5">
+            <div className="bg-[#F4B8C7]/35 rounded-3xl border-2 border-[#F4B8C7] p-6 space-y-5">
               
-              <div className="border-b border-rose-100 pb-3 flex items-center justify-between">
+              <div className="border-b border-[#F4B8C7] pb-3 flex items-center justify-between">
                 <div>
-                  <span className="text-[10px] font-black uppercase tracking-wider text-rose-600 block">
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-[#B73E5B] block">
                     Simulador en Vivo
                   </span>
-                  <h3 className="font-['Outfit'] font-black text-xl text-gray-900">
+                  <h3 className="font-['DynaPuff'] font-bold text-xl text-[#4A2638] mt-0.5">
                     Tu Vaso Freséame
                   </h3>
                 </div>
@@ -1196,48 +1194,48 @@ ${orderNotes ? `• *Notas Especiales:* ${orderNotes}\n` : ''}
 
               {/* Desglose de Selección */}
               <div className="space-y-3 text-xs sm:text-sm">
-                <div className="flex items-center justify-between py-1 border-b border-gray-100">
-                  <span className="text-gray-500 font-medium">Tamaño:</span>
-                  <strong className="text-gray-900">
+                <div className="flex items-center justify-between py-1 border-b border-[#F4B8C7]/60">
+                  <span className="text-[#4A2638]/75 font-normal">Tamaño:</span>
+                  <strong className="text-[#4A2638] font-bold">
                     {selectedBase.isSpecialAntojo ? 'Especial Waffles / Crepas' : (selectedSize === 'chico' ? 'Chico (12 oz)' : 'Grande (16 oz)')}
                   </strong>
                 </div>
 
-                <div className="flex items-center justify-between py-1 border-b border-gray-100">
-                  <span className="text-gray-500 font-medium">Base:</span>
-                  <strong className="text-gray-900">{selectedBase.name}</strong>
+                <div className="flex items-center justify-between py-1 border-b border-[#F4B8C7]/60">
+                  <span className="text-[#4A2638]/75 font-normal">Base:</span>
+                  <strong className="text-[#4A2638] font-bold text-right">{selectedBase.name}</strong>
                 </div>
 
-                <div className="flex items-center justify-between py-1 border-b border-gray-100">
-                  <span className="text-gray-500 font-medium">Crema:</span>
-                  <strong className="text-gray-900 text-right">{selectedCrema.name}</strong>
+                <div className="flex items-center justify-between py-1 border-b border-[#F4B8C7]/60">
+                  <span className="text-[#4A2638]/75 font-normal">Crema:</span>
+                  <strong className="text-[#4A2638] font-bold text-right">{selectedCrema.name}</strong>
                 </div>
 
-                <div className="flex items-center justify-between py-1 border-b border-gray-100">
-                  <span className="text-gray-500 font-medium">Aderezo:</span>
-                  <strong className="text-gray-900">{selectedAderezo.name}</strong>
+                <div className="flex items-center justify-between py-1 border-b border-[#F4B8C7]/60">
+                  <span className="text-[#4A2638]/75 font-normal">Aderezo:</span>
+                  <strong className="text-[#4A2638] font-bold text-right">{selectedAderezo.name}</strong>
                 </div>
 
-                <div className="py-1 border-b border-gray-100 pb-2">
-                  <div className="flex items-center justify-between mb-1.5">
-                    <span className="text-gray-500 font-medium">Toppings ({selectedToppings.length}):</span>
-                    <span className={`text-[10px] font-black px-2 py-0.5 rounded-full ${
+                <div className="py-1 border-b border-[#F4B8C7]/60 pb-2.5">
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="text-[#4A2638]/75 font-normal">Toppings ({selectedToppings.length}):</span>
+                    <span className={`text-[10px] font-bold px-2.5 py-0.5 rounded-full ${
                       hasPremiumTopping
-                        ? 'bg-amber-100 text-amber-800 border border-amber-200'
-                        : 'bg-emerald-50 text-emerald-700 border border-emerald-200'
+                        ? 'bg-[#F4B8C7] text-[#4A2638] border border-[#B73E5B]/40'
+                        : 'bg-[#CDE5DA] text-[#4A2638]'
                     }`}>
                       {hasPremiumTopping ? '⭐ Tarifa Premium' : '🏷️ Tarifa Básica'}
                     </span>
                   </div>
                   {selectedToppings.length === 0 ? (
-                    <span className="text-gray-400 italic text-xs">Sin toppings (Tarifa básica)</span>
+                    <span className="text-[#4A2638]/60 italic text-xs font-normal">Sin toppings (Tarifa básica)</span>
                   ) : (
-                    <div className="flex flex-wrap gap-1">
+                    <div className="flex flex-wrap gap-1.5">
                       {selectedToppings.map((t) => (
-                        <span key={t.id} className={`text-[10px] px-2 py-0.5 rounded-full font-bold ${
+                        <span key={t.id} className={`text-[10px] px-2.5 py-0.5 rounded-full font-semibold ${
                           t.category === 'premium'
-                            ? 'bg-amber-100 text-amber-800 border border-amber-200'
-                            : 'bg-rose-50 text-rose-700'
+                            ? 'bg-[#F4B8C7] text-[#4A2638] border border-[#B73E5B]/30'
+                            : 'bg-[#CDE5DA] text-[#4A2638]'
                         }`}>
                           {t.name} {t.category === 'premium' ? '⭐' : ''}
                         </span>
@@ -1247,31 +1245,32 @@ ${orderNotes ? `• *Notas Especiales:* ${orderNotes}\n` : ''}
                 </div>
               </div>
 
-              {/* Precio Total Oficial y Tarifa */}
-              <div className="pt-2 border-t border-rose-100 flex items-center justify-between">
+              {/* Precio Total Oficial y Tarifa (DynaPuff en precios destacados) */}
+              <div className="pt-2 border-t border-[#F4B8C7] flex items-center justify-between">
                 <div>
-                  <span className="text-[10px] uppercase font-bold text-gray-400 block">Total Oficial</span>
-                  <span className="text-2xl sm:text-3xl font-black font-['Outfit'] text-rose-600">
-                    ${calculatedTotal} <span className="text-xs text-gray-500 font-medium">MXN</span>
+                  <span className="text-[10px] uppercase font-bold text-[#4A2638]/75 block">Total Oficial</span>
+                  <span className="text-2xl sm:text-3xl font-bold font-['DynaPuff'] text-[#4A2638]">
+                    ${calculatedTotal}{' '}
+                    <span className="text-xs font-['Outfit'] text-[#4A2638]/80 font-semibold">MXN</span>
                   </span>
                 </div>
                 <div className="text-right">
-                  <span className="text-[10px] font-bold text-gray-400 block">Tarifa Aplicada:</span>
-                  <span className={`text-xs font-black ${hasPremiumTopping ? 'text-amber-700' : 'text-emerald-700'}`}>
+                  <span className="text-[10px] font-semibold text-[#4A2638]/75 block">Tarifa Aplicada:</span>
+                  <span className="text-xs font-bold text-[#4A2638]">
                     {hasPremiumTopping ? 'Con Topping Premium' : 'Con Topping Básico'}
                   </span>
                 </div>
               </div>
 
-              {/* Botón WhatsApp de Envío */}
+              {/* Botón WhatsApp de Envío (Frambuesa CTA primario) */}
               <a
                 id="btn-enviar-pedido-whatsapp"
                 href={whatsappOrderUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full min-h-[48px] py-3.5 px-4 rounded-2xl bg-gradient-to-r from-emerald-500 to-green-600 hover:from-emerald-600 hover:to-green-700 text-white font-black text-sm flex items-center justify-center gap-2 shadow-md shadow-emerald-500/20 hover:shadow-lg transition-all active:scale-95 cursor-pointer text-center"
+                className="w-full min-h-[48px] py-3.5 px-4 rounded-2xl bg-[#B73E5B] hover:bg-[#9E324C] text-white font-bold text-sm flex items-center justify-center gap-2 transition-all active:scale-95 cursor-pointer text-center"
               >
-                <MessageCircle className="w-5 h-5 fill-white shrink-0" />
+                <MessageCircle className="w-5 h-5 text-white shrink-0" />
                 <span>Enviar Pedido Armado por WhatsApp</span>
               </a>
 
@@ -1285,7 +1284,7 @@ ${orderNotes ? `• *Notas Especiales:* ${orderNotes}\n` : ''}
                   setSelectedToppings([]);
                   setOrderNotes('');
                 }}
-                className="w-full text-center text-xs text-gray-400 hover:text-gray-600 transition-colors flex items-center justify-center gap-1 cursor-pointer"
+                className="w-full text-center text-xs text-[#4A2638]/70 hover:text-[#4A2638] font-semibold transition-colors flex items-center justify-center gap-1 cursor-pointer"
               >
                 <RotateCcw className="w-3.5 h-3.5" />
                 <span>Reiniciar selección a ceros</span>
@@ -1301,17 +1300,17 @@ ${orderNotes ? `• *Notas Especiales:* ${orderNotes}\n` : ''}
       {/* =======================================================
           6. SECCIÓN DE SUCURSALES (GRID DE 2 SUCURSALES)
          ======================================================= */}
-      <section id="sucursales" className="py-12 sm:py-18 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto scroll-mt-20">
+      <section id="sucursales" className="py-12 sm:py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto scroll-mt-20">
         <div className="text-center max-w-2xl mx-auto mb-10 sm:mb-12">
-          <span className="text-xs font-bold text-rose-600 uppercase tracking-widest bg-rose-50 px-3.5 py-1.5 rounded-full border border-rose-100 inline-flex items-center gap-1.5 mb-2 shadow-2xs">
-            <Sparkles className="w-3.5 h-3.5 text-rose-500" />
+          <span className="text-xs font-semibold text-[#4A2638] uppercase tracking-widest bg-[#CDE5DA] px-4 py-1.5 rounded-full inline-flex items-center gap-1.5 mb-3">
+            <Sparkles className="w-3.5 h-3.5 text-[#4A2638]" />
             <span>Nuestras Ubicaciones Físicas</span>
           </span>
-          <h2 className="text-2xl sm:text-4xl font-black font-['Outfit'] text-gray-900 tracking-tight">
+          <h2 className="text-2xl sm:text-4xl font-bold font-['DynaPuff'] text-[#4A2638]">
             Sucursales Oficiales Freséame
           </h2>
-          <p className="mt-2 text-xs sm:text-sm text-gray-600">
-            Visítanos en nuestras dos ubicaciones en Ciudad de México para disfrutar tus fresas con crema recién preparadas.
+          <p className="mt-2 text-xs sm:text-sm text-[#4A2638]/85 font-normal">
+            Lánzate por tu antojo a nuestras dos ubicaciones en Ciudad de México y disfruta tus fresas recién preparadas.
           </p>
         </div>
 
@@ -1320,71 +1319,66 @@ ${orderNotes ? `• *Notas Especiales:* ${orderNotes}\n` : ''}
           {OFFICIAL_BRANCHES.map((branch) => (
             <div
               key={branch.id}
-              className={`rounded-3xl border bg-white p-6 sm:p-8 flex flex-col justify-between transition-all duration-300 relative overflow-hidden ${
+              className={`rounded-3xl border-2 p-6 sm:p-8 flex flex-col justify-between transition-all duration-300 relative overflow-hidden ${
                 branch.isNew
-                  ? 'border-rose-300 shadow-lg shadow-rose-600/10 hover:shadow-xl hover:border-rose-400 ring-1 ring-rose-500/20'
-                  : 'border-rose-100 shadow-md hover:shadow-lg hover:border-rose-200'
+                  ? 'bg-[#F4B8C7]/25 border-[#B73E5B]/50'
+                  : 'bg-[#FFF7EE] border-[#F4B8C7]'
               }`}
             >
-              {/* Resplandor decorativo si es la nueva apertura */}
-              {branch.isNew && (
-                <div className="absolute top-0 right-0 -mr-16 -mt-16 w-44 h-44 bg-gradient-to-br from-rose-200/50 to-pink-200/10 rounded-full blur-2xl pointer-events-none" />
-              )}
-
               <div className="space-y-5 relative z-10">
                 {/* Badges superiores de estado */}
                 <div className="flex items-center justify-between gap-2 flex-wrap">
                   <div className="flex items-center gap-2 flex-wrap">
                     {branch.isNew && (
-                      <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-rose-600 text-white text-xs font-black uppercase tracking-wider shadow-sm animate-pulse">
+                      <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#B73E5B] text-white text-xs font-bold uppercase tracking-wider">
                         <Sparkles className="w-3.5 h-3.5" />
                         <span>{branch.badgeText}</span>
                       </span>
                     )}
 
-                    <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 text-emerald-600 border border-emerald-200 text-xs font-black uppercase tracking-wider">
-                      <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                    <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#CDE5DA] text-[#4A2638] text-xs font-bold uppercase tracking-wider">
+                      <span className="w-2 h-2 rounded-full bg-[#4A2638]" />
                       <span>{branch.openStatus}</span>
                     </span>
                   </div>
 
-                  <span className="text-[11px] text-gray-400 font-semibold tracking-wide">
+                  <span className="text-[11px] text-[#4A2638]/70 font-semibold tracking-wide">
                     CDMX
                   </span>
                 </div>
 
-                {/* Título y Pin de ubicación */}
+                {/* Título (DynaPuff) y Pin de ubicación */}
                 <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 rounded-2xl bg-rose-50 border border-rose-200 text-rose-600 flex items-center justify-center shrink-0 shadow-2xs">
-                    <MapPin className="w-6 h-6 text-rose-600" />
+                  <div className="w-12 h-12 rounded-2xl bg-[#F4B8C7] text-[#4A2638] flex items-center justify-center shrink-0">
+                    <MapPin className="w-6 h-6 text-[#4A2638]" />
                   </div>
 
                   <div className="flex-1">
-                    <h3 className="font-['Outfit'] font-black text-xl sm:text-2xl text-gray-900 tracking-tight leading-tight">
+                    <h3 className="font-['DynaPuff'] font-bold text-xl sm:text-2xl text-[#4A2638] leading-tight">
                       {branch.name}
                     </h3>
-                    <p className="mt-1 text-xs sm:text-sm text-gray-600 leading-relaxed font-normal">
+                    <p className="mt-1.5 text-xs sm:text-sm text-[#4A2638]/85 leading-relaxed font-normal">
                       {branch.address}
                     </p>
                   </div>
                 </div>
 
-                {/* Referencia destacada en tono rosa/rojo */}
-                <div className="rounded-2xl bg-rose-50/60 border border-rose-100 p-3 sm:p-3.5">
-                  <span className="text-[11px] font-bold uppercase tracking-wider text-rose-700 block mb-0.5">
+                {/* Referencia destacada en tono Rosa Fresa con texto Ciruela */}
+                <div className="rounded-2xl bg-[#F4B8C7]/45 border border-[#F4B8C7] p-3.5">
+                  <span className="text-[11px] font-bold uppercase tracking-wider text-[#4A2638] block mb-0.5">
                     📍 Ubicación exacta en la plaza:
                   </span>
-                  <p className="text-xs sm:text-sm font-semibold text-rose-600 leading-snug">
+                  <p className="text-xs sm:text-sm font-semibold text-[#4A2638] leading-snug">
                     {branch.reference}
                   </p>
                 </div>
 
                 {/* Horario y WhatsApp */}
-                <div className="pt-2 border-t border-rose-50 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs sm:text-sm text-gray-700">
+                <div className="pt-2 border-t border-[#F4B8C7]/60 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs sm:text-sm text-[#4A2638]">
                   <div className="flex items-center gap-2">
-                    <Clock className="w-4 h-4 text-rose-500 shrink-0" />
+                    <Clock className="w-4 h-4 text-[#B73E5B] shrink-0" />
                     <span>
-                      <strong className="text-gray-900">Horario:</strong> {branch.hours}
+                      <strong className="text-[#4A2638] font-bold">Horario:</strong> {branch.hours}
                     </span>
                   </div>
 
@@ -1392,22 +1386,22 @@ ${orderNotes ? `• *Notas Especiales:* ${orderNotes}\n` : ''}
                     href={`https://wa.me/${branch.phoneRaw}?text=${encodeURIComponent(`Hola Freséame! Tengo una consulta sobre la ${branch.name}.`)}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1.5 text-emerald-600 hover:text-emerald-700 font-bold transition-colors"
+                    className="inline-flex items-center gap-1.5 text-[#B73E5B] hover:text-[#4A2638] font-bold transition-colors"
                   >
-                    <MessageCircle className="w-4 h-4 text-emerald-600 shrink-0" />
+                    <MessageCircle className="w-4 h-4 text-[#B73E5B] shrink-0" />
                     <span>WhatsApp: {branch.phoneDisplay}</span>
                   </a>
                 </div>
               </div>
 
-              {/* Botón inferior rojo a lo ancho: Google Maps */}
-              <div className="pt-5 mt-4 border-t border-gray-100 relative z-10">
+              {/* Botón inferior Frambuesa a lo ancho: Google Maps */}
+              <div className="pt-5 mt-4 border-t border-[#F4B8C7]/60 relative z-10">
                 <a
                   id={`maps-btn-${branch.id}`}
                   href={branch.mapsUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-full min-h-[48px] py-3.5 px-6 rounded-2xl bg-rose-600 hover:bg-rose-700 text-white font-black text-sm flex items-center justify-center gap-2 shadow-xs shadow-rose-600/20 hover:shadow-md transition-all active:scale-95 cursor-pointer"
+                  className="w-full min-h-[48px] py-3.5 px-6 rounded-2xl bg-[#B73E5B] hover:bg-[#9E324C] text-white font-bold text-sm flex items-center justify-center gap-2 transition-all active:scale-95 cursor-pointer"
                 >
                   <span>📍 Cómo llegar en Google Maps</span>
                   <ExternalLink className="w-4 h-4 shrink-0" />
@@ -1422,16 +1416,16 @@ ${orderNotes ? `• *Notas Especiales:* ${orderNotes}\n` : ''}
           7. DELIVERY HUBS & FOOTER
          ======================================================= */}
       <section id="delivery" className="py-12 sm:py-16 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto scroll-mt-20">
-        <div className="rounded-3xl bg-white border border-rose-100 shadow-xl shadow-rose-950/5 p-6 sm:p-10 text-center">
-          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-rose-50 text-rose-600 text-xs font-bold uppercase tracking-wider mb-3">
-            <Bike className="w-3.5 h-3.5" />
+        <div className="rounded-3xl bg-[#F4B8C7]/30 border-2 border-[#F4B8C7] p-6 sm:p-10 text-center">
+          <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[#CDE5DA] text-[#4A2638] text-xs font-semibold uppercase tracking-wider mb-3">
+            <Bike className="w-3.5 h-3.5 text-[#4A2638]" />
             Canales Oficiales
           </span>
-          <h2 className="font-['Outfit'] font-black text-2xl sm:text-4xl text-gray-900 tracking-tight">
+          <h2 className="font-['DynaPuff'] font-bold text-2xl sm:text-4xl text-[#4A2638]">
             Pide en Línea a Domicilio
           </h2>
-          <p className="mt-2 text-xs sm:text-sm text-gray-600 max-w-lg mx-auto">
-            Disfruta de nuestras fresas con crema desde la comodidad de tu casa con entrega directa en nuestras apps asociadas.
+          <p className="mt-2 text-xs sm:text-sm text-[#4A2638]/85 max-w-lg mx-auto font-normal">
+            ¿Antojo sin salir de casa? Disfruta tus fresas con crema directo en tu puerta desde nuestras apps asociadas.
           </p>
 
           <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-5 max-w-xl mx-auto">
@@ -1441,36 +1435,36 @@ ${orderNotes ? `• *Notas Especiales:* ${orderNotes}\n` : ''}
               href="https://www.rappi.com.mx"
               target="_blank"
               rel="noopener noreferrer"
-              className="p-6 sm:p-7 rounded-3xl bg-[#FF441F] hover:bg-[#e03a19] text-white shadow-md hover:shadow-lg shadow-orange-500/25 hover:scale-[1.02] transition-transform duration-300 active:scale-95 flex flex-col items-center justify-center text-center cursor-pointer group"
+              className="p-6 sm:p-7 rounded-3xl bg-[#FF441F] hover:bg-[#e03a19] text-white hover:scale-[1.02] transition-transform duration-300 active:scale-95 flex flex-col items-center justify-center text-center cursor-pointer group"
             >
-              <div className="w-full h-14 bg-white rounded-2xl flex items-center justify-center p-2 mb-3 shadow-inner">
+              <div className="w-full h-14 bg-white rounded-2xl flex items-center justify-center p-2 mb-3">
                 <img 
                   src="/rappi-logo.png" 
                   alt="Rappi" 
                   className="max-h-full max-w-[130px] object-contain" 
                 />
               </div>
-              <span className="font-black text-xs tracking-wider text-white">
+              <span className="font-bold text-xs tracking-wider text-white">
                 PEDIR EN RAPPI &gt;
               </span>
             </a>
 
-            {/* Botón de Uber Eats (Fondo negro) */}
+            {/* Botón de Uber Eats (Fondo Ciruela #4A2638 en lugar de negro puro) */}
             <a
               id="delivery-hub-ubereats"
               href="https://www.ubereats.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="p-6 sm:p-7 rounded-3xl bg-black hover:bg-stone-900 text-white border border-stone-800 shadow-md hover:shadow-lg hover:scale-[1.02] transition-transform duration-300 active:scale-95 flex flex-col items-center justify-center text-center cursor-pointer group"
+              className="p-6 sm:p-7 rounded-3xl bg-[#4A2638] hover:bg-[#3A1D2B] text-[#FFF7EE] border border-[#4A2638] hover:scale-[1.02] transition-transform duration-300 active:scale-95 flex flex-col items-center justify-center text-center cursor-pointer group"
             >
-              <div className="w-full h-14 bg-white rounded-2xl flex items-center justify-center p-2 mb-3 shadow-inner">
+              <div className="w-full h-14 bg-white rounded-2xl flex items-center justify-center p-2 mb-3">
                 <img 
                   src="/ubereats-logo.png" 
                   alt="Uber Eats" 
                   className="max-h-full max-w-[130px] object-contain" 
                 />
               </div>
-              <span className="font-black text-xs tracking-wider text-[#06C167]">
+              <span className="font-bold text-xs tracking-wider text-[#CDE5DA]">
                 PEDIR EN UBER EATS &gt;
               </span>
             </a>
@@ -1478,11 +1472,11 @@ ${orderNotes ? `• *Notas Especiales:* ${orderNotes}\n` : ''}
         </div>
       </section>
 
-      {/* Footer Corporativo Oficial (4 Columnas) */}
+      {/* Footer Corporativo Oficial (4 Columnas en Ciruela #4A2638) */}
       <Footer />
 
       {/* =======================================================
-          BOTÓN FLOTANTE PERMANENTE DE WHATSAPP (#25D366)
+          BOTÓN FLOTANTE PERMANENTE DE WHATSAPP (Frambuesa #B73E5B)
          ======================================================= */}
       <a
         id="floating-whatsapp-btn"
@@ -1490,10 +1484,10 @@ ${orderNotes ? `• *Notas Especiales:* ${orderNotes}\n` : ''}
         target="_blank"
         rel="noopener noreferrer"
         aria-label="Pedir por WhatsApp a Freséame"
-        className="fixed bottom-6 right-6 z-50 w-14 h-14 rounded-full bg-[#25D366] hover:bg-[#20ba5a] text-white flex items-center justify-center shadow-lg hover:shadow-2xl hover:scale-110 active:scale-95 transition-all duration-300 cursor-pointer group"
+        className="fixed bottom-6 right-6 z-50 w-14 h-14 rounded-full bg-[#B73E5B] hover:bg-[#9E324C] text-white flex items-center justify-center shadow-lg hover:scale-110 active:scale-95 transition-all duration-300 cursor-pointer group"
       >
-        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-25 group-hover:opacity-40 -z-10" />
-        <MessageCircle className="w-7 h-7 fill-white" />
+        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#F4B8C7] opacity-40 group-hover:opacity-60 -z-10" />
+        <MessageCircle className="w-7 h-7 text-white" />
       </a>
 
     </div>
